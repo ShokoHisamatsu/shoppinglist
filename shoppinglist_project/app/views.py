@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from .forms import UserForm
+from django.views.generic.base import(
+    View,
+)
 
 
-def register_view(request):
-    user_form = UserForm(request.POST or None)
-    return render(request, 'user/registration.html', context={
-        'user_form': user_form
-    })
+class IndexView(View):
+
+    def get(self, request, *args, **kawargs):
+        return render(request, 'index.html')
