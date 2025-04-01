@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.views.generic.base import(
-    View,
+from django.views.generic import(
+    TemplateView, CreateView, FormView
 )
 
 
-class IndexView(View):
-
-    def get(self, request, *args, **kawargs):
-        return render(request, 'index.html')
+class HomeView(TemplateView):
+    template_name = 'home.html'
+    
+class RegistUserView(CreateView):
+    template_name = ' regist.html'
+    form_class = RegistForm
