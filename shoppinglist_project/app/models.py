@@ -9,7 +9,7 @@ class BaseModel(models.Model):
         abstract = True
         
         
-class Users(BaseModel):
+class User(BaseModel):
     nickname = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=255)
