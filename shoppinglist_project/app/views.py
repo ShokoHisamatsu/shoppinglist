@@ -9,7 +9,7 @@ class HomeView(TemplateView):
     template_name = 'home.html'
     
 class RegistUserView(CreateView):
-    template_name = ' regist.html'
+    template_name = 'regist.html'
     form_class = RegistForm
     success_url = reverse_lazy('app:home')
     
