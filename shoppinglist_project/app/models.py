@@ -42,6 +42,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         return reverse_lazy('app:home')
     
+    class Meta:
+        app_label = 'app'
+        
+    
     
     
     
