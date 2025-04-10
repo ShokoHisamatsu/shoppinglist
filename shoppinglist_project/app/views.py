@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import(
     TemplateView, CreateView, FormView, View
 )
@@ -29,5 +29,9 @@ class UserLoginView(FormView):
             
     
 class UserLogoutView(View):
-    pass
+    def get(self, request, *args,**kwargs):
+        return render(request, 'user_logout_form.html')
 
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('app:home')
