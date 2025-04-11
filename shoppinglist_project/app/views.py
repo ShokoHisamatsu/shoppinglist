@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import(
     TemplateView, CreateView, FormView, View
 )
@@ -35,3 +36,6 @@ class UserLogoutView(View):
     def post(self, request, *args, **kwargs):
         logout(request)
         return redirect('app:home')
+    
+class MyListView(LoginRequiredMixin, TemplateView):
+    template_name = 'mylist.html'
