@@ -27,6 +27,17 @@ class UserManager(BaseUserManager):
         user.save()
         return user
     
+    def create_superuser(self, nickname, email, password):
+        user = self.create_user(
+            nickname=nickname,
+            email=email,
+            password=password
+        )
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+        return user
+      
     
 class User(AbstractBaseUser, PermissionsMixin):  
     nickname = models.CharField(max_length=50)
@@ -35,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['nickname']
     
     objects = UserManager()
     
