@@ -56,6 +56,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         app_label = 'app'
         
+        
+class Store(models.Model):
+    name = models.CharField(max_length=100)
+    
+    class Meta:
+        db_table = 'store'
+        
+    def __str__(self):
+        return self.name        
     
     
     

@@ -4,10 +4,12 @@ from django.views.generic import(
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistForm, UserLoginForm
+from .forms import RegistForm, UserLoginForm, StoreForm
+from .models import Store
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -41,6 +43,17 @@ class UserLogoutView(View):
     def post(self, request, *args, **kwargs):
         logout(request)
         return redirect('app:home')
+    
+class HomeView(LoginRequiredMixin, TemplateView):
+    template_name = 'home.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) 
+        context['store_list'] = Store.objects.all()
+        context['form'] = StoreForm()
+        return context
+        
+    
     
 class MyListView(LoginRequiredMixin, TemplateView):
     template_name = 'mylist.html'

@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, Store
 from django.contrib.auth.password_validation import validate_password
 
 class RegistForm(forms.ModelForm):
@@ -31,3 +31,8 @@ class RegistForm(forms.ModelForm):
 class UserLoginForm(forms.Form):
     email = forms.EmailField(label='メールアドレス')
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
+    
+class StoreForm(forms.Form):
+    class Meta:
+        model = Store
+        fields = ['name']
