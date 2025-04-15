@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import(
-    TemplateView, CreateView, FormView, View
+    TemplateView, CreateView, FormView, View, DeleteView
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
@@ -52,14 +52,29 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context['store_list'] = Store.objects.all()
         context['form'] = StoreForm()
         return context
+    
+    def post(self, request, *args, **kwargs):
+        form = StoreForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('app:home')
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+class StoreDeleteView(LoginRequiredMixin, DeleteView):
+    model = Store
+    success_url = reverse_lazy('app:home')
+    template_name = 'store_confirm_delete.html'
         
     
     
 class MyListView(LoginRequiredMixin, TemplateView):
     template_name = 'mylist.html'
     
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
+    def get(self, request, store_id,  *args, **kwargs):
+        store = Store.objects.get(store_id=store_id)
+        context = {
+            'store': store
+        }
         return self.render_to_response(context)
     

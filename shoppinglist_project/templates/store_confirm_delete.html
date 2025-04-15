@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>店舗削除確認</h2>
+<p>ショッピングリストも一緒に消えてしましますがよろしいですか？</p>
+
+<form method="post">
+    {% csrf_token %}
+    <buttom type="submit">はい、削除します</buttom>
+    <a href="{% url 'app:home' %}">キャンセル</a>
+</form>
+{% endblock %}

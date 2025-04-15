@@ -58,13 +58,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         
         
 class Store(models.Model):
-    name = models.CharField(max_length=100)
+    store_id = models.AutoField(primary_key=True)
+    store_name = models.CharField(max_length=100)
     
     class Meta:
         db_table = 'store'
         
     def __str__(self):
-        return self.name        
+        return self.store_name        
     
     
     

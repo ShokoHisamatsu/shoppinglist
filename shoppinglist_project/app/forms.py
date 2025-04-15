@@ -32,7 +32,10 @@ class UserLoginForm(forms.Form):
     email = forms.EmailField(label='メールアドレス')
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
     
-class StoreForm(forms.Form):
+class StoreForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ['name']
+        fields = ['store_name']
+        labels = {
+            'store_name': '店舗名'
+        }
