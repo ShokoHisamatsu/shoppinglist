@@ -3,6 +3,8 @@ from django.contrib.auth.models import(
     BaseUserManager, AbstractBaseUser, PermissionsMixin
 )
 from django.urls import reverse_lazy
+from django.contrib.auth import get_user_model
+
 
 
 class BaseModel(models.Model):
@@ -56,6 +58,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         app_label = 'app'
         
+User = get_user_model()
+        
         
 class Store(models.Model):
     store_id = models.AutoField(primary_key=True)
@@ -65,7 +69,45 @@ class Store(models.Model):
         db_table = 'store'
         
     def __str__(self):
-        return self.store_name        
+        return self.store_name    
+    
+class ItemCategory(models.Model):
+    item_category_name = models.CharField(max_length=100)
+    
+    class Meta:
+        db_table = 'item_category'
+        
+    def __str__(self):
+        return self.item_category_name    
+    
+class ShoppingList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    list_name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'lists'
+        
+    def __str__(self):
+        return self.list_name    
+    
+class ShoppingItem(models.Model):
+    shopping_list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
+    item_category = models.ForeignKey(ItemCategory, on_delete=models.CASCADE)
+    commodity = models.CharField(max_length=100)
+    quantity = models.IntegerField(default=1)
+    status = models.BooleanField(default=False)
+    memo = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'list_items'
+        
+    def __str__(self):
+        return self.commodity
     
     
     
