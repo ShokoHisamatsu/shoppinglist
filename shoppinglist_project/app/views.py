@@ -4,8 +4,8 @@ from django.views.generic import(
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistForm, UserLoginForm, StoreForm
-from .models import Store, ItemCategory
+from .forms import RegistForm, UserLoginForm, StoreForm, ItemCategoryForm
+from .models import Store, ItemCategory, ShoppingItem
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -91,4 +91,28 @@ class CategoryListView(TemplateView):
         context['store'] = store
         context['categories'] = categories
         return context
+    
+class ItemCategoryCreateView(CreateView):
+    model = ItemCategory
+    form_class = ItemCategoryForm
+    template_name = 'itemcategory_form.html'
+    success_url = '/'
+    
+class CategoryItemListView(TemplateView):
+    template_name='category_item_list.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        store_id = self.kwargs.get('store_id')
+        category_id = self.kwargs.get('category_id')
+        
+        store = Store.objects.get(store_id=store_id)
+        category = ItemCategory.objects.get(category_id=category_id)
+        items = ShoppingItem.objects.filter(shopping_list__store=store, item_category=category)
+        
+        context['store'] = store
+        context['category'] = category
+        context['items'] = items
+        return context
+    
     

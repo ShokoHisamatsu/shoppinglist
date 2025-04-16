@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Store
+from .models import User, Store, ItemCategory
 from django.contrib.auth.password_validation import validate_password
 
 class RegistForm(forms.ModelForm):
@@ -38,4 +38,12 @@ class StoreForm(forms.ModelForm):
         fields = ['store_name']
         labels = {
             'store_name': '店舗名'
+        }
+        
+class ItemCategoryForm(forms.ModelForm):
+    class Meta:
+        model = ItemCategory
+        fields = ['item_category_name']
+        labels = {
+            'item_category_name': 'カテゴリ名'
         }

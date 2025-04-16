@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ category.item_category_name }}</h>
+
+<ul>
+    {% for item in items %}
+        <li>{{ item.commodity }} ({{ item.quantity}}個) </li>
+    {% empty %}
+        <li>このカテゴリにはまだ商品はありません。</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
