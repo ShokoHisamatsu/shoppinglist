@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{store.store_name}}のカテゴリ一覧</h2>
+
+<div class="category-grid">
+    {% for category in categories %}
+    <div class="category-button">
+        <a href="#">{{ category.item_category_name}}</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

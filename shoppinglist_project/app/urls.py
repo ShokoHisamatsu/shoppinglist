@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (
     RegistUserView, HomeView, UserLoginView,
-    UserLogoutView, MyListView, HomeView, StoreDeleteView
+    UserLogoutView, MyListView, HomeView, StoreDeleteView,
+    CategoryListView
 )
 
 
@@ -14,4 +15,5 @@ urlpatterns = [
     path('user_logout/', UserLogoutView.as_view(), name='user_logout'),
     path('mylist/<int:store_id>/', MyListView.as_view(), name='mylist'),
     path('store/<int:pk>/delete/', StoreDeleteView.as_view(), name='store_delete'),
+    path('store/<int:store_id>/category/', CategoryListView.as_view(), name='category_list'),
     ]

@@ -5,7 +5,7 @@ from django.views.generic import(
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegistForm, UserLoginForm, StoreForm
-from .models import Store
+from .models import Store, ItemCategory
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -77,4 +77,18 @@ class MyListView(LoginRequiredMixin, TemplateView):
             'store': store
         }
         return self.render_to_response(context)
+    
+class CategoryListView(TemplateView):
+    template_name='category_list.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        store_id = self.kwargs.get('store_id')
+        
+        store = Store.objects.get(store_id=store_id)
+        categories = ItemCategory.objects.all()
+        
+        context['store'] = store
+        context['categories'] = categories
+        return context
     
