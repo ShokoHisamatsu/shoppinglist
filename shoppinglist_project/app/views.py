@@ -4,8 +4,9 @@ from django.views.generic import(
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistForm, UserLoginForm, StoreForm, ItemCategoryForm
-from .models import Store, ItemCategory, ShoppingItem
+from django.shortcuts import get_object_or_404, redirect
+from .forms import RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, CategorySelectForm
+from .models import Store, ItemCategory, ShoppingItem, ShoppingList
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -128,5 +129,27 @@ class CategoryItemListView(TemplateView):
         context['category'] = category
         context['items'] = items
         return context
+    
+class CategoryAddView(FormView):
+    template_name = 'category_add.html'
+    form_class = CategorySelectForm
+    
+    def form_valid(self, form):
+        list_obj = get_object_or_404(
+            ShoppingList, 
+            store__store_id=self.kwargs['store_id'], 
+            user=self.request.user
+        )
+        
+        categories = form.cleaned_data['categories']
+        
+        for category in categories:
+            ShoppingItem.objects.get_or_create(
+                shopping_list=list_obj,
+                item_category=category,
+                defaults={'commodity': ''}
+            )
+    
+        return redirect('app:mylist', store_id=list_obj.store.store_id)
     
     

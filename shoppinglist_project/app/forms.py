@@ -48,3 +48,10 @@ class ItemCategoryForm(forms.ModelForm):
         labels = {
             'item_category_name': 'カテゴリ名'
         }
+        
+class CategorySelectForm(forms.Form):
+    categories = forms.ModelMultipleChoiceField(
+        queryset=ItemCategory.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label="追加するカテゴリを選んでください"
+    )
