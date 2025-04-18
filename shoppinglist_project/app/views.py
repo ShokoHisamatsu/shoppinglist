@@ -135,21 +135,25 @@ class CategoryAddView(FormView):
     form_class = CategorySelectForm
     
     def form_valid(self, form):
-        list_obj = get_object_or_404(
-            ShoppingList, 
-            store__store_id=self.kwargs['store_id'], 
-            user=self.request.user
+        store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
+        
+        shopping_list, created = ShoppingList.objects.get_or_create(
+            store=store, 
+            user=self.request.user,
+            defaults={
+                'list_name': f'{store.store_name}のリスト'
+            }
         )
         
         categories = form.cleaned_data['categories']
         
         for category in categories:
             ShoppingItem.objects.get_or_create(
-                shopping_list=list_obj,
+                shopping_list=shopping_list,
                 item_category=category,
                 defaults={'commodity': ''}
             )
     
-        return redirect('app:mylist', store_id=list_obj.store.store_id)
+        return redirect('app:mylist', store_id=store.store_id)
     
     
