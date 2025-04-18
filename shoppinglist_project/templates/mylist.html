@@ -1,7 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>マイリスト画面</h1>
-<a href="{% url 'app:category_list' store.store_id %}">カテゴリ一覧へ</a>
 <p>{{ store }}</p>
+
+<a href="{% url 'app:category_list' store.store_id %}"
+   style="display: inline-block; padding: 10px; background-color: #eee; border: 1px solid #ccc; text-decoation: none; ,argin-bottom: 20px;">
+   +新規
+</a>
+
+
+{% for category, items in category_item_map.items %}
+<div style="border: 1px solid #ccc; padding 10px; margin-bottom: 20px;">
+    <h3>{{category.category_name }}</h3>
+
+    <textarea rows="4" cols="40" placeholder="ここにメモを書いてね"></textarea>
+
+    {% if items %}
+    <ul>
+        {% for item in items %}
+        <li>{{ item.commodity }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endfor %}
 
 {% endblock %}

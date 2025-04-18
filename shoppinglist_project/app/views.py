@@ -73,8 +73,19 @@ class MyListView(LoginRequiredMixin, TemplateView):
     
     def get(self, request, store_id,  *args, **kwargs):
         store = Store.objects.get(store_id=store_id)
+        categories = ItemCategory.objects.all()
+        
+        category_item_map = {}
+        for category in categories:
+            items = ShoppingItem.objects.filter(
+                shopping_list__store=store,
+                item_category=category
+            )
+            category_item_map[category] = items
+        
         context = {
-            'store': store
+            'store': store,
+            'category_item_map' : category_item_map,
         }
         return self.render_to_response(context)
     
@@ -92,11 +103,14 @@ class CategoryListView(TemplateView):
         context['categories'] = categories
         return context
     
-class ItemCategoryCreateView(CreateView):
+class ItemCategoryCreateView(LoginRequiredMixin, CreateView):
     model = ItemCategory
     form_class = ItemCategoryForm
     template_name = 'itemcategory_form.html'
-    success_url = '/'
+    
+    def get_success_url(self):
+        store_id = self.kwargs['store_id']
+        return reverse_lazy('app:category_list', kwargs={'store_id': store_id})
     
 class CategoryItemListView(TemplateView):
     template_name='category_item_list.html'
@@ -107,7 +121,7 @@ class CategoryItemListView(TemplateView):
         category_id = self.kwargs.get('category_id')
         
         store = Store.objects.get(store_id=store_id)
-        category = ItemCategory.objects.get(category_id=category_id)
+        category = ItemCategory.objects.get(id=category_id)
         items = ShoppingItem.objects.filter(shopping_list__store=store, item_category=category)
         
         context['store'] = store

@@ -43,6 +43,7 @@ class StoreForm(forms.ModelForm):
 class ItemCategoryForm(forms.ModelForm):
     class Meta:
         model = ItemCategory
+        exclude = ['store']
         fields = ['item_category_name']
         labels = {
             'item_category_name': 'カテゴリ名'

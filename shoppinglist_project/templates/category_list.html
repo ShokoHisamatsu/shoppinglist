@@ -2,7 +2,7 @@
 {% block content %}
 <h2>{{ store.store_name }}のカテゴリ一覧</h2>
 
-<p><a href="{% url 'app:itemcategory_add' %}">＋カテゴリを追加</a></p>
+<p><a href="{% url 'app:itemcategory_add' store.store_id %}">＋カテゴリを追加</a></p>
 
 <ul>
   {% for category in categories %}

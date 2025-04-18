@@ -74,6 +74,7 @@ class Store(models.Model):
 class ItemCategory(models.Model):
     item_category_name = models.CharField(max_length=100)
     
+    
     class Meta:
         db_table = 'item_category'
         
