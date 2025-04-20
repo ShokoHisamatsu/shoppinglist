@@ -92,7 +92,18 @@ class ShoppingList(models.Model):
         db_table = 'lists'
         
     def __str__(self):
-        return self.list_name    
+        return self.list_name
+    
+class List_ItemCategory(models.Model):
+    list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
+    item_category = models.ForeignKey(ItemCategory, on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table = 'list_itemcategory'
+        
+    def __str__(self):
+        return f'{self.list} - {self.item_category}'
+           
     
 class ShoppingItem(models.Model):
     shopping_list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
