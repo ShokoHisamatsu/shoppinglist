@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>マイリスト画面</h1>
-<p>{{ store }}</p>
+
+<h3>{{ shopping_list.list_name }}</3>
 
 <a href="{% url 'app:category_add' store.store_id %}"
    style="display: inline-block; padding: 10px; background-color: #eee; border: 1px solid #ccc; text-decoation: none; ,argin-bottom: 20px;">

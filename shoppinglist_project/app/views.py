@@ -75,6 +75,9 @@ class MyListView(LoginRequiredMixin, TemplateView):
     def get(self, request, store_id,  *args, **kwargs):
         store = Store.objects.get(store_id=store_id)
         categories = ItemCategory.objects.all()
+        shopping_list =ShoppingList.objects.filter(
+            store=store, user=self.request.user
+            ).first()
         
         category_item_map = {}
         for category in categories:
@@ -87,6 +90,7 @@ class MyListView(LoginRequiredMixin, TemplateView):
         context = {
             'store': store,
             'category_item_map' : category_item_map,
+            'shopping_list' : shopping_list,
         }
         return self.render_to_response(context)
     
