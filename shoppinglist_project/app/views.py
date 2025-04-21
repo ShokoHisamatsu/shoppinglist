@@ -140,7 +140,14 @@ class ItemCategoryCreateView(LoginRequiredMixin, CreateView):
     
     def get_success_url(self):
         store_id = self.kwargs['store_id']
-        return reverse_lazy('app:category_list', kwargs={'store_id': store_id})
+        return reverse_lazy('app:category_add', kwargs={'store_id': store_id})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        store_id = self.kwargs['store_id']
+        store = get_object_or_404(Store, store_id=store_id)
+        context["store"] = store 
+        return context
     
 class CategoryItemListView(TemplateView):
     template_name='category_item_list.html'
@@ -162,6 +169,12 @@ class CategoryItemListView(TemplateView):
 class CategoryAddView(FormView):
     template_name = 'category_add.html'
     form_class = CategorySelectForm
+    
+    def get_context_data(self, **kwargs):
+       context = super().get_context_data(**kwargs)
+       store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
+       context["store"] = store
+       return context
     
     def form_valid(self, form):
         store = get_object_or_404(Store, store_id=self.kwargs['store_id'])

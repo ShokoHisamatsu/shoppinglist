@@ -2,6 +2,11 @@
 {% block content %}
   <h2>カテゴリをリストに追加</h2>
 
+  <a href="{% url 'app:itemcategory_add' store.store_id %}" 
+    style="display: inline-block; padding: 10px; background-color: #eee; border: 1px solid #ccc; margin-bottom: 20px;">
+    ＋カテゴリを追加
+  </a>
+
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
