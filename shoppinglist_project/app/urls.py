@@ -3,7 +3,7 @@ from .views import (
     RegistUserView, HomeView, UserLoginView,
     UserLogoutView, MyListView, HomeView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
-    CategoryAddView
+    CategoryAddView, ItemCheckView
 )
 
 
@@ -20,4 +20,5 @@ urlpatterns = [
     path('store/<int:store_id>/category/<int:category_id>/items/', CategoryItemListView.as_view(), name='category_item_list'),
     path('store/<int:store_id>/category/add/', ItemCategoryCreateView.as_view(), name='itemcategory_add'),
     path('mylist/<int:store_id>/category/add/', CategoryAddView.as_view(), name='category_add'),
+    path('item/<int:item_id>/check/', ItemCheckView.as_view(), name='item_check'),
     ]

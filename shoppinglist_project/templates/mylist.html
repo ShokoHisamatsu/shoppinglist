@@ -2,7 +2,7 @@
 {% block content %}
 <h1>マイリスト画面</h1>
 
-<h3>{{ shopping_list.list_name }}</3>
+<h3>{{ shopping_list.list_name }}</h3>
 
 <a href="{% url 'app:category_add' store.store_id %}"
    style="display: inline-block; padding: 10px; background-color: #eee; border: 1px solid #ccc; text-decoation: none; ,argin-bottom: 20px;">
@@ -14,14 +14,34 @@
 <div style="border: 1px solid #ccc; padding 10px; margin-bottom: 20px;">
     <h3>{{category.item_category_name }}</h3>
 
-    <textarea rows="4" cols="40" placeholder="ここにメモを書いてね"></textarea>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.commodity }}
+        {{ form.quantity }}
+        {{ form.memo }}
+
+        <input type="hidden" name="category_id" value="{{ category.id }}">
+
+        <button type="submit">追加</button>
+    </form>
 
     {% if items %}
     <ul>
         {% for item in items %}
-        <li>{{ item.commodity }}</li>
+        <li>
+            <form method="POST" action="{% url 'app:item_check' item.id %}">
+                {% csrf_token %}
+                <input type="checkbox" name="status" onchange="this.form.submit()" {% if item.status %}checked{% endif %}>
+                <span {% if item.status %}style="text-decoration: line-through;"{% endif %}>
+                {{ item.commodity }} ({{item.quantity }}個) 
+                {% if item.memo %}{{ item.memo }}{% endif %}
+                </span>
+            </form>
+        </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <p>まだ商品はありません</p>
     {% endif %}
 </div>
 {% endfor %}

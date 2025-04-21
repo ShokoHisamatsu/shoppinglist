@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Store, ItemCategory
+from .models import User, Store, ItemCategory, ShoppingItem
 from django.contrib.auth.password_validation import validate_password
 
 class RegistForm(forms.ModelForm):
@@ -55,3 +55,18 @@ class CategorySelectForm(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         label="追加するカテゴリを選んでください"
     )
+    
+class ShoppingItemForm(forms.ModelForm):
+    class Meta:
+        model = ShoppingItem
+        fields = ['commodity', 'quantity', 'memo']
+        labels = {
+            'commodity':'商品名',
+            'quantity':'数量',
+            'memo':'メモ'
+        }
+        widgets={
+            'commodity': forms.TextInput(attrs={'placeholder': '商品名'}),
+            'quantity': forms.NumberInput(attrs={'min':1, 'value':1}),
+            'memo': forms.TextInput(attrs={'placeholder': 'メモ(例：メーカーや特徴)'})
+        }

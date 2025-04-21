@@ -5,8 +5,8 @@ from django.views.generic import(
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect
-from .forms import RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, CategorySelectForm
-from .models import Store, ItemCategory, ShoppingItem, ShoppingList
+from .forms import RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, CategorySelectForm, ShoppingItemForm
+from .models import Store, ItemCategory, ShoppingItem, ShoppingList, List_ItemCategory
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -73,16 +73,20 @@ class MyListView(LoginRequiredMixin, TemplateView):
     template_name = 'mylist.html'
     
     def get(self, request, store_id,  *args, **kwargs):
-        store = Store.objects.get(store_id=store_id)
-        categories = ItemCategory.objects.all()
+        store = get_object_or_404(Store, store_id=store_id)
         shopping_list =ShoppingList.objects.filter(
-            store=store, user=self.request.user
+            store=store, user=request.user
             ).first()
         
+        linked_categories = List_ItemCategory.objects.filter(
+            list=shopping_list
+        ).select_related('item_category')
+        
         category_item_map = {}
-        for category in categories:
+        for linked in linked_categories:
+            category = linked.item_category
             items = ShoppingItem.objects.filter(
-                shopping_list__store=store,
+                shopping_list=shopping_list,
                 item_category=category
             )
             category_item_map[category] = items
@@ -91,8 +95,29 @@ class MyListView(LoginRequiredMixin, TemplateView):
             'store': store,
             'category_item_map' : category_item_map,
             'shopping_list' : shopping_list,
+            'form': ShoppingItemForm()
         }
         return self.render_to_response(context)
+    
+    def post(self, request,store_id, *args, **kwargs):
+        store = get_object_or_404(Store, store_id=store_id)
+        shopping_list = ShoppingList.objects.filter(
+            store=store, user=request.user
+        ).first()
+        
+        form = ShoppingItemForm(request.POST)
+        
+        if form.is_valid():
+            category_id = request.POST.get('category_id')
+            category = get_object_or_404(ItemCategory, id=category_id)
+            
+            item = form.save(commit=False)
+            item.shopping_list = shopping_list
+            item.item_category = category
+            item.save()
+            
+        return redirect('app:mylist', store_id=store.store_id)
+            
     
 class CategoryListView(TemplateView):
     template_name='category_list.html'
@@ -152,12 +177,19 @@ class CategoryAddView(FormView):
         categories = form.cleaned_data['categories']
         
         for category in categories:
-            ShoppingItem.objects.get_or_create(
-                shopping_list=shopping_list,
+            List_ItemCategory.objects.get_or_create(
+                list=shopping_list,
                 item_category=category,
-                defaults={'commodity': ''}
             )
     
         return redirect('app:mylist', store_id=store.store_id)
+    
+    
+class ItemCheckView(LoginRequiredMixin, View):
+    def post(self, request, item_id, *args, **kwargs):
+        item = get_object_or_404(ShoppingItem, id=item_id)
+        item.status = not item.status
+        item.save()
+        return redirect('app:mylist', store_id=item.shopping_list.store.store_id)
     
     
