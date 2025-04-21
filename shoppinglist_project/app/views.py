@@ -192,4 +192,12 @@ class ItemCheckView(LoginRequiredMixin, View):
         item.save()
         return redirect('app:mylist', store_id=item.shopping_list.store.store_id)
     
+class ItemDeleteView(LoginRequiredMixin, DeleteView):
+    model = ShoppingItem
+    template_name = 'item_delete.html'
+    
+    def get_success_url(self):
+        store_id = self.object.shopping_list.store.store_id
+        return reverse_lazy('app:mylist', kwargs={'store_id': store_id})
+    
     

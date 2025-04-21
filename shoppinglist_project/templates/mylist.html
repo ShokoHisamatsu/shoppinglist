@@ -37,6 +37,7 @@
                 {% if item.memo %}{{ item.memo }}{% endif %}
                 </span>
             </form>
+            <a href="{% url 'app:item_delete' item.id %}" style="color: red; margin-left:10px;">削除</a>
         </li>
         {% endfor %}
     </ul>

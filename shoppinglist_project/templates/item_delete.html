@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>この商品を削除しますか？</h2>
+
+<p>
+    商品名 : {{ object.commodity }}<br>
+    数量 : {{ object.quantity }}個<br>
+    {% if object.memo %}メモ : {{ object.memo }}<br>{% endif %}
+</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" style="background-color: white; color: red; padding: 10px 20px;">削除する</button>
+    <a href="{% url 'app:mylist' object.shopping_list.store.store_id %}" style="margin-left: 20px;">キャンセル</a>
+</form>
+{% endblock %}
