@@ -1,0 +1,55 @@
+<style>
+    .menu-toggle {
+        position: absolute;
+        top: 15px;
+        right:15px;
+        z-index: 1000;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .menu-content {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 15px;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 999;
+    }
+
+    .menu-content ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu-content li {
+        margin-bottom: 10px;
+    }
+
+    .menu-content.active {
+        display: block;
+    }
+</style>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('hamburger-menu');
+        menu.classList.toggle('active');
+    }
+</script>
+
+<div class="menu-toggle" onclick="toggleMenu()">≡</div>
+
+<div class="menu-content" id="hamburger-menu">
+    <ul>
+        <li><a href="#">共有リストの作成・管理</a></li>
+        <li><a href="#">個人設定</a></li>
+        {% comment %} <li><a href="{% url 'app:email_change' %}">メールアドレス変更</a></li> {% endcomment %}
+        <li><a href="{% url 'app:password_change' %}">パスワード変更</a></li>
+        <li><a href="#">通知設定</a></li>
+        <li><a href="{% url 'app:user_logout' %}">ログアウト</a></li>
+    </ul>
+</div>

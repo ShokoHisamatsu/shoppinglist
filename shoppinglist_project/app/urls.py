@@ -5,6 +5,7 @@ from .views import (
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView
 )
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 
 
 app_name = 'app'
@@ -23,3 +24,8 @@ urlpatterns = [
     path('item/<int:item_id>/check/', ItemCheckView.as_view(), name='item_check'),
     path('item/<int:pk>/delete/', ItemDeleteView.as_view(), name='item_delete'),
     ]
+
+urlpatterns +=[
+    path('password_change/', PasswordChangeView.as_view(template_name='password_change.html'), name='password_change'),
+    path('password_change/done/', PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name='password_change_done'),
+]
