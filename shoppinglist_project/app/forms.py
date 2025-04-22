@@ -70,3 +70,11 @@ class ShoppingItemForm(forms.ModelForm):
             'quantity': forms.NumberInput(attrs={'min':1, 'value':1}),
             'memo': forms.TextInput(attrs={'placeholder': 'メモ(例：メーカーや特徴)'})
         }
+        
+class EmailChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email']
+        labels = {
+            'email': '新しいメールアドレス'
+        }

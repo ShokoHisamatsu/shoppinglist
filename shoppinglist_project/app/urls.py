@@ -3,10 +3,10 @@ from .views import (
     RegistUserView, HomeView, UserLoginView,
     UserLogoutView, MyListView, HomeView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
-    CategoryAddView, ItemCheckView, ItemDeleteView
+    CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView
 )
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
-
+from django.views.generic import TemplateView
 
 app_name = 'app'
 urlpatterns = [
@@ -23,6 +23,8 @@ urlpatterns = [
     path('mylist/<int:store_id>/category/add/', CategoryAddView.as_view(), name='category_add'),
     path('item/<int:item_id>/check/', ItemCheckView.as_view(), name='item_check'),
     path('item/<int:pk>/delete/', ItemDeleteView.as_view(), name='item_delete'),
+    path('email_change/', EmailChangeView.as_view(), name='email_change'),
+    path('email_change/done/', TemplateView.as_view(), name='email_change_done')
     ]
 
 urlpatterns +=[

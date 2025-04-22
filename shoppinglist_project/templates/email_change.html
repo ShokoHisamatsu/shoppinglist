@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>メールアドレスを変更</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">変更する</button>
+</form>
+
+<a href="{% url 'app:home' %}">ホームに戻る</a>
+{% endblock %}

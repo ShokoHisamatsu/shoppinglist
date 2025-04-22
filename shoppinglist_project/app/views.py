@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic import(
-    TemplateView, CreateView, FormView, View, DeleteView
+    TemplateView, CreateView, FormView, View, DeleteView, UpdateView
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect
-from .forms import RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, CategorySelectForm, ShoppingItemForm
-from .models import Store, ItemCategory, ShoppingItem, ShoppingList, List_ItemCategory
+from .forms import RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, CategorySelectForm, ShoppingItemForm, EmailChangeForm
+from .models import Store, ItemCategory, ShoppingItem, ShoppingList, List_ItemCategory, User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -213,4 +213,11 @@ class ItemDeleteView(LoginRequiredMixin, DeleteView):
         store_id = self.object.shopping_list.store.store_id
         return reverse_lazy('app:mylist', kwargs={'store_id': store_id})
     
+class EmailChangeView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = EmailChangeForm
+    template_name = 'email_change.html'
+    success_url = reverse_lazy('app:email_change_done')
     
+    def get_object(self, queryset=None):
+        return self.request.user
