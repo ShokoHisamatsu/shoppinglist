@@ -5,4 +5,7 @@
     {{ form.as_p }}
     <input type="submit" value="ログイン">
 </form>
+
+<p><a href="{% url 'app:password_reset' %}">パスワードを忘れた方はこちら</a></p>
+
 {% endblock %}

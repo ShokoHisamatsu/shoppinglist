@@ -1,11 +1,15 @@
 from django.urls import path
 from .views import (
     RegistUserView, HomeView, UserLoginView,
-    UserLogoutView, MyListView, HomeView, StoreDeleteView,
+    UserLogoutView, MyListView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView
 )
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.views import (
+    PasswordChangeView, PasswordChangeDoneView, PasswordResetView, 
+    PasswordResetDoneView, PasswordResetConfirmView, 
+    PasswordResetCompleteView
+)
 from django.views.generic import TemplateView
 
 app_name = 'app'
@@ -24,10 +28,14 @@ urlpatterns = [
     path('item/<int:item_id>/check/', ItemCheckView.as_view(), name='item_check'),
     path('item/<int:pk>/delete/', ItemDeleteView.as_view(), name='item_delete'),
     path('email_change/', EmailChangeView.as_view(), name='email_change'),
-    path('email_change/done/', TemplateView.as_view(), name='email_change_done')
+    path('email_change/done/', TemplateView.as_view(template_name='email_change_done.html'), name='email_change_done')
     ]
 
 urlpatterns +=[
     path('password_change/', PasswordChangeView.as_view(template_name='password_change.html'), name='password_change'),
     path('password_change/done/', PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name='password_change_done'),
+    path('password_reset/', PasswordResetView.as_view(template_name='password_reset_form.html'), name='password_reset'),
+    path('password_reset/done/', PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
+    path('reset/done/', PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
 ]
