@@ -4,16 +4,9 @@ from django.contrib.auth.models import(
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
+import uuid
 
-
-
-class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        abstract = True
-        
+      
         
 class UserManager(BaseUserManager):
     def create_user(self, nickname, email, password):
@@ -64,6 +57,8 @@ User = get_user_model()
 class Store(models.Model):
     store_id = models.AutoField(primary_key=True)
     store_name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'store'
@@ -73,6 +68,8 @@ class Store(models.Model):
     
 class ItemCategory(models.Model):
     item_category_name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     
     class Meta:
@@ -97,6 +94,8 @@ class ShoppingList(models.Model):
 class List_ItemCategory(models.Model):
     list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
     item_category = models.ForeignKey(ItemCategory, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'list_itemcategory'
@@ -120,6 +119,20 @@ class ShoppingItem(models.Model):
         
     def __str__(self):
         return self.commodity
+    
+class SharedList(models.Model):
+    list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
+    url_token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    can_edit = models.BooleanField(default=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'share'
+        
+    def __str__(self):
+        return f"{self.list} shared by {self.created_by}"
     
     
     

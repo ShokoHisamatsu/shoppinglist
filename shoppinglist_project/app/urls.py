@@ -5,6 +5,7 @@ from .views import (
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView
 )
+from . import views
 from django.contrib.auth.views import (
     PasswordChangeView, PasswordChangeDoneView, PasswordResetView, 
     PasswordResetDoneView, PasswordResetConfirmView, 
@@ -28,7 +29,8 @@ urlpatterns = [
     path('item/<int:item_id>/check/', ItemCheckView.as_view(), name='item_check'),
     path('item/<int:pk>/delete/', ItemDeleteView.as_view(), name='item_delete'),
     path('email_change/', EmailChangeView.as_view(), name='email_change'),
-    path('email_change/done/', TemplateView.as_view(template_name='email_change_done.html'), name='email_change_done')
+    path('email_change/done/', TemplateView.as_view(template_name='email_change_done.html'), name='email_change_done'),
+    path('share/create/', views.SharedListCreateView.as_view(), name='share_create'),
     ]
 
 urlpatterns +=[

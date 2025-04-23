@@ -1,6 +1,9 @@
 from django import forms
-from .models import User, Store, ItemCategory, ShoppingItem
+from .models import User, Store, ItemCategory, ShoppingItem, SharedList, ShoppingList
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class RegistForm(forms.ModelForm):
     password2 = forms.CharField(
@@ -78,3 +81,19 @@ class EmailChangeForm(forms.ModelForm):
         labels = {
             'email': '新しいメールアドレス'
         }
+        
+class SharedListForm(forms.ModelForm):
+    class Meta:
+        model = SharedList
+        fields = ['list', 'can_edit']
+        labels = {
+            'list' : '共有するリスト',
+            'can_edit' : '編集権限を付与しますか？'
+        }  
+        
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        
+        if user:
+            self.fields['list'].queryset = ShoppingList.objects.filter(user=user)   

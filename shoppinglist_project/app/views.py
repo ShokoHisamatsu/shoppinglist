@@ -5,8 +5,11 @@ from django.views.generic import(
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect
-from .forms import RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, CategorySelectForm, ShoppingItemForm, EmailChangeForm
-from .models import Store, ItemCategory, ShoppingItem, ShoppingList, List_ItemCategory, User
+from .forms import (
+    RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, 
+    CategorySelectForm, ShoppingItemForm, EmailChangeForm, SharedListForm
+)
+from .models import Store, ItemCategory, ShoppingItem, ShoppingList, List_ItemCategory, User, SharedList
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -221,3 +224,20 @@ class EmailChangeView(LoginRequiredMixin, UpdateView):
     
     def get_object(self, queryset=None):
         return self.request.user
+    
+class SharedListCreateView(LoginRequiredMixin, CreateView):
+    model = SharedList
+    form_class = SharedListForm
+    template_name = 'shared_list_form.html'
+    success_url = reverse_lazy('app:home')
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def form_valid(self, form):
+        shared = form.save(commit=False)
+        shared.created_by = self.request.user
+        shared.save()
+        return super().form_valid(form)
