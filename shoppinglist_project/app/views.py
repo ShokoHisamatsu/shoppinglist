@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseForbidden
 from django.views.generic import(
-    TemplateView, CreateView, FormView, View, DeleteView, UpdateView
+    TemplateView, CreateView, FormView, View, DeleteView, UpdateView,
+    DetailView
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
@@ -241,3 +243,58 @@ class SharedListCreateView(LoginRequiredMixin, CreateView):
         shared.created_by = self.request.user
         shared.save()
         return super().form_valid(form)
+    
+class SharedListDetailView(DetailView):
+    model = SharedList
+    template_name = 'shared/shared_list_detail.html'
+    context_object_name = 'shared_list'
+    slug_field = 'url_token'
+    slug_url_kwarg = 'uuid'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        shopping_list = self.object.list
+
+        linked_categories = List_ItemCategory.objects.filter(
+            list=shopping_list
+        ).select_related('item_category')
+
+        category_item_map = {}
+        for linked in linked_categories:
+            category = linked.item_category
+            items = ShoppingItem.objects.filter(
+                shopping_list=shopping_list,
+                item_category=category
+            )
+            category_item_map[category] = items
+
+        context['shopping_list'] = shopping_list
+        context['category_item_map'] = category_item_map
+        context['can_edit'] = self.object.can_edit
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()  
+        if not self.object.can_edit:
+            return HttpResponseForbidden("このリストは編集できません")
+
+        shopping_list = self.object.list
+        
+        if 'check_item_id' in request.POST:
+            from .models import ShoppingItem
+            item_id = request.POST['check_item_id']
+            item = get_object_or_404(ShoppingItem, id=item_id, shopping_list=shopping_list)
+            item.status = not item.status
+            item.save()
+        elif 'commodity' in request.POST:
+            form = ShoppingItemForm(request.POST)
+            if form.is_valid():
+                category_id = request.POST.get('category_id')
+                from .models import ItemCategory
+                category = get_object_or_404(ItemCategory, id=category_id)
+                item = form.save(commit=False)
+                item.shopping_list = shopping_list
+                item.item_category = category
+                item.save()
+
+        return redirect('app:shared_list_detail', uuid=self.object.url_token)

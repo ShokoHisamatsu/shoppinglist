@@ -3,7 +3,8 @@ from .views import (
     RegistUserView, HomeView, UserLoginView,
     UserLogoutView, MyListView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
-    CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView
+    CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView,
+    SharedListDetailView
 )
 from . import views
 from django.contrib.auth.views import (
@@ -31,6 +32,7 @@ urlpatterns = [
     path('email_change/', EmailChangeView.as_view(), name='email_change'),
     path('email_change/done/', TemplateView.as_view(template_name='email_change_done.html'), name='email_change_done'),
     path('share/create/', views.SharedListCreateView.as_view(), name='share_create'),
+    path('share/<uuid:uuid>', views.SharedListDetailView.as_view(), name='shared_list_detail')
     ]
 
 urlpatterns +=[
