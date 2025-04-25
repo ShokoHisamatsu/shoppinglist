@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>共有中のリスト一覧</h2>
+
+{% if shared_lists %}
+  <ul>
+    {% for shared in shared_lists %}
+      <li style="margin-bottom: 1em;">
+        <strong>{{ shared.list.list_name }}</strong><br>
+        共有リンク：
+        <a href="{% url 'app:shared_list_detail' uuid=shared.url_token %}" target="_blank">
+          {{ request.build_absolute_uri|cut:request.path }}share/{{ shared.url_token }}
+        </a><br>
+        編集権限：{{ shared.can_edit|yesno:"あり,なし" }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>共有中のリストはありません。</p>
+{% endif %}
+
+<a href="{% url 'app:home' %}">← ホームに戻る</a>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseForbidden
 from django.views.generic import(
     TemplateView, CreateView, FormView, View, DeleteView, UpdateView,
-    DetailView
+    DetailView, ListView
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
@@ -298,3 +298,12 @@ class SharedListDetailView(DetailView):
                 item.save()
 
         return redirect('app:shared_list_detail', uuid=self.object.url_token)
+    
+class SharedListManageView(LoginRequiredMixin, ListView):
+    model = SharedList
+    template_name = 'shared/shared_list_manage.html'
+    context_object_name = 'shared_lists'
+
+    def get_queryset(self):
+        return SharedList.objects.filter(created_by=self.request.user)    
+    
