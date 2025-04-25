@@ -97,3 +97,15 @@ class SharedListForm(forms.ModelForm):
         
         if user:
             self.fields['list'].queryset = ShoppingList.objects.filter(user=user)   
+
+class SharedListBulkDeleteForm(forms.Form):
+    shared_lists = forms.ModelMultipleChoiceField(
+        queryset=SharedList.objects.none(), 
+        widget=forms.CheckboxSelectMultiple,
+        label='どの共有をやめますか？'
+    )
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['shared_lists'].queryset = SharedList.objects.filter(created_by=user)

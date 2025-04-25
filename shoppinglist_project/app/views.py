@@ -9,7 +9,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect
 from .forms import (
     RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, 
-    CategorySelectForm, ShoppingItemForm, EmailChangeForm, SharedListForm
+    CategorySelectForm, ShoppingItemForm, EmailChangeForm, SharedListForm,
+    SharedListBulkDeleteForm
 )
 from .models import Store, ItemCategory, ShoppingItem, ShoppingList, List_ItemCategory, User, SharedList
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -299,11 +300,29 @@ class SharedListDetailView(DetailView):
 
         return redirect('app:shared_list_detail', uuid=self.object.url_token)
     
-class SharedListManageView(LoginRequiredMixin, ListView):
-    model = SharedList
+class SharedListManageView(LoginRequiredMixin, FormView):
     template_name = 'shared/shared_list_manage.html'
-    context_object_name = 'shared_lists'
+    form_class = SharedListBulkDeleteForm
+    success_url = reverse_lazy('app:shared_list_manage')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        shared_lists = form.cleaned_data['shared_lists']
+        shared_lists.delete()
+        return super().form_valid(form)
+    
+class SharedListDeleteView(LoginRequiredMixin, DeleteView):
+    model = SharedList
+    template_name = 'shared/shared_list_confirm_delete.html'
+    context_object_name = 'shared_list'
+    
     def get_queryset(self):
-        return SharedList.objects.filter(created_by=self.request.user)    
+        return SharedList.objects.filter(created_by=self.request.user)
+    
+    def get_success_url(self):
+        return reverse_lazy('app:shared_list_manage')
     
