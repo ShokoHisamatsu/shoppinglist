@@ -31,10 +31,10 @@ urlpatterns = [
     path('item/<int:pk>/delete/', ItemDeleteView.as_view(), name='item_delete'),
     path('email_change/', EmailChangeView.as_view(), name='email_change'),
     path('email_change/done/', TemplateView.as_view(template_name='email_change_done.html'), name='email_change_done'),
-    path('share/create/', views.SharedListCreateView.as_view(), name='share_create'),
-    path('share/<uuid:uuid>', views.SharedListDetailView.as_view(), name='shared_list_detail'),
+    path('share/create/<int:store_id>/', views.SharedListCreateView.as_view(), name='shared_list_create'),
     path('share/manage/', views.SharedListManageView.as_view(), name='shared_list_manage'),
-    path('share/<int:pk>/delete/', views.SharedListDeleteView.as_view(), name='shared_list_delte'),
+    path('share/<slug:url_token>/', views.SharedListDetailView.as_view(), name='shared_list_detail'),
+    path('share/delete/<int:pk>/', views.SharedListDeleteView.as_view(), name='shared_list_delete'),
     ]
 
 urlpatterns +=[

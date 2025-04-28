@@ -85,18 +85,18 @@ class EmailChangeForm(forms.ModelForm):
 class SharedListForm(forms.ModelForm):
     class Meta:
         model = SharedList
-        fields = ['list', 'can_edit']
+        fields = ['can_edit']
         labels = {
             'list' : '共有するリスト',
             'can_edit' : '編集権限を付与しますか？'
         }  
         
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        store_list_instance = kwargs.pop('store_list_instance', None)
         super().__init__(*args, **kwargs)
         
-        if user:
-            self.fields['list'].queryset = ShoppingList.objects.filter(user=user)   
+        if store_list_instance:
+            self.instance.list = store_list_instance 
 
 class SharedListBulkDeleteForm(forms.Form):
     shared_lists = forms.ModelMultipleChoiceField(

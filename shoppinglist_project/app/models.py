@@ -121,13 +121,13 @@ class ShoppingItem(models.Model):
         return self.commodity
     
 class SharedList(models.Model):
-    list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
-    url_token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    list = models.OneToOneField(ShoppingList, on_delete=models.CASCADE)
+    url_token = models.CharField(max_length=255, unique=True)
     can_edit = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     class Meta:
         db_table = 'share'
         

@@ -4,7 +4,8 @@ from django.views.generic import(
     TemplateView, CreateView, FormView, View, DeleteView, UpdateView,
     DetailView, ListView
 )
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect
 from .forms import (
@@ -16,6 +17,7 @@ from .models import Store, ItemCategory, ShoppingItem, ShoppingList, List_ItemCa
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+import secrets
 
 
 class HomeView(TemplateView):
@@ -228,29 +230,70 @@ class EmailChangeView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
     
-class SharedListCreateView(LoginRequiredMixin, CreateView):
-    model = SharedList
-    form_class = SharedListForm
+class SharedListCreateView(LoginRequiredMixin, FormView):
     template_name = 'shared_list_form.html'
-    success_url = reverse_lazy('app:home')
+    form_class = SharedListForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        store_id = self.kwargs.get('store_id')
+        user = self.request.user
+        try:
+            shared_list = SharedList.objects.get(list__store_id=store_id, created_by=user)
+            share_url = self.request.build_absolute_uri(
+                reverse('app:shared_list_detail', args=[shared_list.url_token])
+            )
+        except SharedList.DoesNotExist:
+            share_url = None
+        context['share_url'] = share_url
+        return context
     
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        store_id = self.kwargs['store_id']
+        store_list_instance = ShoppingList.objects.get(store_id=store_id, user=self.request.user)
+        kwargs['store_list_instance'] = store_list_instance
         return kwargs
-    
+
     def form_valid(self, form):
-        shared = form.save(commit=False)
-        shared.created_by = self.request.user
-        shared.save()
-        return super().form_valid(form)
+        store_id = self.kwargs.get('store_id')
+        user = self.request.user
+        
+        shopping_list = ShoppingList.objects.get(store_id=store_id, user=user)
+
+        shared_list, created = SharedList.objects.get_or_create(
+            list=shopping_list,
+            created_by=user,
+            defaults={
+                'url_token': secrets.token_urlsafe(8),
+                'can_edit': form.cleaned_data['can_edit'], 
+            }
+        )
+        
+        if not created:
+            shared_list.can_edit = form.cleaned_data['can_edit']
+            shared_list.save()
+
+        share_url = self.request.build_absolute_uri(
+            reverse('app:shared_list_detail', args=[shared_list.url_token])
+        )
+        messages.success(self.request, f"{shopping_list.store.store_name}共有URLを作成しました。")
+        return render(self.request, self.template_name, {
+            'form': form,  
+            'share_url': share_url,
+            'can_edit': form.cleaned_data['can_edit'],
+        })
+        
+    def form_invalid(self, form):
+        messages.error(self.request, "フォームにエラーがあります。")
+        return super().form_invalid(form) 
+
     
 class SharedListDetailView(DetailView):
     model = SharedList
     template_name = 'shared/shared_list_detail.html'
     context_object_name = 'shared_list'
     slug_field = 'url_token'
-    slug_url_kwarg = 'uuid'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -300,20 +343,19 @@ class SharedListDetailView(DetailView):
 
         return redirect('app:shared_list_detail', uuid=self.object.url_token)
     
-class SharedListManageView(LoginRequiredMixin, FormView):
+class SharedListManageView(LoginRequiredMixin, ListView):
+    model = Store
     template_name = 'shared/shared_list_manage.html'
-    form_class = SharedListBulkDeleteForm
-    success_url = reverse_lazy('app:shared_list_manage')
+    context_object_name = 'stores'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
+    def get_queryset(self):
+        return Store.objects.all()
 
-    def form_valid(self, form):
-        shared_lists = form.cleaned_data['shared_lists']
-        shared_lists.delete()
-        return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        ids_to_delete = request.POST.getlist('selected_ids')
+        SharedList.objects.filter(id__in=ids_to_delete, created_by=request.user).delete()
+        messages.success(request, "共有を解除しました。")
+        return redirect('app:shared_list_manage')
     
 class SharedListDeleteView(LoginRequiredMixin, DeleteView):
     model = SharedList
