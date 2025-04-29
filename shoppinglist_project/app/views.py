@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.views.generic import(
     TemplateView, CreateView, FormView, View, DeleteView, UpdateView,
     DetailView, ListView
@@ -343,28 +343,33 @@ class SharedListDetailView(DetailView):
 
         return redirect('app:shared_list_detail', uuid=self.object.url_token)
     
-class SharedListManageView(LoginRequiredMixin, ListView):
-    model = Store
+class SharedListManageView(LoginRequiredMixin, TemplateView):
     template_name = 'shared/shared_list_manage.html'
-    context_object_name = 'stores'
 
-    def get_queryset(self):
-        return Store.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stores'] = ShoppingList.objects.filter(user=self.request.user)
+        return context
 
     def post(self, request, *args, **kwargs):
-        ids_to_delete = request.POST.getlist('selected_ids')
-        SharedList.objects.filter(id__in=ids_to_delete, created_by=request.user).delete()
-        messages.success(request, "共有を解除しました。")
+        shared_list_ids = request.POST.getlist('shared_lists')
+        if shared_list_ids:
+            SharedList.objects.filter(id__in=shared_list_ids, created_by=request.user).delete()
+            messages.success(request, "選択した共有を解除しました。")
+        else:
+            messages.warning(request, "共有を選択してください。")
         return redirect('app:shared_list_manage')
     
-class SharedListDeleteView(LoginRequiredMixin, DeleteView):
-    model = SharedList
-    template_name = 'shared/shared_list_confirm_delete.html'
-    context_object_name = 'shared_list'
-    
-    def get_queryset(self):
-        return SharedList.objects.filter(created_by=self.request.user)
-    
-    def get_success_url(self):
-        return reverse_lazy('app:shared_list_manage')
+class SharedListDeleteView(View):
+    def post(self, request, *args, **kwargs):
+        shared_list_ids = request.POST.getlist('shared_lists')
+
+        if shared_list_ids:
+            SharedList.objects.filter(id__in=shared_list_ids).delete()
+            messages.success(request, "選択した共有を解除しました。")
+        else:
+            messages.warning(request, "共有解除するリストが選択されていません。")
+
+        return HttpResponseRedirect(reverse('app:shared_list_manage'))
+
     

@@ -1,49 +1,42 @@
-{% extends 'base.html' %}
-{% block content %}
-
 <h2>共有リストの作成・管理</h2>
 
 <form method="post">
-    {% csrf_token %}
-    <ul>
-      {% for store in stores %}
+  {% csrf_token %}
+  <ul>
+    {% for store in stores %}
       <li>
         {% with shared_list=store.sharedlist_set.first %}
           {% if shared_list %}
-            {{ store.store_name }}
-    
-            <!-- 共有解除ボタン -->
-            <form method="post" action="{% url 'app:shared_list_delete' pk=shared_list.id %}" style="display: inline;" onsubmit="return confirm('本当にこの共有を解除しますか？');">
-              {% csrf_token %}
-              <button type="submit">共有をやめる</button>
-            </form>
-    
+            <label>
+              <input type="checkbox" name="shared_lists" value="{{ shared_list.id }}">
+              {{ store.store_name }}
+            </label>
           {% else %}
             {{ store.store_name }}
-    
-            <!-- ★共有ボタン（まだ共有していないとき） -->
             <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" style="margin-left: 10px;">
-              リストを共有する
+              {{ store.store_name }}リストを共有する
             </a>
           {% endif %}
         {% endwith %}
       </li>
     {% empty %}
       <li>まだお店が登録されていません。</li>
-    {% endfor %}    
-    </ul>
-    <button type="submit">選択した共有をやめる</button>
+    {% endfor %}
+  </ul>
+
+  <button type="submit" onclick="return confirm('選択した共有を本当に解除しますか？');">
+    選択した共有をやめる
+  </button>
 </form>
 
 {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
 {% endif %}
 
 <p><a href="{% url 'app:home' %}">← ホームに戻る</a></p>
 
-{% endblock %}
 
