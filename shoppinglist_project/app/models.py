@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import(
-    BaseUserManager, AbstractBaseUser, PermissionsMixin
+    BaseUserManager, AbstractBaseUser, PermissionsMixin, User
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
@@ -57,6 +57,7 @@ User = get_user_model()
 class Store(models.Model):
     store_id = models.AutoField(primary_key=True)
     store_name = models.CharField(max_length=100)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

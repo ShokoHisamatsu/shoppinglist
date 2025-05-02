@@ -18,10 +18,29 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 import secrets
+from secrets import token_urlsafe
 
 
-class HomeView(TemplateView):
+class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['store_list'] = Store.objects.filter(created_by=self.request.user)
+        context['form'] = StoreForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = StoreForm(request.POST)
+        if form.is_valid():
+            store = form.save(commit=False)
+            store.created_by = request.user 
+            store.save()
+            messages.success(request, 'お店を追加しました。')
+            return redirect('app:home')
+        else:
+            messages.error(request, 'お店の追加に失敗しました。')
+            return self.get(request, *args, **kwargs)
     
 class RegistUserView(CreateView):
     template_name = 'regist.html'
@@ -52,23 +71,7 @@ class UserLogoutView(View):
     def post(self, request, *args, **kwargs):
         logout(request)
         return redirect('app:home')
-    
-class HomeView(LoginRequiredMixin, TemplateView):
-    template_name = 'home.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs) 
-        context['store_list'] = Store.objects.all()
-        context['form'] = StoreForm()
-        return context
-    
-    def post(self, request, *args, **kwargs):
-        form = StoreForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('app:home')
-        context = self.get_context_data()
-        return self.render_to_response(context)
+
 
 class StoreDeleteView(LoginRequiredMixin, DeleteView):
     model = Store
@@ -231,62 +234,69 @@ class EmailChangeView(LoginRequiredMixin, UpdateView):
         return self.request.user
     
 class SharedListCreateView(LoginRequiredMixin, FormView):
-    template_name = 'shared_list_form.html'
+    template_name = 'shared/shared_list_fix.html'
     form_class = SharedListForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         store_id = self.kwargs.get('store_id')
         user = self.request.user
-        try:
-            shared_list = SharedList.objects.get(list__store_id=store_id, created_by=user)
-            share_url = self.request.build_absolute_uri(
-                reverse('app:shared_list_detail', args=[shared_list.url_token])
-            )
-        except SharedList.DoesNotExist:
-            share_url = None
-        context['share_url'] = share_url
-        return context
-    
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        store_id = self.kwargs['store_id']
-        store_list_instance = ShoppingList.objects.get(store_id=store_id, user=self.request.user)
-        kwargs['store_list_instance'] = store_list_instance
-        return kwargs
+        store = get_object_or_404(Store, store_id=store_id, created_by=user)
 
-    def form_valid(self, form):
+        shopping_list, _ = ShoppingList.objects.get_or_create(
+            store=store,
+            user=user,
+            defaults={'list_name': f'{store.store_name}のリスト'}
+        )
+
+        shared_list = SharedList.objects.filter(list=shopping_list, created_by=user).first()
+
+        shared_list, created = SharedList.objects.get_or_create(
+        list=shopping_list,
+        created_by=user,
+        defaults={'url_token': secrets.token_urlsafe(8)}
+        )
+
+        share_url = self.request.build_absolute_uri(
+            reverse('app:shared_list_detail', args=[shared_list.url_token])
+        )
+
+        context.update({
+            'store': store,
+            'shopping_list': shopping_list,
+            'shared_list': shared_list,
+            'share_url': share_url,
+            'form': self.get_form(),
+        })
+        return context
+
+    def post(self, request, *args, **kwargs):
         store_id = self.kwargs.get('store_id')
-        user = self.request.user
-        
-        shopping_list = ShoppingList.objects.get(store_id=store_id, user=user)
+        user = request.user
+        store = get_object_or_404(Store, store_id=store_id, created_by=user)
+
+        shopping_list, _ = ShoppingList.objects.get_or_create(
+            store=store,
+            user=user,
+            defaults={'list_name': f'{store.store_name}のリスト'}
+        )
+
+        if 'delete_shared_list' in request.POST:
+            SharedList.objects.filter(list=shopping_list, created_by=user).delete()
+            messages.success(request, f"{store.store_name}の共有を解除しました。")
+            return redirect('app:shared_list_create', store_id=store_id)
 
         shared_list, created = SharedList.objects.get_or_create(
             list=shopping_list,
             created_by=user,
             defaults={
                 'url_token': secrets.token_urlsafe(8),
-                'can_edit': form.cleaned_data['can_edit'], 
             }
         )
-        
-        if not created:
-            shared_list.can_edit = form.cleaned_data['can_edit']
-            shared_list.save()
 
-        share_url = self.request.build_absolute_uri(
-            reverse('app:shared_list_detail', args=[shared_list.url_token])
-        )
-        messages.success(self.request, f"{shopping_list.store.store_name}共有URLを作成しました。")
-        return render(self.request, self.template_name, {
-            'form': form,  
-            'share_url': share_url,
-            'can_edit': form.cleaned_data['can_edit'],
-        })
-        
-    def form_invalid(self, form):
-        messages.error(self.request, "フォームにエラーがあります。")
-        return super().form_invalid(form) 
+        messages.success(request, f"{store.store_name}の共有設定を更新しました。")
+        return redirect('app:shared_list_create', store_id=store_id)
+
 
     
 class SharedListDetailView(DetailView):
@@ -348,7 +358,15 @@ class SharedListManageView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['stores'] = ShoppingList.objects.filter(user=self.request.user)
+        all_stores = Store.objects.filter(created_by=self.request.user).distinct()
+        shared_lists = SharedList.objects.filter(created_by=self.request.user)  
+        shared_store_ids = shared_lists.values_list('list__store__store_id', flat=True)  
+        
+        shared_stores = all_stores.filter(store_id__in=shared_store_ids)
+        unshared_stores = all_stores.exclude(store_id__in=shared_store_ids)
+
+        context['stores'] = shared_stores
+        context['unshared_stores'] = unshared_stores
         return context
 
     def post(self, request, *args, **kwargs):
@@ -360,16 +378,27 @@ class SharedListManageView(LoginRequiredMixin, TemplateView):
             messages.warning(request, "共有を選択してください。")
         return redirect('app:shared_list_manage')
     
-class SharedListDeleteView(View):
-    def post(self, request, *args, **kwargs):
-        shared_list_ids = request.POST.getlist('shared_lists')
-
-        if shared_list_ids:
-            SharedList.objects.filter(id__in=shared_list_ids).delete()
-            messages.success(request, "選択した共有を解除しました。")
-        else:
-            messages.warning(request, "共有解除するリストが選択されていません。")
-
-        return HttpResponseRedirect(reverse('app:shared_list_manage'))
+    
+class SharedListAddView(LoginRequiredMixin, View):
+    def post(self, request):
+        store_id = request.POST.get('store_id')
+        
+        if store_id:
+            try:
+                store = Store.objects.get(pk=store_id)  
+                
+                if not SharedList.objects.filter(list__store=store, created_by=request.user).exists():
+                    shopping_list = ShoppingList.objects.get(store=store, user=request.user)
+                    SharedList.objects.create(list=shopping_list, created_by=request.user, url_token=token_urlsafe(8))
+                    messages.success(request, f"{store.store_name}を共有リストに追加しました。")
+                else:
+                    messages.success(request, f"{store.store_name}は既に追加されています。")
+                    
+            except Store.DoesNotExist:
+                messages.error(request, "対象のお店が見つかりません。")
+            except ShoppingList.DoesNotExist:
+                messages.error(request, "対象のショッピングリストが見つかりません。")
+                
+        return redirect('app:shared_list_manage')                  
 
     

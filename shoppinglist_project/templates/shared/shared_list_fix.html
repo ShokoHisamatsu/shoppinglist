@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'partials/menu.html' %}
+
+<h2>共有リストの設定</h2>
+<p><strong>{{ shared_list.list.store.store_name }}リスト</strong>を共有しています。</p>
+
+<!-- 共有URL表示 -->
+<p>共有URL：</p>
+<p>
+  <input type="text" value="{{ share_url }}" id="shareUrl" readonly style="width: 80%;" onclick="this.select();">
+  <button onclick="copyUrl()">URLをコピー</button>
+</p>
+
+<script>
+  function copyUrl() {
+    const urlField = document.getElementById('shareUrl');
+    urlField.select();
+    document.execCommand('copy');
+    alert('URLをコピーしました！');
+  }
+</script>
+
+<hr>
+<!-- 共有解除ボタン -->
+<form method="post" action="{% url 'app:shared_list_create' store.store_id %}">
+  {% csrf_token %}
+  <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
+  <button type="submit" onclick="return confirm('このリストの共有をやめますか？');">
+    共有をやめる
+  </button>
+</form>
+
+<p><a href="{% url 'app:shared_list_manage' %}">← 共有管理に戻る</a></p>
+
+{% endblock %}

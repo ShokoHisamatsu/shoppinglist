@@ -9,9 +9,9 @@
         <a href="{% url 'app:mylist' store_id=store.store_id %}">
             {{ store.store_name }}
         </a>
-    </P>
+    </p>
     {% empty %}
-    <P>まだお店が登録されていません</P>
+    <p>まだお店が登録されていません</p>
     {% endfor %}
 </div>
 
@@ -26,7 +26,7 @@
 {% for store in store_list %}
 <form method="post" action="{% url 'app:store_delete' store.store_id %}" onsubmit="return confirm('ショッピングリストも一緒に消えてしまいますがよろしいですか？');">
     {% csrf_token %}
-    <button type="submit">削除</buttom>
+    <button type="submit">削除</button>
 </form>
 {% endfor %}
 

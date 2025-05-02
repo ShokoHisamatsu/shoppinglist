@@ -4,7 +4,7 @@ from .views import (
     UserLogoutView, MyListView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView,
-    SharedListDetailView
+    
 )
 from . import views
 from django.contrib.auth.views import (
@@ -34,7 +34,8 @@ urlpatterns = [
     path('share/create/<int:store_id>/', views.SharedListCreateView.as_view(), name='shared_list_create'),
     path('share/manage/', views.SharedListManageView.as_view(), name='shared_list_manage'),
     path('share/<slug:url_token>/', views.SharedListDetailView.as_view(), name='shared_list_detail'),
-    path('share/delete/<int:pk>/', views.SharedListDeleteView.as_view(), name='shared_list_delete'),
+    # path('share/delete/<int:pk>/', views.SharedListDeleteView.as_view(), name='shared_list_delete'),
+    path('shared/add/', views.SharedListAddView.as_view(), name='shared_list_add'),
     ]
 
 urlpatterns +=[
