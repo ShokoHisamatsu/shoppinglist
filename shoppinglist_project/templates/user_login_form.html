@@ -1,11 +1,54 @@
-{% extends 'base.html' %}
-{% block content %}
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="ログイン">
-</form>
 
-<p><a href="{% url 'app:password_reset' %}">パスワードを忘れた方はこちら</a></p>
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; /* 画面の80%の高さ */
+  }
+
+  .login-box {
+    width: 300px;
+    text-align: center;
+  }
+
+  .login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .login-box button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .login-box a {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+  }
+</style>
+
+<div class="login-container">
+  <div class="login-box">
+    <h2>ログイン</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.email.label_tag }}<br>
+      {{ form.email }}<br>
+      {{ form.password.label_tag }}<br>
+      {{ form.password }}<br>
+      <button type="submit">ログインする</button>
+    </form>
+    <a href="{% url 'app:password_reset' %}">パスワードを忘れた方はこちら</a>
+    <a href="{% url 'app:regist' %}">新規登録はこちら</a>
+  </div>
+</div>
 
 {% endblock %}
