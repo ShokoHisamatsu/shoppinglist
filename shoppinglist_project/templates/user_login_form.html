@@ -1,8 +1,12 @@
 
 {% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
 {% block content %}
 
-<style>
+{% comment %} <style>
   .login-container {
     display: flex;
     flex-direction: column;
@@ -33,21 +37,38 @@
     margin-top: 5px;
     font-size: 0.9em;
   }
-</style>
+</style> {% endcomment %}
 
-<div class="login-container">
-  <div class="login-box">
-    <h2>ログイン</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.email.label_tag }}<br>
-      {{ form.email }}<br>
-      {{ form.password.label_tag }}<br>
-      {{ form.password }}<br>
-      <button type="submit">ログインする</button>
-    </form>
-    <a href="{% url 'app:password_reset' %}">パスワードを忘れた方はこちら</a>
-    <a href="{% url 'app:regist' %}">新規登録はこちら</a>
+{% comment %} <div class="login-container">
+  <div class="login-box"> {% endcomment %}
+    
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div>
+    <h3 class="text-center mb-4">ログイン</h3>
+    <div class="card p-4" style="width: 400%; max-width: 400px;">  
+      
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          {{ form.email.label_tag }}<br>
+          {{ form.email|add_class:"form-control" }}<br>
+        </div>
+
+        <div class="mb-3">
+          {{ form.password.label_tag }}<br>
+          {{ form.password|add_class:"form-control" }}<br>
+        </div>
+        <button type="submit" class="btn btn-primary w-75 mx-auto d-block">ログインする</button>
+      </form>
+      <div class="mt-2 text-center">
+        <a href="{% url 'app:password_reset' %}">パスワードを忘れた方はこちら</a>
+      </div>
+      <div class="mt-1 text-center">
+        <a href="{% url 'app:regist' %}">新規登録はこちら</a>
+      </div>
+    </div>
   </div>
 </div>
 

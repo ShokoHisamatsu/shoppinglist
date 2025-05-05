@@ -32,8 +32,8 @@ class RegistForm(forms.ModelForm):
          return user
      
 class UserLoginForm(forms.Form):
-    email = forms.EmailField(label='メールアドレス')
-    password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
+    email = forms.EmailField(label='メールアドレス (半角英数)')
+    password = forms.CharField(label='パスワード(半角6文字以上)', widget=forms.PasswordInput())
     
 class StoreForm(forms.ModelForm):
     class Meta:
