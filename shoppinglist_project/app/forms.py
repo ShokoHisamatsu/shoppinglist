@@ -63,11 +63,7 @@ class ShoppingItemForm(forms.ModelForm):
     class Meta:
         model = ShoppingItem
         fields = ['commodity', 'quantity', 'memo']
-        labels = {
-            'commodity':'商品名',
-            'quantity':'数量',
-            'memo':'メモ'
-        }
+
         widgets={
             'commodity': forms.TextInput(attrs={'placeholder': '商品名'}),
             'quantity': forms.NumberInput(attrs={'min':1, 'value':1}),

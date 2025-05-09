@@ -1,54 +1,196 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
 {% include 'partials/menu.html' %}
-
-<h1>マイリスト画面</h1>
 
 <h3>{{ shopping_list.list_name }}</h3>
 
-<a href="{% url 'app:category_add' store.store_id %}"
-   style="display: inline-block; padding: 10px; background-color: #eee; border: 1px solid #ccc; text-decoation: none; ,argin-bottom: 20px;">
-   +新規
-</a>
+<div class="category-wrapper">
+  {% for category, items in category_item_map.items %}
+    <div class="category-block">
+      <h3>{{ category.item_category_name }}</h3>
 
-
-{% for category, items in category_item_map.items %}
-<div style="border: 1px solid #ccc; padding 10px; margin-bottom: 20px;">
-    <h3>{{category.item_category_name }}</h3>
-
-    <form method="POST">
+      <!-- 🔽 アイテム入力フォーム -->
+      <form method="POST" action="{% url 'app:mylist' store.store_id %}">
         {% csrf_token %}
-        {{ form.commodity }}
-        {{ form.quantity }}
-        {{ form.memo }}
-
         <input type="hidden" name="category_id" value="{{ category.id }}">
+        <div class="item-row">
+          <input type="text" name="commodity" placeholder="商品名" required>
+          <input type="number" name="quantity" min="1" value="1" placeholder="個数">
+          <input type="text" name="memo" placeholder="メモ">
+          <button type="submit">保存</button>
+        </div>
+      </form>
 
-        <button type="submit">追加</button>
-    </form>
-
-    {% if items %}
-    <ul>
-        {% for item in items %}
-        <li>
-            <form method="POST" action="{% url 'app:item_check' item.id %}">
-                {% csrf_token %}
-                <input type="checkbox" name="status" onchange="this.form.submit()" {% if item.status %}checked{% endif %}>
-                <span {% if item.status %}style="text-decoration: line-through;"{% endif %}>
-                {{ item.commodity }} ({{item.quantity }}個) 
-                {% if item.memo %}{{ item.memo }}{% endif %}
-                </span>
-            </form>
-            <a href="{% url 'app:item_delete' item.id %}" style="color: red; margin-left:10px;">削除</a>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>まだ商品はありません</p>
-    {% endif %}
+      <!-- 🔽 登録済みアイテムの表示 -->
+      {% for item in items %}
+        <div class="item-row">
+          <span class="check-dot {% if item.status %}checked{% endif %}" onclick="toggleCheck(this)"></span>
+          <div class="item-info">
+            <span class="item-name">{{ item.commodity }}</span>
+            <span class="item-quantity">{{ item.quantity }}</span>
+            {% if item.memo %}
+              <span class="item-note">{{ item.memo }}</span>
+            {% endif %}
+          </div>
+          <form method="post" action="{% url 'app:item_delete' item.id %}">
+            {% csrf_token %}
+            <button class="delete-btn">×</button>
+          </form>
+        </div>
+      {% empty %}
+        <p>アイテムが登録されていません。</p>
+      {% endfor %}
+    </div>
+  {% empty %}
+  <p>カテゴリがまだ登録されていません。</p>
+  {% endfor %}
 </div>
-{% endfor %}
 
+<!-- ✅ 新規追加ボタン -->
+<button class="add-item-button" data-category-id="{{ category.id }}">＋新規</button>
+
+<!-- ✅ 新規フォームが出る場所 -->
+<div class="new-item-form" id="new-item-form-{{ category.id }}"></div>
+
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+<style>
+    .mylist-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+  
+    .category-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      overflow-x: auto;
+    }
+  
+    .category-block {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      min-width: 220px;
+      flex-shrink: 0;
+    }
+  
+    .category-block h3 {
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+  
+    .item-row {
+      display: flex;
+      align-items: center;
+      gap:10px;
+      margin-bottom: 6px;
+    }
+
+    
+    .item-row input[type="text"],
+    .item-row input[type="number"] {
+      padding: 4px;
+      font-size: 0.9em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .item-row input[name="commodity"] {
+      flex: 2;
+    }
+    .item-row input[name="quantity"] {
+      width: 40px;
+      text-align: center;
+    }
+    .item-row input[name="memo"] {
+      flex: 3;
+    }
+  
+    .check-dot {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #999;
+      border-radius: 50%;
+      margin-right: 10px;
+      display: inline-block;
+      cursor: pointer;
+      background-color: transparent;
+      transition: all 0.2s ease;
+    }
+  
+    .check-dot.checked {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+  
+    .item-info {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      align-items: center;
+    }
+  
+    .item-name {
+      min-width: 80px;
+    }
+    
+    .item-quantity {
+      min-width: 30px;
+      text-align: center;
+    }
+    
+    .item-memo {
+      min-width: 120px;
+      color: #666;
+    }
+  
+    .delete-btn {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+</style>
+  
+<script>
+    function toggleCheck(el) {
+      el.classList.toggle('checked');
+    }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    document.querySelectorAll('.add-item-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const categoryId = button.dataset.categoryId;
+        const target = document.getElementById('new-item-form-' + categoryId);
+  
+        if (target.querySelector('form')) return;
+  
+        target.innerHTML = `
+          <form method="POST" action="${window.location.pathname}">
+            {% csrf_token %}
+            <input type="hidden" name="category_id" value="${categoryId}">
+            <input type="text" name="name" placeholder="商品名" required>
+            <input type="number" name="quantity" placeholder="個数">
+            <input type="text" name="memo" placeholder="メモ">
+            <button type="submit">保存</button>
+          </form>
+        `;
+      });
+    });
+  });
+  </script>
+  
+  
 {% endblock %}
