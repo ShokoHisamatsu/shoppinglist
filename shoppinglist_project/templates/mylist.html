@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %} 
 {% block content %}
 {% include 'partials/menu.html' %}
 
@@ -8,7 +9,20 @@
 <div class="category-wrapper">
   {% for category, items in category_item_map.items %}
     <div class="category-block">
-      <h3>{{ category.item_category_name }}</h3>
+      <div class="category-header">
+        <h3>{{ category.item_category_name }}</h3>
+
+        <!-- ✅ 削除リンク -->
+         {% with list_category=category_id_map|dict_get:category %}
+          {% if list_category %}
+            <a href="{% url 'app:category_delete' list_category.pk %}"
+              class="delete-category-link"
+              onclick="return confirm('{{ category.item_category_name }}内のアイテムもすべて消えてしまいますがよろしいですか？');">
+              削除
+            </a>
+          {% endif %}
+        {% endwith %}
+      </div>
 
       <!-- 🔽 アイテム入力フォーム -->
       <form method="POST" action="{% url 'app:mylist' store.store_id %}">
@@ -48,12 +62,8 @@
 </div>
 
 <!-- ✅ 新規追加ボタン -->
-<button class="add-item-button" data-category-id="{{ category.id }}">＋新規</button>
+<a href="{% url 'app:category_add' store.store_id %}" class="add-category-link">＋新規</a>
 
-<!-- ✅ 新規フォームが出る場所 -->
-<div class="new-item-form" id="new-item-form-{{ category.id }}"></div>
-
-<meta name="csrf-token" content="{{ csrf_token }}">
 
 <style>
     .mylist-container {
@@ -157,6 +167,34 @@
       color: #999;
       font-size: 1.2em;
       cursor: pointer;
+    }
+
+    .add-category-link {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #333;
+    }
+    .add-category-link:hover {
+      background-color: #ddd;
+    }
+
+    .delete-category-link {
+      display: inline-block;
+      font-size: 0.9em;
+      color: #888;
+      text-decoration: underline;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 </style>
   

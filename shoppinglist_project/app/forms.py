@@ -40,7 +40,7 @@ class StoreForm(forms.ModelForm):
         model = Store
         fields = ['store_name']
         labels = {
-            'store_name': '店舗名'
+            'store_name': 'リスト名'
         }
         
 class ItemCategoryForm(forms.ModelForm):

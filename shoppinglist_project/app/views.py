@@ -94,6 +94,7 @@ class MyListView(LoginRequiredMixin, TemplateView):
         ).select_related('item_category')
         
         category_item_map = {}
+        category_id_map = {}
         for linked in linked_categories:
             category = linked.item_category
             items = ShoppingItem.objects.filter(
@@ -101,10 +102,12 @@ class MyListView(LoginRequiredMixin, TemplateView):
                 item_category=category
             )
             category_item_map[category] = items
+            category_id_map[category] = linked
         
         context = {
             'store': store,
             'category_item_map' : category_item_map,
+            'category_id_map': category_id_map,
             'shopping_list' : shopping_list,
             'form': ShoppingItemForm()
         }
@@ -207,6 +210,25 @@ class CategoryAddView(FormView):
             )
     
         return redirect('app:mylist', store_id=store.store_id)
+    
+@login_required
+def category_delete(request, pk):
+    list_category = get_object_or_404(List_ItemCategory, pk=pk)
+
+    # 安全確認：ログインユーザーのリストに紐づいてるか
+    if list_category.list.user != request.user:
+        return redirect('app:home')
+
+    # 紐づくアイテムを削除
+    ShoppingItem.objects.filter(
+        shopping_list=list_category.list,
+        item_category=list_category.item_category
+    ).delete()
+
+    # リンク自体を削除
+    list_category.delete()
+
+    return redirect('app:mylist', store_id=list_category.list.store.store_id)
     
     
 class ItemCheckView(LoginRequiredMixin, View):

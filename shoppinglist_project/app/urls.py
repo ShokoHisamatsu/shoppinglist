@@ -27,6 +27,7 @@ urlpatterns = [
     path('store/<int:store_id>/category/<int:category_id>/items/', CategoryItemListView.as_view(), name='category_item_list'),
     path('store/<int:store_id>/category/add/', ItemCategoryCreateView.as_view(), name='itemcategory_add'),
     path('mylist/<int:store_id>/category/add/', CategoryAddView.as_view(), name='category_add'),
+    path('category_delete/<int:pk>/', views.category_delete, name='category_delete'),
     path('item/<int:item_id>/check/', ItemCheckView.as_view(), name='item_check'),
     path('item/<int:pk>/delete/', ItemDeleteView.as_view(), name='item_delete'),
     path('email_change/', EmailChangeView.as_view(), name='email_change'),
