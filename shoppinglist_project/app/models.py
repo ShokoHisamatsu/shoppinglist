@@ -126,6 +126,7 @@ class SharedList(models.Model):
     url_token = models.CharField(max_length=255, unique=True)
     can_edit = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    shared_with = models.ManyToManyField(User, related_name='shared_lists', blank=True) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

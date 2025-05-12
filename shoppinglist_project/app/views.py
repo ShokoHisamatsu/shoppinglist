@@ -19,6 +19,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 import secrets
 from secrets import token_urlsafe
+from django.db.models import Q
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -26,7 +27,18 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['store_list'] = Store.objects.filter(created_by=self.request.user)
+        user = self.request.user
+        
+        own_stores = Store.objects.filter(created_by=user)
+        
+        shared_lists = SharedList.objects.filter(
+            Q(shared_with=self.request.user) | Q(created_by=self.request.user)
+        )
+        shared_stores = [shared.list.store for shared in shared_lists if shared.list and shared.list.store]
+    
+        
+        context['own_stores'] = own_stores
+        context['shared_stores'] = shared_stores
         context['form'] = StoreForm()
         return context
 
@@ -276,8 +288,15 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
         shared_list, created = SharedList.objects.get_or_create(
         list=shopping_list,
         created_by=user,
-        defaults={'url_token': secrets.token_urlsafe(8)}
+        defaults={
+            'url_token': secrets.token_urlsafe(8),
+            'can_edit': True
+            }
         )
+        
+        if not created:
+            shared_list.can_edit = True
+            shared_list.save()
 
         share_url = self.request.build_absolute_uri(
             reverse('app:shared_list_detail', args=[shared_list.url_token])
@@ -321,11 +340,21 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
 
 
     
-class SharedListDetailView(DetailView):
+class SharedListDetailView(LoginRequiredMixin, DetailView):
     model = SharedList
     template_name = 'shared/shared_list_detail.html'
     context_object_name = 'shared_list'
     slug_field = 'url_token'
+    slug_url_kwarg = 'url_token'
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        shopping_list = self.object.list
+        
+        if request.user.is_authenticated:
+            self.object.shared_with.add(request.user)
+        
+        return redirect('app:home')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -373,7 +402,7 @@ class SharedListDetailView(DetailView):
                 item.item_category = category
                 item.save()
 
-        return redirect('app:shared_list_detail', uuid=self.object.url_token)
+        return redirect('app:shared_list_detail', url_token=self.object.url_token)
     
 class SharedListManageView(LoginRequiredMixin, TemplateView):
     template_name = 'shared/shared_list_manage.html'
