@@ -423,12 +423,27 @@ class SharedListManageView(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         shared_list_ids = request.POST.getlist('shared_lists')
         if shared_list_ids:
-            SharedList.objects.filter(id__in=shared_list_ids, created_by=request.user).delete()
-            messages.success(request, "選択した共有を解除しました。")
+            deleted_count = 0
+            for shared_list_id in shared_list_ids:
+                shared_list = SharedList.objects.filter(id=shared_list_id).first()
+                if shared_list:
+                    if shared_list.created_by == request.user:
+                        # ✅ 共有元なら「まるごと削除（全員との共有解除）」
+                        shared_list.delete()
+                        messages.success(request, f"{shared_list.list.store.store_name} の共有を完全にやめました。")
+                    elif request.user in shared_list.shared_with.all():
+                        # ✅ 共有された側なら「自分だけ解除」
+                        shared_list.shared_with.remove(request.user)
+                        messages.success(request, f"{shared_list.list.store.store_name} の共有をやめました。")
+                    deleted_count += 1
+
+            if not deleted_count:
+                messages.warning(request, "自分に関係する共有が選択されていません。")
         else:
             messages.warning(request, "共有を選択してください。")
+
         return redirect('app:shared_list_manage')
-    
+        
     
 class SharedListAddView(LoginRequiredMixin, View):
     def post(self, request):
@@ -450,6 +465,19 @@ class SharedListAddView(LoginRequiredMixin, View):
             except ShoppingList.DoesNotExist:
                 messages.error(request, "対象のショッピングリストが見つかりません。")
                 
-        return redirect('app:shared_list_manage')                  
+        return redirect('app:shared_list_manage')
+    
+class SharedListRemoveView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        url_token = kwargs.get('url_token')
+        shared_list = get_object_or_404(SharedList, url_token=url_token)
+
+        if request.user in shared_list.shared_with.all():
+            shared_list.shared_with.remove(request.user)
+            messages.success(request, f"{shared_list.list.store.store_name} の共有をやめました。")
+        else:
+            return HttpResponseForbidden("このリストはあなたと共有されていません。")
+
+        return redirect('app:home')                 
 
     

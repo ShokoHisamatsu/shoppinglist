@@ -29,7 +29,7 @@
         {% if shared_list %}
           <!-- 共有済みの場合 -->
           {{ store.store_name }}
-          <form method="post" action="{% url 'app:shared_list_delete' %}" style="display:inline;">
+          <form method="post" action="{% url 'app:shared_list_manage' %}" style="display:inline;">
             {% csrf_token %}
             <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
             <button type="submit" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">

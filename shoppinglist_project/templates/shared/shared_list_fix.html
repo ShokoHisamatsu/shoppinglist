@@ -25,7 +25,7 @@
 <!-- 共有解除ボタン -->
 <form method="post" action="{% url 'app:shared_list_create' store.store_id %}">
   {% csrf_token %}
-  <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
+  <input type="hidden" name="delete_shared_lists" value="{{ shared_list.id }}">
   <button type="submit" onclick="return confirm('このリストの共有をやめますか？');">
     共有をやめる
   </button>

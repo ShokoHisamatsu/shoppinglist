@@ -37,6 +37,7 @@ urlpatterns = [
     path('share/<slug:url_token>/', views.SharedListDetailView.as_view(), name='shared_list_detail'),
     # path('share/delete/<int:pk>/', views.SharedListDeleteView.as_view(), name='shared_list_delete'),
     path('shared/add/', views.SharedListAddView.as_view(), name='shared_list_add'),
+    path('share/remove/<slug:url_token>/', views.SharedListRemoveView.as_view(), name='shared_list_remove'),
     ]
 
 urlpatterns +=[
