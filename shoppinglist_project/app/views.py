@@ -33,7 +33,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         
         shared_lists = SharedList.objects.filter(
             Q(shared_with=self.request.user) | Q(created_by=self.request.user)
-        )
+        ).select_related('list__store')
         shared_stores = [shared.list.store for shared in shared_lists if shared.list and shared.list.store]
     
         
@@ -87,19 +87,39 @@ class UserLogoutView(View):
 
 class StoreDeleteView(LoginRequiredMixin, DeleteView):
     model = Store
+    pk_url_kwarg = "store_id"
     success_url = reverse_lazy('app:home')
     template_name = 'store_confirm_delete.html'
-        
+    
+    def get_queryset(self):
+        return Store.objects.filter(created_by=self.request.user)        
     
     
 class MyListView(LoginRequiredMixin, TemplateView):
-    template_name = 'mylist.html'
-    
-    def get(self, request, store_id,  *args, **kwargs):
+    template_name = "mylist.html"
+
+    def get(self, request, store_id, *args, **kwargs):
         store = get_object_or_404(Store, store_id=store_id)
-        shopping_list =ShoppingList.objects.filter(
-            store=store, user=request.user
-            ).first()
+        
+        if (
+            store.created_by != request.user
+            and not SharedList.objects.filter(
+                list__store=store,
+                shared_with=request.user
+            ).exists()
+        ):
+            return HttpResponseForbidden("このリストにはアクセスできません")
+        
+        shopping_list, _ = ShoppingList.objects.get_or_create(
+            store=store,
+            defaults={
+                "user": store.created_by, 
+                "created_by": store.created_by, 
+                "list_name": store.store_name,
+                },
+        )
+
+        store = shopping_list.store
         
         linked_categories = List_ItemCategory.objects.filter(
             list=shopping_list
@@ -125,11 +145,25 @@ class MyListView(LoginRequiredMixin, TemplateView):
         }
         return self.render_to_response(context)
     
-    def post(self, request,store_id, *args, **kwargs):
+    def post(self, request, store_id, *args, **kwargs):
         store = get_object_or_404(Store, store_id=store_id)
-        shopping_list = ShoppingList.objects.filter(
-            store=store, user=request.user
-        ).first()
+        
+        if (
+            store.created_by != request.user
+            and not SharedList.objects.filter(
+                list__store=store,
+                shared_with=request.user
+            ).exists()
+        ):
+            return HttpResponseForbidden("このリストにはアクセスできません")
+        
+        shopping_list, _ = ShoppingList.objects.get_or_create(
+            store=store,
+            defaults={"user": store.created_by,
+                      "created_by": store.created_by, 
+                      "list_name": store.store_name,
+                      },
+        )
         
         form = ShoppingItemForm(request.POST)
         
@@ -142,7 +176,7 @@ class MyListView(LoginRequiredMixin, TemplateView):
             item.item_category = category
             item.save()
             
-        return redirect('app:mylist', store_id=store.store_id)
+        return redirect('app:mylist', store_id=store_id)
             
     
 class CategoryListView(TemplateView):
@@ -209,7 +243,8 @@ class CategoryAddView(FormView):
             store=store, 
             user=self.request.user,
             defaults={
-                'list_name': f'{store.store_name}のリスト'
+                'list_name': f'{store.store_name}のリスト',
+                'created_by': self.request.user 
             }
         )
         

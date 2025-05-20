@@ -80,8 +80,9 @@ class ItemCategory(models.Model):
         return self.item_category_name    
     
 class ShoppingList(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shoppinglist_user')
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='shoppinglist_store')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shoppinglist_creator')
     list_name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

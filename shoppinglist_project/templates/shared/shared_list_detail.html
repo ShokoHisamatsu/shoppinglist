@@ -1,10 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
 <form method="post" style="display:inline;">
     {% csrf_token %}
     <input type="hidden" name="check_item_id" value="{{ item.id }}">
     <button type="submit">
       {% if item.status %}✔️{% else %}❌{% endif %}
     </button>
-  </form>
+</form>
 
 {% if can_edit %}
   <h3>アイテムを追加</h3>
@@ -19,3 +22,5 @@
     <button type="submit">追加</button>
   </form>
 {% endif %}
+
+{% endblock %}
