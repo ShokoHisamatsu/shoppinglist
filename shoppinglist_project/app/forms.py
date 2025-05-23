@@ -42,6 +42,11 @@ class StoreForm(forms.ModelForm):
         labels = {
             'store_name': 'リスト名'
         }
+        widgets = {
+            'store_name': forms.TextInput(
+                attrs={'placeholder': '例：スーパー、週末BBQ'}
+            )
+        }
         
 class ItemCategoryForm(forms.ModelForm):
     class Meta:
