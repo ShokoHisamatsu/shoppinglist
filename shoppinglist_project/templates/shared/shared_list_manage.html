@@ -9,7 +9,7 @@
       <option value="{{ store.store_id }}">{{ store.store_name }}</option>
     {% endfor %}
   </select>
-  <button type="submit">共有したいお店を追加</button>
+  <button type="submit">共有したいリストを追加</button>
 </form>
 
 <!-- 有効なメッセージ -->
@@ -40,13 +40,13 @@
           <!-- まだ共有されていない場合 -->
           {{ store.store_name }}
           <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" style="margin-left: 10px;">
-            {{ store.store_name }}リストを共有する
+            {{ store.store_name }}のリストを共有する
           </a>
         {% endif %}
       {% endwith %}
     </li>
   {% empty %}
-    <li>まだお店が登録されていません。</li>
+    <li>まだリストが登録されていません。</li>
   {% endfor %}
 </ul>
 

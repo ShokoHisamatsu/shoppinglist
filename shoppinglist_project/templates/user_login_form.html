@@ -6,43 +6,6 @@
 
 {% block content %}
 
-{% comment %} <style>
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 80vh; /* 画面の80%の高さ */
-  }
-
-  .login-box {
-    width: 300px;
-    text-align: center;
-  }
-
-  .login-box input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-  }
-
-  .login-box button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-  }
-
-  .login-box a {
-    display: block;
-    margin-top: 5px;
-    font-size: 0.9em;
-  }
-</style> {% endcomment %}
-
-{% comment %} <div class="login-container">
-  <div class="login-box"> {% endcomment %}
-    
-
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
   <div>
     <h3 class="text-center mb-4">ログイン</h3>
@@ -58,7 +21,11 @@
 
         <div class="mb-3">
           {{ form.password.label_tag }}<br>
-          {{ form.password|add_class:"form-control" }}<br>
+
+          <div class="pw-field">
+            {{ form.password|add_class:"form-control" }}<br>
+            {% include "partials/password_rule.html" %}
+          </div>
         </div>
         <button type="submit" class="btn btn-primary w-75 mx-auto d-block">ログインする</button>
       </form>

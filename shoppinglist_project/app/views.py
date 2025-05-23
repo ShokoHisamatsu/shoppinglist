@@ -20,6 +20,8 @@ from django.contrib.auth.decorators import login_required
 import secrets
 from secrets import token_urlsafe
 from django.db.models import Q
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -513,6 +515,23 @@ class SharedListRemoveView(LoginRequiredMixin, View):
         else:
             return HttpResponseForbidden("このリストはあなたと共有されていません。")
 
-        return redirect('app:home')                 
+        return redirect('app:home') 
+    
+class PasswordReset(PasswordResetView):
+    template_name = 'auth/password_reset.html'
+    email_template_name = 'auth/password_reset_email.html'
+    subject_template_name = 'auth/password_reset_subject.txt'
+    success_url = reverse_lazy('app:password_reset_done')
+
+class PasswordResetDone(PasswordResetDoneView):
+    template_name = 'auth/password_reset_done.html'
+
+class PasswordResetConfirm(PasswordResetConfirmView):
+    template_name = 'auth/password_reset_confirm.html'
+    success_url = reverse_lazy('app:password_reset_complete') 
+
+class PasswordResetComplete(PasswordResetCompleteView):
+    template_name = 'auth/password_reset_complete.html'
+                
 
     

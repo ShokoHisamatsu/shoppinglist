@@ -1,7 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="新規登録">
+<h2>新規登録</h2>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  <p>
+    {{ form.nickname.label_tag }}<br>
+    {{ form.nickname }}
+  </p>
+
+  <p>
+    {{ form.email.label_tag }}<br>
+    {{ form.email }}
+  </p>
+
+  {# ---- パスワード１：入力欄＋❓を横並び ---- #}
+  <p>
+    {{ form.password.label_tag }}<br>
+    <div class="pw-field">
+        {{ form.password }}
+        {% include "partials/password_rule.html" %}
+    </div>
+    {{ form.password.errors }}
+  </p>
+
+  {# ---- パスワード２：確認用はそのまま縦並び ---- #}
+  <p>
+    {{ form.password2.label_tag }}<br>
+    {{ form.password2 }}
+    {{ form.password2.errors }}
+  </p>
+
+  <button type="submit">新規登録</button>
+</form>
 {% endblock %}
+
+
