@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">作品No.1 ショッピングリストアプリ</h2>
+
+  <img src="{% static 'img/screenshot.png' %}" alt="アプリのスクリーンショット" style="width: 100%; max-width: 700px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 20px;">
+
+  <p>
+    このアプリは、買い物リストを「店舗」や「予定別」「スーパーまとめ買い」など、ざっくりとしたカテゴリで自由に管理できるWebアプリです。
+    家族や友人、職場の仲間など複数人との共有にも対応しています。また、誰でもかんたんに使えるよう、シンプルさにこだわりました。
+  </p>
+
+  <h4 class="mt-4">ドキュメント</h4>
+  <ul>
+    <li><a href="{% static 'docs/plan.pdf' %}" target="_blank">企画書(PDF)</a></li>
+    <li><a href="{% static 'docs/ui_design.pdf' %}" target="_blank">画面設計(PDF)</a></li>
+    <li><a href="{% static 'docs/flow.svg' %}" target="_blank">画面遷移図(SVG)</a></li>
+    <li><a href="{% static 'docs/er.svg' %}" target="_blank">ER図(SVG)</a></li>
+  </ul>
+
+  <a href="{% url 'app:home' %}" class="btn btn-primary mt-3">このアプリにアクセス</a>
+</div>
+{% endblock %}

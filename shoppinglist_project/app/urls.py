@@ -4,7 +4,7 @@ from .views import (
     UserLogoutView, MyListView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView,
-    
+    PortfolioView
 )
 from . import views
 from django.contrib.auth.views import (
@@ -13,6 +13,7 @@ from django.contrib.auth.views import (
     PasswordResetCompleteView
 )
 from django.views.generic import TemplateView
+
 
 app_name = 'app'
 urlpatterns = [
@@ -35,7 +36,6 @@ urlpatterns = [
     path('share/create/<int:store_id>/', views.SharedListCreateView.as_view(), name='shared_list_create'),
     path('share/manage/', views.SharedListManageView.as_view(), name='shared_list_manage'),
     path('share/<slug:url_token>/', views.SharedListDetailView.as_view(), name='shared_list_detail'),
-    # path('share/delete/<int:pk>/', views.SharedListDeleteView.as_view(), name='shared_list_delete'),
     path('shared/add/', views.SharedListAddView.as_view(), name='shared_list_add'),
     path('share/remove/<slug:url_token>/', views.SharedListRemoveView.as_view(), name='shared_list_remove'),
     ]
@@ -47,4 +47,5 @@ urlpatterns +=[
     path('password_reset/done/', PasswordResetDoneView.as_view(template_name='auth/password_reset_done.html'), name='password_reset_done'), 
     path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='auth/password_reset_confirm.html', success_url=reverse_lazy('app:password_reset_complete')), name='password_reset_confirm'),
     path('reset/done/', PasswordResetCompleteView.as_view(template_name='auth/password_reset_complete.html'), name='password_reset_complete'),
+    path('portfolio/', PortfolioView.as_view(), name='portfolio'),
 ]

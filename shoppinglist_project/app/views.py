@@ -16,6 +16,7 @@ from .forms import (
 from .models import Store, ItemCategory, ShoppingItem, ShoppingList, List_ItemCategory, User, SharedList
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import secrets
 from secrets import token_urlsafe
@@ -532,6 +533,14 @@ class PasswordResetConfirm(PasswordResetConfirmView):
 
 class PasswordResetComplete(PasswordResetCompleteView):
     template_name = 'auth/password_reset_complete.html'
+    
+    
+class PortfolioView(TemplateView):
+    template_name = 'portfolio.html'
+    
+    @method_decorator(csrf_exempt)  
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
                 
 
     
