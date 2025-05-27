@@ -89,6 +89,12 @@ class ShoppingList(models.Model):
     
     class Meta:
         db_table = 'lists'
+        constraints = [                   
+            models.UniqueConstraint(
+                fields=['store'],         
+                name='unique_store'       
+            )
+        ]
         
     def __str__(self):
         return self.list_name
