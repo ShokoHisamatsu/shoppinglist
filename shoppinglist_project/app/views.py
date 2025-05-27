@@ -241,18 +241,11 @@ class CategoryAddView(FormView):
     
     def form_valid(self, form):
         store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
+        shopping_list = get_object_or_404(ShoppingList, store=store)
         
-        shopping_list, created = ShoppingList.objects.get_or_create(
-            store=store, 
-            user=self.request.user,
-            defaults={
-                'list_name': f'{store.store_name}のリスト',
-                'created_by': self.request.user 
-            }
-        )
+        shopping_list.users.add(self.request.user)
         
-        categories = form.cleaned_data['categories']
-        
+        categories = form.cleaned_data['categories']        
         for category in categories:
             List_ItemCategory.objects.get_or_create(
                 list=shopping_list,
