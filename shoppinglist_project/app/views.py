@@ -244,7 +244,7 @@ class CategoryAddView(FormView):
         shopping_list = get_object_or_404(ShoppingList, store=store)
         
         SharedList.objects.get_or_create(
-            shopping_list=shopping_list,
+            list=shopping_list,
             shared_with=self.request.user
         )
         
