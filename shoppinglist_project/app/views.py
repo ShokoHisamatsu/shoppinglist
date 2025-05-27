@@ -243,10 +243,14 @@ class CategoryAddView(FormView):
         store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
         shopping_list = get_object_or_404(ShoppingList, store=store)
         
-        SharedList.objects.get_or_create(
+        shared_list, created = SharedList.objects.get_or_create(
             list=shopping_list,
-            shared_with=self.request.user
+            defaults={
+                'created_by': shopping_list.created_by
+            }
         )
+        
+        shared_list.shared_with.set([self.request.user])
         
         categories = form.cleaned_data['categories']        
         for category in categories:
