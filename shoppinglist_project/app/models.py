@@ -5,7 +5,7 @@ from django.contrib.auth.models import(
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 import uuid
-
+from .utils import generate_token
       
         
 class UserManager(BaseUserManager):
@@ -131,7 +131,7 @@ class ShoppingItem(models.Model):
     
 class SharedList(models.Model):
     list = models.OneToOneField(ShoppingList, on_delete=models.CASCADE)
-    url_token = models.CharField(max_length=255, unique=True)
+    url_token = models.CharField(max_length=255, unique=True, editable=False)
     can_edit = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     shared_with = models.ManyToManyField(User, related_name='shared_lists', blank=True) 
@@ -143,6 +143,11 @@ class SharedList(models.Model):
         
     def __str__(self):
         return f"{self.list} shared by {self.created_by}"
+    
+    def save(self, *args, **kwargs):
+        if not self.url_token:                 
+            self.url_token = generate_token()  
+        super().save(*args, **kwargs)
     
     
     
