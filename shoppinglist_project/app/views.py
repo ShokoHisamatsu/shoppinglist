@@ -243,8 +243,7 @@ class CategoryAddView(FormView):
         store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
         shopping_list = get_object_or_404(ShoppingList, store=store)
         
-        shared_list = SharedList.objects.filter(
-            list=shopping_list).first()
+        shared_list = SharedList.objects.filter(list=shopping_list).first()
                    
         if shared_list:
             shared_list.shared_with.add(self.request.user)
