@@ -11,7 +11,8 @@
     {% csrf_token %}
     {{ form.as_p }}
 
-    <button type="submit" class="btn btn=primary">追加する</button>
-    <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="btn btn-secondary">キャンセル</a>
+    <button type="submit" class="btn=primary">追加する</button>
   </form>
+  
+  <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style">キャンセル</a>
 {% endblock %}

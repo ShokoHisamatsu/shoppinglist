@@ -115,3 +115,16 @@ body {
   border-radius: 4px;
   font-weight: bold;
 }
+
+.btn-outline-danger {
+  background-color: white;
+  color: #E53935;
+  border: 2px solid #E53935;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-outline-danger:hover {
+  background-color: #ffe5e5;
+}
