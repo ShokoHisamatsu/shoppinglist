@@ -52,3 +52,17 @@
     background-color: #0069d9;   /* 1段濃い色でホバー */
     border-color: #0062cc;
 }
+
+/* --- ヘッダーを固定表示にする --- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* ヘッダーの高さ分だけ本文を下げる */
+body {
+  padding-top: 80px;  /* ヘッダーの高さに合わせて調整 */
+}
