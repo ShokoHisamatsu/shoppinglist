@@ -38,12 +38,13 @@
 
 /* --- マイリスト追加ボタン共通 --- */
 .add-list-btn {
-    min-width: 160px;        /* これ以上は自動伸縮 */
+    min-width: 200px;        /* これ以上は自動伸縮 */
     white-space: nowrap !important;     /* 1行に固定 */
     font-weight: 600;        /* 少し太字で視認性UP */
     color: #fff;             /* 文字色 */
     background-color: #007bff;   /* Primary Blue (PDF指定に合わせて変えてOK) */
     border-color: #007bff;
+    flex-shrink: 0;
 }
 .add-list-btn:hover,
 .add-list-btn:focus {
