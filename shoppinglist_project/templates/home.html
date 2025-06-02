@@ -8,7 +8,7 @@
     <h2 class="text-center mb-4">マイリスト</h2>
 
     {% for store in own_stores %}
-      <div class="d-flex justify-content-between align-items-center border rounded py-2 px-3 mb-3 bg-light">
+      <div class="d-flex justify-content-between align-items-center">
         <a href="{% url 'app:mylist' store_id=store.store_id %}" class="text-decoration-none text-dark w-100">
           {{ store.store_name }}
         </a>

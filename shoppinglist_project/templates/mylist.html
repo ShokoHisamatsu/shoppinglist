@@ -14,14 +14,16 @@
 
         <!-- ✅ 削除リンク -->
          {% with list_category=category_id_map|dict_get:category %}
-          {% if list_category %}
-            <a href="{% url 'app:category_delete' list_category.pk %}"
-              class="delete-category-link"
-              onclick="return confirm('{{ category.item_category_name }}内のアイテムもすべて消えてしまいますがよろしいですか？');">
-              削除
-            </a>
-          {% endif %}
-        {% endwith %}
+            {% if list_category %}
+              <form method="post"
+                    action="{% url 'app:category_delete' list_category.pk %}"
+                    onsubmit="return confirm('{{ category.item_category_name }}内のアイテムもすべて消えてしまいますがよろしいですか？');"
+                    class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn-outline-danger">削除</button>
+              </form>
+            {% endif %}
+          {% endwith %}
       </div>
 
       <!-- 🔽 アイテム入力フォーム -->

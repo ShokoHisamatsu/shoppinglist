@@ -7,12 +7,13 @@
     ＋カテゴリを追加
   </a>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+  <div class="d-flex align-items-center gap-2 mt-3">
+    <form method="post" >
+      {% csrf_token %}
+      {{ form.as_p }}
 
-    <button type="submit" class="btn=primary">追加する</button>
-  </form>
-  
-  <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style">キャンセル</a>
+      <button type="submit" class="btn=primary">追加する</button>
+    </form>
+    <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style">キャンセル</a>
+  </div>
 {% endblock %}
