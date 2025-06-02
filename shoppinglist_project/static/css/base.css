@@ -85,3 +85,33 @@ body {
   background-color: #333;
   border-radius: 3px;
 }
+
+
+/* 登録・保存などの重要操作 */
+.btn-primary {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* 補助操作（戻るなど） */
+.btn-secondary {
+  background-color: #EEEEEE;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+/* 危険操作（削除など） */
+.btn-danger {
+  background-color: #E53935;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+}

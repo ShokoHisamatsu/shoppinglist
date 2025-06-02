@@ -9,7 +9,7 @@
       <option value="{{ store.store_id }}">{{ store.store_name }}</option>
     {% endfor %}
   </select>
-  <button type="submit">共有したいリストを追加</button>
+  <button type="submit" class="btn-primary">共有したいリストを追加</button>
 </form>
 
 <!-- 有効なメッセージ -->
@@ -32,7 +32,7 @@
           <form method="post" action="{% url 'app:shared_list_manage' %}" style="display:inline;">
             {% csrf_token %}
             <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
-            <button type="submit" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">
+            <button type="submit" class="btn-secondary" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">
               共有をやめる
             </button>
           </form>

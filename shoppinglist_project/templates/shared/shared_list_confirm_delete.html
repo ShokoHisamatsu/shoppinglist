@@ -7,7 +7,7 @@
 
 <form method="post">
   {% csrf_token %}
-  <button type="submit">共有をやめる</button>
+  <button type="submit" class="btn-secondary">共有をやめる</button>
   <a href="{% url 'app:shared_list_manage' %}">キャンセル</a>
 </form>
 

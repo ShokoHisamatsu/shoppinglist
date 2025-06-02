@@ -14,7 +14,7 @@
         </a>
         <form method="post" action="{% url 'app:store_delete' store_id=store.store_id %}" onsubmit="return confirm('ショッピングリストも一緒に消えてしまいますがよろしいですか？');" class="ms-2 mb-0 align-self-center">
           {% csrf_token %}
-          <button type="submit" class="btn btn-outline-secondary btn-sm" style="min-width: 60px;">削除</button>
+          <button type="submit" class="btn-danger" style="min-width: 60px;">削除</button>
         </form>
       </div>
     {% empty %}
