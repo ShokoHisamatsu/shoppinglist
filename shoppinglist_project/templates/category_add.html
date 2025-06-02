@@ -14,6 +14,6 @@
 
       <button type="submit" class="btn=primary">追加する</button>
     </form>
-    <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style">キャンセル</a>
+    <a href="{% url 'app:mylist' pk=shopping_list.pk %}" class="link-style">キャンセル</a>
   </div>
 {% endblock %}

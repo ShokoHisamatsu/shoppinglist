@@ -122,11 +122,26 @@ body {
   border: 2px solid #E53935;
   padding: 4px 10px;
   border-radius: 4px;
-  font-weight: bold;
+  font-weight: normal;
+  font-size: 0.85rem; 
   cursor: pointer;
   white-space: nowrap;
   min-width: auto;
 }
 .btn-outline-danger:hover {
   background-color: #ffe5e5;
+}
+
+.mylist-item-box {
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+
+.link-style {
+  color: #007BFF;
+  text-decoration: underline;
+  font-weight: normal;
+  cursor: pointer;
 }
