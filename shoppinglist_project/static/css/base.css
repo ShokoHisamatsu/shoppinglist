@@ -66,3 +66,13 @@ header {
 body {
   padding-top: 80px;  /* ヘッダーの高さに合わせて調整 */
 }
+
+.hamburger {
+  font-size: 28px;       /* ← 大きさ調整 */
+  font-weight: bold;     /* ← 太字 */
+  cursor: pointer;
+  position: absolute;
+  top: 16px;              /* ← ヘッダー内の位置調整 */
+  right: 16px;
+  z-index: 1100;
+}
