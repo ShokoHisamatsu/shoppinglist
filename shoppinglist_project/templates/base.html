@@ -23,6 +23,19 @@
     
         <!-- BootstrapのJS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-cVKIPhGWiC2AlY6S+I6H9gqD6xKQdKxM5a6RZG9WmS5f5qDh/uvzhQ0P5Ww5yFUw" crossorigin="anonymous"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            const help = document.querySelector('.pw-help');
+            if (help) {
+                help.addEventListener('click', () => {
+                const tooltip = help.querySelector('.pw-tooltip');
+                if (tooltip) {
+                    tooltip.style.display = (tooltip.style.display === 'block') ? 'none' : 'block';
+                }
+                });
+            }
+            });
+        </script>
     </body>
 </html>
 
