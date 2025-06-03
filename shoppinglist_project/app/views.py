@@ -22,6 +22,8 @@ import secrets
 from secrets import token_urlsafe
 from django.db.models import Q
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from app.utils import generate_unique_token
+
 
 
 
@@ -323,7 +325,7 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
         list=shopping_list,
         created_by=user,
         defaults={
-            'url_token': secrets.token_urlsafe(8),
+            'url_token': generate_unique_token(8),
             'can_edit': True
             }
         )
