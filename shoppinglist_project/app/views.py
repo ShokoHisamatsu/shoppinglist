@@ -6,7 +6,7 @@ from django.views.generic import(
 )
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect
 from .forms import (
     RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, 
@@ -25,7 +25,7 @@ from django.contrib.auth.views import (
 )
 import secrets
 from secrets import token_urlsafe
-
+from django.views import View
 
 
 
@@ -84,8 +84,8 @@ class UserLoginView(FormView):
     
 class CustomLogoutView(LogoutView):
     def get(self, request, *args, **kwargs):
-        # GETでアクセスしてきた場合もPOSTとして扱う
-        return self.post(request, *args, **kwargs)   
+        logout(request)
+        return redirect('user_login')  
            
     
 # class UserLogoutView(View):
