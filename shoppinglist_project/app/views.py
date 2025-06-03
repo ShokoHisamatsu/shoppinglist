@@ -308,6 +308,10 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
     form_class = SharedListForm
 
     def get_context_data(self, **kwargs):
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning("★ SharedListCreateView が読み込まれました")
+
         context = super().get_context_data(**kwargs)
         store_id = self.kwargs.get('store_id')
         user = self.request.user
