@@ -35,7 +35,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         
         own_stores = Store.objects.filter(created_by=user)
         
-        shared_lists = SharedList.objects.filter(shared_with=self.request.user).select_related('list__store')
+        shared_lists = SharedList.objects.filter(shared_with=self.request.user).exclude(created_by=self.request.user)
         shared_stores = [shared.list.store for shared in shared_lists if shared.list and shared.list.store]
 
     
@@ -243,10 +243,10 @@ class CategoryAddView(FormView):
         store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
         shopping_list = get_object_or_404(ShoppingList, store=store)
         
-        shared_list = SharedList.objects.filter(list=shopping_list).first()
+        # shared_list = SharedList.objects.filter(list=shopping_list).first()
                    
-        if shared_list:
-            shared_list.shared_with.add(self.request.user)
+        # if shared_list:
+        #     shared_list.shared_with.add(self.request.user)
         
         categories = form.cleaned_data['categories']        
         for category in categories:
