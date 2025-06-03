@@ -138,3 +138,5 @@ LOGIN_URL = '/shopli/user_login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = "Shopli <noreply@example.com>"
+
+LOGOUT_REDIRECT_URL = 'app:login'
