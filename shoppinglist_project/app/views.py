@@ -6,7 +6,7 @@ from django.views.generic import(
 )
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, LogoutView
+from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404, redirect
 from .forms import (
     RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, 
@@ -19,7 +19,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LogoutView
 import secrets
 from secrets import token_urlsafe
 
