@@ -25,13 +25,16 @@
           <div class="d-flex align-items-center">
             <div class="position-relative flex-grow-1">
               {{ form.password|add_class:"form-control" }}
-              <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 50px; transform:translateY(-50%); cursor: pointer;">
+              
+              <span onclick="togglePassword()" 
+                    style="position: absolute; right: 10px; top: 50px; transform:translateY(-50%); 
+                           cursor: pointer;">
                 <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
               </span>
             </div>
           </div>
 
-          <span class="ms-2">
+          <span class="ms-2 d-inline-block">
               {% include "partials/password_rule.html" %}
           </span>
         </div>        
