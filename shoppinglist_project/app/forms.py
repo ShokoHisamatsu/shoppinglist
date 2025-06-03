@@ -59,10 +59,15 @@ class ItemCategoryForm(forms.ModelForm):
         
 class CategorySelectForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(
-        queryset=ItemCategory.objects.all(),
+        queryset=ItemCategory.objects.none(),
         widget=forms.CheckboxSelectMultiple,
         label="追加するカテゴリを選んでください"
     )
+    
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['categories'].queryset = ItemCategory.objects.filter(created_by=user)
     
 class ShoppingItemForm(forms.ModelForm):
     class Meta:

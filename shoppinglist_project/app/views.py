@@ -238,6 +238,12 @@ class CategoryAddView(FormView):
     template_name = 'category_add.html'
     form_class = CategorySelectForm
     
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
        store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
