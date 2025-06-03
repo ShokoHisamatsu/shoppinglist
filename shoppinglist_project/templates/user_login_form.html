@@ -22,10 +22,12 @@
         <div class="mb-3">
           <label for="id_password">パスワード</label><br>
 
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
           <div class="position-relative">
             {{ form.password|add_class:"form-control" }}<br>
             <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
-              👁️
+              <i class="fa-solid fa-eye"></i>
             </span>
           </div>
             {% include "partials/password_rule.html" %}
@@ -41,5 +43,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  function togglePassword() {
+    const pwInput = document.getElementById("id_password");
+    if (pwInput.type === "password") {
+      pwInput.type = "text";
+    } else {
+      pwInput.type = "password";
+    }
+  }
+</script>
 
 {% endblock %}
