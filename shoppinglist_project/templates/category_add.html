@@ -10,14 +10,13 @@
   <form method="post" >
     {% csrf_token %}
     {{ form.as_p }}
-  </form>
-
-
-  <div class="d-flex align-items-center gap-2 mt-3">
-    <div>    
-      <button type="submit" class="btn btn-primary">リストに追加する</button>
+  
+    <div class="d-flex align-items-center gap-2 mt-3">
+      <div>    
+        <button type="submit" class="btn btn-primary">リストに追加する</button>
+      </div>
+      <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style cancel-link">キャンセル</a>
     </div>
-    <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style">キャンセル</a>
-  </div>
+  </form>
 
 {% endblock %}

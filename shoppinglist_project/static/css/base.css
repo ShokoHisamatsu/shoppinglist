@@ -225,4 +225,16 @@ body {
   line-height: 1 !important;
 }
 
+/* ✅ カテゴリ名（ラベル）を大きくする */
+form p label {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* ✅ キャンセルリンクを少し右へずらす */
+form .cancel-link {
+  margin-left: 8px;
+}
+
+
 
