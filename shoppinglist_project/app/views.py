@@ -357,16 +357,28 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
             defaults={'list_name': f'{store.store_name}のリスト'}
         )
 
+    # ✅ 共有解除処理
         if 'delete_shared_list' in request.POST:
-            SharedList.objects.filter(list=shopping_list, created_by=user).delete()
-            messages.success(request, f"{store.store_name}の共有を解除しました。")
-            return redirect('app:shared_list_create', store_id=store_id)
+            shared_list = SharedList.objects.filter(list=shopping_list).first()
 
+            if shared_list:
+            # ✅ 自分が作成者ならリスト自体を削除
+                if shared_list.created_by == user:
+                    shared_list.delete()
+                    messages.success(request, f"{store.store_name}の共有を解除しました。")
+                else:
+                # 念のため、共有されている側だったら自分だけ解除（今は想定外）
+                    shared_list.shared_with.remove(user)
+                    messages.success(request, f"{store.store_name}の共有から離脱しました。")
+
+            return redirect('app:shared_list_manage')  # ← 管理画面に戻すのが自然！
+
+    # ✅ 新規共有または再共有の処理
         shared_list, created = SharedList.objects.get_or_create(
             list=shopping_list,
             created_by=user,
             defaults={
-                'url_token':  token_urlsafe(8),
+                'url_token': token_urlsafe(8),
             }
         )
 
