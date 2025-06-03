@@ -35,9 +35,8 @@ class HomeView(LoginRequiredMixin, TemplateView):
         
         own_stores = Store.objects.filter(created_by=user)
         
-        shared_lists = SharedList.objects.filter(
-            Q(shared_with=self.request.user) | Q(created_by=self.request.user)
-        ).select_related('list__store')
+        shared_lists = SharedList.objects.filter(shared_with=user).select_related('list__store')
+        
         shared_stores = [shared.list.store for shared in shared_lists if shared.list and shared.list.store]
     
         

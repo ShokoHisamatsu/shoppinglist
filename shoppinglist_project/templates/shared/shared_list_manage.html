@@ -25,12 +25,14 @@
 <!-- ✅ リスト一覧 -->
 <div class="list-group">
   {% for store in stores %}
-    <div class="d-flex justify-content-between align-items-center border rounded py-2 px-3 mb-2 bg-light">
-      <span>{{ store.store_name }}</span>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      
+      <!-- ✅ 店名を左寄せ（背景なし） -->
+      <div style="font-weight: bold;">{{ store.store_name }}</div>
 
       {% with shared_list=store.sharedlist_set.first %}
         {% if shared_list %}
-          <!-- ✅ 共有解除ボタン -->
+          <!-- ✅ 共有をやめるボタン -->
           <form method="post" action="{% url 'app:shared_list_manage' %}" class="mb-0" onsubmit="return confirm('{{ store.store_name }} の共有を解除しますか？');">
             {% csrf_token %}
             <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
@@ -46,6 +48,7 @@
     <p class="text-muted">まだリストが登録されていません。</p>
   {% endfor %}
 </div>
+
 
 <!-- ✅ ホームに戻るリンク -->
 <p class="mt-4">
