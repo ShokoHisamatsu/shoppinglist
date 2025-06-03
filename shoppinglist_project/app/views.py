@@ -303,6 +303,11 @@ class ItemCategoryDeleteView(LoginRequiredMixin, DeleteView):
         store_id = self.kwargs['store_id']
         return reverse_lazy('app:category_add', kwargs={'store_id': store_id})
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        store_id = self.kwargs['store_id']
+        context['store'] = get_object_or_404(Store, store_id=store_id)
+        return context
     
 class ItemCheckView(LoginRequiredMixin, View):
     def post(self, request, item_id, *args, **kwargs):
