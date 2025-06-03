@@ -21,11 +21,14 @@
 
         <div class="mb-3">
           <label for="id_password">パスワード</label><br>
-          <div class="position-relative">
-            {{ form.password|add_class:"form-control" }}<br>
-            <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
-              <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
-            </span>
+
+          <div class="d-flex align-items-center">
+            <div class="position-relative">
+              {{ form.password|add_class:"form-control" }}
+              <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
+                <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
+              </span>
+            </div>
           </div>
 
           <div class="ms-2" style="margin-top: -2px;"> 
