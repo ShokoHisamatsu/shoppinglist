@@ -4,7 +4,7 @@ from .views import (
     MyListView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView,
-    PortfolioView, ItemCategoryDeleteView, CustomLogoutView
+    PortfolioView, ItemCategoryDeleteView,
 )
 from . import views
 from django.contrib.auth.views import (
