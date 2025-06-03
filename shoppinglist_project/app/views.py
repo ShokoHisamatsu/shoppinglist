@@ -367,7 +367,7 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
             list=shopping_list,
             created_by=user,
             defaults={
-                'url_token': secrets.token_urlsafe(8),
+                'url_token': generate_unique_token(8),
             }
         )
 
