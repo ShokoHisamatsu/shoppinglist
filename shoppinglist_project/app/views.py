@@ -18,10 +18,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-import secrets
 from django.db.models import Q
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
-from app.utils import generate_unique_token
+import secrets
+from secrets import token_urlsafe
 
 
 
@@ -307,10 +307,6 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
     form_class = SharedListForm
 
     def get_context_data(self, **kwargs):
-        import logging
-        logger = logging.getLogger(__name__)
-        logger.warning("★ SharedListCreateView が読み込まれました")
-
         context = super().get_context_data(**kwargs)
         store_id = self.kwargs.get('store_id')
         user = self.request.user
@@ -328,7 +324,7 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
         list=shopping_list,
         created_by=user,
         defaults={
-            'url_token': generate_unique_token(8),
+            'url_token': token_urlsafe(8),
             'can_edit': True
             }
         )
@@ -370,7 +366,7 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
             list=shopping_list,
             created_by=user,
             defaults={
-                'url_token': generate_unique_token(8),
+                'url_token':  token_urlsafe(8),
             }
         )
 
@@ -494,7 +490,7 @@ class SharedListAddView(LoginRequiredMixin, View):
                 
                 if not SharedList.objects.filter(list__store=store, created_by=request.user).exists():
                     shopping_list = ShoppingList.objects.get(store=store, user=request.user)
-                    SharedList.objects.create(list=shopping_list, created_by=request.user, url_token=generate_unique_token(8))
+                    SharedList.objects.create(list=shopping_list, created_by=request.user, url_token= token_urlsafe(8))
                     messages.success(request, f"{store.store_name}を共有リストに追加しました。")
                 else:
                     messages.success(request, f"{store.store_name}は既に追加されています。")
