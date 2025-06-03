@@ -19,9 +19,13 @@
   {# ---- パスワード１：入力欄＋❓を横並び ---- #}
   <p>
     {{ form.password.label_tag }}<br>
-    <div class="pw-field">
-        {{ form.password }}
-        {% include "partials/password_rule.html" %}
+    <div class="pw-field" style="position: relative;">
+      {{ form.password }}
+      {% include "partials/password_rule.html" %}
+      <span onclick="togglePassword('id_password', 'eye-icon1')" 
+            style="position: absolute; right: 10px; bottom: 10px; cursor: pointer;">
+        <i id="eye-icon1" class="fa-regular fa-eye-slash"></i>
+      </span>
     </div>
     {{ form.password.errors }}
   </p>
@@ -29,12 +33,34 @@
   {# ---- パスワード２：確認用はそのまま縦並び ---- #}
   <p>
     {{ form.password2.label_tag }}<br>
-    {{ form.password2 }}
+    <div style="position: relative;">
+      {{ form.password2 }}
+      <span onclick="togglePassword('id_password2', 'eye-icon2')" 
+            style="position: absolute; right: 10px; bottom: 10px; cursor: pointer;">
+        <i id="eye-icon2" class="fa-regular fa-eye-slash"></i>
+      </span>
+    </div>
     {{ form.password2.errors }}
   </p>
 
   <button type="submit" class="btn-primary">新規登録</button>
 </form>
+
+<script>
+  function togglePassword(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("fa-eye-slash");
+      icon.classList.add("fa-eye");
+    } else {
+      input.type = "password";
+      icon.classList.remove("fa-eye");
+      icon.classList.add("fa-eye-slash");
+    }
+  }
+</script>
 {% endblock %}
 
 
