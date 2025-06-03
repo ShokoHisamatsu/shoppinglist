@@ -3,20 +3,35 @@
   <h2>カテゴリをリストに追加</h2>
 
   <a href="{% url 'app:itemcategory_add' store.store_id %}" 
-    class="btn btn-secondary mb-3">
+     class="btn btn-secondary mb-3">
     ＋カテゴリを作成
   </a>
 
-  <form method="post" >
+  <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-  
+
+    <p>追加するカテゴリを選んでください:</p>
+    <ul class="list-unstyled">
+      {% for category in form.fields.categories.queryset %}
+        <li class="mb-2">
+          <label>
+            <input type="checkbox" name="categories" value="{{ category.id }}">
+            {{ category.item_category_name }}
+          </label>
+
+          <!-- ×ボタン -->
+          <a href="{% url 'app:category_delete' store_id=store.store_id pk=category.id %}" 
+             onclick="return confirm('このカテゴリを削除しますか？');"
+             class="text-danger ms-2" style="text-decoration: none;">
+            ×
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
     <div class="d-flex align-items-center gap-2 mt-3">
-      <div>    
-        <button type="submit" class="btn btn-primary">リストに追加する</button>
-      </div>
+      <button type="submit" class="btn btn-primary">リストに追加する</button>
       <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style cancel-link">キャンセル</a>
     </div>
   </form>
-
 {% endblock %}

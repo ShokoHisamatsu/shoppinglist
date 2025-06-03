@@ -290,6 +290,18 @@ def category_delete(request, pk):
     list_category.delete()
 
     return redirect('app:mylist', store_id=list_category.list.store.store_id)
+
+class ItemCategoryDeleteView(LoginRequiredMixin, DeleteView):
+    model = ItemCategory
+    template_name = 'itemcategory_confirm_delete.html'
+
+    def get_queryset(self):
+        # ログインユーザーが作成したカテゴリのみ削除可能
+        return ItemCategory.objects.filter(created_by=self.request.user)
+
+    def get_success_url(self):
+        store_id = self.kwargs['store_id']
+        return reverse_lazy('app:category_add', kwargs={'store_id': store_id})
     
     
 class ItemCheckView(LoginRequiredMixin, View):

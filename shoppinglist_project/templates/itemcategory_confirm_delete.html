@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>カテゴリ削除確認</h2>
+    <p>「{{ object.item_category_name }}」を本当に削除しますか？</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">削除する</button>
+      <a href="{% url 'app:category_add' store_id=store.store_id %}" class="btn btn-secondary">キャンセル</a>
+    </form>
+  </div>
+{% endblock %}
