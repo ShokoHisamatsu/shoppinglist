@@ -199,7 +199,6 @@ class CategoryListView(TemplateView):
 class ItemCategoryCreateView(LoginRequiredMixin, CreateView):
     model = ItemCategory
     form_class = ItemCategoryForm
-    fields = ['item_category_name']
     template_name = 'itemcategory_form.html'
     success_url = reverse_lazy('app:category_list')
     
