@@ -6,7 +6,7 @@ from django.views.generic import(
 )
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, LogoutView
 from django.shortcuts import get_object_or_404, redirect
 from .forms import (
     RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, 
@@ -35,10 +35,9 @@ class HomeView(LoginRequiredMixin, TemplateView):
         
         own_stores = Store.objects.filter(created_by=user)
         
-        shared_lists = SharedList.objects.filter(
-            Q(shared_with=self.request.user) | Q(created_by=self.request.user)
-        ).select_related('list__store')
+        shared_lists = SharedList.objects.filter(shared_with=self.request.user).select_related('list__store')
         shared_stores = [shared.list.store for shared in shared_lists if shared.list and shared.list.store]
+
     
         
         context['own_stores'] = own_stores
@@ -263,8 +262,12 @@ def category_delete(request, pk):
     list_category = get_object_or_404(List_ItemCategory, pk=pk)
 
     # 安全確認：ログインユーザーのリストに紐づいてるか
-    if list_category.list.user != request.user:
+    if list_category.list.user != request.user and not SharedList.objects.filter(
+        list=list_category.list,
+        shared_with=request.user
+    ).exists():
         return redirect('app:home')
+
 
     # 紐づくアイテムを削除
     ShoppingItem.objects.filter(
