@@ -20,9 +20,9 @@
         </div>
 
         <div class="mb-3">
-          <label for="id_password">パスワード</label><br>
+          <label for="id_password">パスワード</label>
 
-          <div class="d-flex align-items-center mb-3">
+          <div class="d-flex align-items-center">
             <div class="position-relative flex-grow-1">
               {{ form.password|add_class:"form-control" }}
               <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 50px; transform:translateY(-50%); cursor: pointer;">
@@ -31,7 +31,7 @@
             </div>
           </div>
 
-          <span class="ms-2 d-inline-block">
+          <span class="ms-2">
               {% include "partials/password_rule.html" %}
           </span>
         </div>        
