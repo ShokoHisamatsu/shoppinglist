@@ -22,10 +22,13 @@
         <div class="mb-3">
           <label for="id_password">パスワード</label><br>
 
-          <div class="pw-field">
+          <div class="position-relative">
             {{ form.password|add_class:"form-control" }}<br>
-            {% include "partials/password_rule.html" %}
+            <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
+              👁️
+            </span>
           </div>
+            {% include "partials/password_rule.html" %}
         </div>
         <button type="submit" class="btn btn-primary w-75 mx-auto d-block">ログインする</button>
       </form>
