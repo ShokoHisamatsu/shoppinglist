@@ -20,7 +20,7 @@ class RegistForm(forms.ModelForm):
         labels = {
             'nickname': 'ニックネーム',
             'email': 'メールアドレス',
-            'password': 'パスワード',
+            'password': 'パスワード（8文字以上・英数字を含む）',
         }
         
 

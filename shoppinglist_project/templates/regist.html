@@ -20,16 +20,13 @@
   <p>
     {{ form.password.label_tag }}<br>
     <div style="position: relative;">
-    <label for="id_password1" class="form-label">
-      パスワード（8文字以上・英数字を含む）
-    </label>
-    <input type="password" name="password1" class="form-control" id="id_password1" required>
+      <input type="password" name="password1" class="form-control" id="id_password1" required>
 
-    <span onclick="togglePassword('id_password1', 'eye-icon1')" 
-          style="position: absolute; right: 10px; bottom: 10px; cursor: pointer;">
-      <i id="eye-icon1" class="fa-regular fa-eye-slash"></i>
-    </span>
-  </div>
+      <span onclick="togglePassword('id_password1', 'eye-icon1')" 
+            style="position: absolute; right: 10px; bottom: 10px; cursor: pointer;">
+        <i id="eye-icon1" class="fa-regular fa-eye-slash"></i>
+      </span>
+    </div>
     {{ form.password.errors }}
   </p>
 
