@@ -69,9 +69,9 @@ class Store(models.Model):
     
 class ItemCategory(models.Model):
     item_category_name = models.CharField(max_length=100)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
     
     class Meta:
         db_table = 'item_category'

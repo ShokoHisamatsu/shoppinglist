@@ -190,7 +190,7 @@ class CategoryListView(TemplateView):
         store_id = self.kwargs.get('store_id')
         
         store = Store.objects.get(store_id=store_id)
-        categories = ItemCategory.objects.all()
+        categories = ItemCategory.objects.filter(created_by=self.request.user)
         
         context['store'] = store
         context['categories'] = categories
@@ -199,7 +199,9 @@ class CategoryListView(TemplateView):
 class ItemCategoryCreateView(LoginRequiredMixin, CreateView):
     model = ItemCategory
     form_class = ItemCategoryForm
+    fields = ['item_category_name']
     template_name = 'itemcategory_form.html'
+    success_url = reverse_lazy('app:category_list')
     
     def get_success_url(self):
         store_id = self.kwargs['store_id']
@@ -211,6 +213,10 @@ class ItemCategoryCreateView(LoginRequiredMixin, CreateView):
         store = get_object_or_404(Store, store_id=store_id)
         context["store"] = store 
         return context
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
     
 class CategoryItemListView(TemplateView):
     template_name='category_item_list.html'
