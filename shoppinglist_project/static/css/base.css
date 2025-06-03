@@ -236,5 +236,12 @@ form .cancel-link {
   margin-left: 8px;
 }
 
+/* 白いだけのシンプルなフッター */
+.app-footer-empty {
+  background-color: #fff;
+  height: 60px;         /* 高さは必要に応じて調整可 */
+  border-top: 1px solid #ccc;
+  margin-top: 40px;
+}
 
 
