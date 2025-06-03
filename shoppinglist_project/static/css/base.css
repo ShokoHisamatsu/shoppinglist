@@ -1,16 +1,15 @@
-/* パスワード入力欄＋❓ を横並び */
+/* ========== パスワードツールチップ ========== */
 .pw-field {
   display: flex;
   align-items: center;
-  gap: 6px;           /* 入力欄とアイコンの隙間 */
+  gap: 6px;
 }
 
-/* ❓ アイドル状態 */
 .pw-help {
   cursor: pointer;
   position: relative;
   font-weight: bold;
-  color: #c60033;      
+  color: #c60033;
 }
 
 .pw-tooltip {
@@ -19,7 +18,7 @@
   left: 100%;
   top: 50%;
   transform: translate(0, -50%);
-  margin-left: 8px; 
+  margin-left: 8px;
   padding: .6rem .8rem;
   background: #fff;
   border: 1px solid #ccc;
@@ -30,51 +29,43 @@
   z-index: 20;
 }
 
-
-/* hover またはキーボード focus 時に表示 */
 .pw-help:hover .pw-tooltip,
 .pw-help:focus .pw-tooltip {
   display: block;
 }
 
-/* --- マイリスト追加ボタン共通 --- */
-.add-list-btn {
-    min-width: 200px;        /* これ以上は自動伸縮 */
-    white-space: nowrap !important;     /* 1行に固定 */
-    font-weight: 600;        /* 少し太字で視認性UP */
-    color: #fff;             /* 文字色 */
-    background-color: #007bff;   /* Primary Blue (PDF指定に合わせて変えてOK) */
-    border-color: #007bff;
-    flex-shrink: 0;
-}
-.add-list-btn:hover,
-.add-list-btn:focus {
-    background-color: #0069d9;   /* 1段濃い色でホバー */
-    border-color: #0062cc;
-}
-
-/* --- ヘッダーを固定表示にする --- */
+/* ========== ヘッダー固定 & ハンバーガー ========== */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* ヘッダーの高さ分だけ本文を下げる */
 body {
-  padding-top: 80px;  /* ヘッダーの高さに合わせて調整 */
+  padding-top: 80px;
 }
 
 .hamburger {
-  font-size: 28px;       /* ← 大きさ調整 */
-  font-weight: bold;     /* ← 太字 */
+  font-size: 28px;
+  font-weight: bold;
   cursor: pointer;
   position: absolute;
-  top: 16px;              /* ← ヘッダー内の位置調整 */
-  right: 24px;
+  top: 12px;
+  right: 20px;
+  width: 48px;
+  height: 44px;
+  padding: 8px;
   z-index: 1100;
+}
+
+.hamburger::before {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 
 .hamburger span {
@@ -86,68 +77,7 @@ body {
   border-radius: 3px;
 }
 
-
-/* 登録・保存などの重要操作 */
-.btn-primary {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-/* 補助操作（戻るなど） */
-.btn-secondary {
-  background-color: #EEEEEE;
-  color: #333;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-}
-
-/* 危険操作（削除など） */
-.btn-danger {
-  background-color: #E53935;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-.btn-outline-danger {
-  background-color: white;
-  color: #E53935;
-  border: 1px solid #E53935;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-weight: normal;
-  font-size: 0.75rem; 
-  cursor: pointer;
-  white-space: nowrap;
-  min-width: auto;
-}
-.btn-outline-danger:hover {
-  background-color: #ffe5e5;
-}
-
-.mylist-item-box {
-  background-color: white;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-
-.link-style {
-  color: #007BFF;
-  text-decoration: underline;
-  font-weight: normal;
-  cursor: pointer;
-}
-
-
-/* --- ボタン共通スタイル（全ボタンに適用）--- */
+/* ========== ボタン共通スタイル ========== */
 .btn {
   font-weight: 600;
   border-radius: 4px;
@@ -161,8 +91,119 @@ body {
   border: none;
 }
 
-/* ホバー効果の統一 */
 .btn:hover,
 .btn:focus {
   opacity: 0.85;
 }
+
+/* 主要操作（保存・登録など） */
+.btn-primary {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #45A049;
+  opacity: 1;
+}
+
+/* 補助操作（戻る・キャンセルなど） */
+.btn-secondary {
+  background-color: #EEEEEE;
+  color: #333;
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: #ddd;
+}
+
+/* 危険操作（削除など） */
+.btn-danger {
+  background-color: #E53935;
+  color: white;
+  font-weight: bold;
+}
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: #d32f2f;
+}
+
+/* 小さくて目立たせない削除ボタン（×ボタンなど） */
+.btn-outline-danger {
+  background-color: white;
+  color: #E53935;
+  border: 1px solid #E53935;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: normal;
+  font-size: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: auto;
+}
+.btn-outline-danger:hover {
+  background-color: #ffe5e5;
+}
+
+/* 小さいボタン用ユーティリティ */
+.btn-sm {
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+/* ========== その他デザイン ========== */
+.mylist-item-box {
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 16px;
+}
+
+.link-style {
+  color: #007BFF;
+  text-decoration: underline;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* ========== よく使うユーティリティ ========== */
+.mt-3 {
+  margin-top: 1rem;
+}
+.mb-3 {
+  margin-bottom: 1rem;
+}
+.text-right {
+  text-align: right;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.d-flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.align-center {
+  align-items: center;
+}
+
+/* --- マイリスト追加ボタン専用 --- */
+.add-list-btn {
+  min-width: 200px;
+  white-space: nowrap;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  flex-shrink: 0;
+}
+.add-list-btn:hover,
+.add-list-btn:focus {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
