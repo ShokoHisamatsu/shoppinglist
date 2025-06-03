@@ -13,7 +13,9 @@
             <a href="{% url 'app:home' %}">
                 <img src="{% static 'img/Shopli_logo.png' %}" alt="Shopli" style="height: 60px;">
             </a>
-            {% include "partials/menu.html" %}
+            {% if user.is_authenticated %}
+                {% include "partials/menu.html" %}
+            {% endif %}
         </header>
     
         <!-- 各ページごとの内容 -->
