@@ -19,7 +19,7 @@
           {{ form.email|add_class:"form-control" }}<br>
         </div>
 
-        <div class="mb-3">
+        <div class="d-flex align-items-center mb-3">
           <label for="id_password">パスワード</label><br>
           <div class="position-relative">
             {{ form.password|add_class:"form-control" }}<br>
@@ -28,9 +28,10 @@
             </span>
           </div>
 
-          <div class="ms-2">  
+          <div class="ms-2" style="margin-top: -2px;"> 
               {% include "partials/password_rule.html" %}
           </div>
+        </div>        
         <button type="submit" class="btn btn-primary w-75 mx-auto d-block">ログインする</button>
       </form>
       <div class="mt-2 text-center">
