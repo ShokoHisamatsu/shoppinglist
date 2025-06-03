@@ -593,5 +593,5 @@ class PortfolioView(TemplateView):
                 
 def logout_then_login(request):
     logout(request)
-    return redirect('user_login')
+    return redirect('app:user_login')
     
