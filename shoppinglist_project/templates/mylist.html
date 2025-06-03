@@ -20,7 +20,7 @@
                     onsubmit="return confirm('{{ category.item_category_name }}内のアイテムもすべて消えてしまいますがよろしいですか？');"
                     class="d-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-outline-danger">削除</button>
+                <button type="submit" class="btn btn-outline-danger btn-xs">削除</button>
               </form>
             {% endif %}
           {% endwith %}
@@ -51,7 +51,7 @@
           </div>
           <form method="post" action="{% url 'app:item_delete' item.id %}">
             {% csrf_token %}
-            <button class="btn btn-outline-danger btn-sm">×</button>
+            <button class="delete-btn">×</button>
           </form>
         </div>
       {% empty %}
@@ -64,7 +64,7 @@
 </div>
 
 <!-- ✅ 新規追加ボタン -->
-<a href="{% url 'app:category_add' store.store_id %}" class="btn btn-secondary btn-sm mt-3">＋カテゴリ追加</a>
+<a href="{% url 'app:category_add' store.store_id %}" class="btn btn-secondary mt-3">＋カテゴリ追加</a>
 
 
 <style>
