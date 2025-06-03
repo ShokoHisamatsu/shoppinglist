@@ -1,6 +1,6 @@
 from django.urls import path, reverse_lazy
 from .views import (
-    RegistUserView, HomeView, UserLoginView,
+    logout_then_login, RegistUserView, HomeView, UserLoginView,
     MyListView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView,
@@ -21,7 +21,7 @@ urlpatterns = [
     path('home/', HomeView.as_view(), name='home'),
     path('regist/', RegistUserView.as_view(), name='regist'),
     path('user_login/', UserLoginView.as_view(), name='user_login'),
-    path('user_logout/', CustomLogoutView.as_view(next_page='login'), name='user_logout'),
+    path('user_logout/', logout_then_login, name='user_logout'),
     path('mylist/<int:store_id>/', MyListView.as_view(), name='mylist'),
     path('store/<int:store_id>/delete/', StoreDeleteView.as_view(), name='store_delete'),
     path('store/<int:store_id>/category/', CategoryListView.as_view(), name='category_list'),

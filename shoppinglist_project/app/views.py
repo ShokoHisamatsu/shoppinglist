@@ -82,10 +82,10 @@ class UserLoginView(FormView):
         next_url = self.request.GET.get('next')
         return next_url if next_url else self.success_url 
     
-class CustomLogoutView(LogoutView):
-    def get(self, request, *args, **kwargs):
-        logout(request)
-        return redirect('user_login')  
+# class CustomLogoutView(LogoutView):
+#     def get(self, request, *args, **kwargs):
+#         logout(request)
+#         return redirect('user_login') 
            
     
 # class UserLogoutView(View):
@@ -591,5 +591,7 @@ class PortfolioView(TemplateView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
                 
-
+def logout_then_login(request):
+    logout(request)
+    return redirect(reverse_lazy('user_login'))
     
