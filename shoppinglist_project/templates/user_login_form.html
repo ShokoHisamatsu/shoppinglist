@@ -27,8 +27,9 @@
           <div class="position-relative">
             {{ form.password|add_class:"form-control" }}<br>
             <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
-              <i class="fa-solid fa-eye"></i>
+              <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
             </span>
+
           </div>
             {% include "partials/password_rule.html" %}
         </div>
@@ -47,12 +48,19 @@
 <script>
   function togglePassword() {
     const pwInput = document.getElementById("id_password");
+    const eyeIcon = document.getElementById("eye-icon");
+
     if (pwInput.type === "password") {
       pwInput.type = "text";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
     } else {
       pwInput.type = "password";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
     }
   }
 </script>
+
 
 {% endblock %}
