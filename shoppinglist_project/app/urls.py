@@ -1,7 +1,7 @@
 from django.urls import path, reverse_lazy
 from .views import (
     RegistUserView, HomeView, UserLoginView,
-    LogoutView, MyListView, StoreDeleteView,
+    MyListView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView,
     PortfolioView
@@ -10,7 +10,7 @@ from . import views
 from django.contrib.auth.views import (
     PasswordChangeView, PasswordChangeDoneView, PasswordResetView, 
     PasswordResetDoneView, PasswordResetConfirmView, 
-    PasswordResetCompleteView
+    PasswordResetCompleteView, LogoutView
 )
 from django.views.generic import TemplateView
 
