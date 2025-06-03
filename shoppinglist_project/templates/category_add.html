@@ -3,7 +3,7 @@
   <h2>カテゴリをリストに追加</h2>
 
   <a href="{% url 'app:itemcategory_add' store.store_id %}" 
-    style="display: inline-block; padding: 10px; background-color: #eee; border: 1px solid #ccc; margin-bottom: 20px;">
+    class="btn btn-secondary mb-3">
     ＋カテゴリを作成
   </a>
 
@@ -15,9 +15,9 @@
 
   <div class="d-flex align-items-center gap-2 mt-3">
     <div>    
-      <button type="submit" class="btn=primary">リストに追加する</button>
+      <button type="submit" class="btn btn-primary">リストに追加する</button>
     </div>
-
     <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style">キャンセル</a>
   </div>
+
 {% endblock %}
