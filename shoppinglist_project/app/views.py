@@ -19,7 +19,10 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, LogoutView
+from django.contrib.auth.views import (
+    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, 
+    PasswordResetCompleteView, LogoutView
+)
 import secrets
 from secrets import token_urlsafe
 
@@ -77,7 +80,13 @@ class UserLoginView(FormView):
     
     def get_success_url(self):
         next_url = self.request.GET.get('next')
-        return next_url if next_url else self.success_url            
+        return next_url if next_url else self.success_url 
+    
+class CustomLogoutView(LogoutView):
+    def get(self, request, *args, **kwargs):
+        # GETでアクセスしてきた場合もPOSTとして扱う
+        return self.post(request, *args, **kwargs)   
+           
     
 # class UserLogoutView(View):
 #     def get(self, request, *args,**kwargs):

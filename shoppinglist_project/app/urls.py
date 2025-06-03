@@ -4,13 +4,13 @@ from .views import (
     MyListView, StoreDeleteView,
     CategoryListView, CategoryItemListView, ItemCategoryCreateView,
     CategoryAddView, ItemCheckView, ItemDeleteView, EmailChangeView,
-    PortfolioView, ItemCategoryDeleteView,
+    PortfolioView, ItemCategoryDeleteView, CustomLogoutView
 )
 from . import views
 from django.contrib.auth.views import (
     PasswordChangeView, PasswordChangeDoneView, PasswordResetView, 
     PasswordResetDoneView, PasswordResetConfirmView, 
-    PasswordResetCompleteView, LogoutView
+    PasswordResetCompleteView, LogoutView, 
 )
 from django.views.generic import TemplateView
 
@@ -21,7 +21,7 @@ urlpatterns = [
     path('home/', HomeView.as_view(), name='home'),
     path('regist/', RegistUserView.as_view(), name='regist'),
     path('user_login/', UserLoginView.as_view(), name='user_login'),
-    path('user_logout/', LogoutView.as_view(next_page='login'), name='user_logout'),
+    path('user_logout/', CustomLogoutView.as_view(next_page='login'), name='user_logout'),
     path('mylist/<int:store_id>/', MyListView.as_view(), name='mylist'),
     path('store/<int:store_id>/delete/', StoreDeleteView.as_view(), name='store_delete'),
     path('store/<int:store_id>/category/', CategoryListView.as_view(), name='category_list'),
