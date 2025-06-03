@@ -20,23 +20,22 @@
         </div>
 
         <div class="mb-3">
-          <label for="id_password">パスワード</label>
+          <label for="id_password" class="form-label">
+            パスワード（8文字以上・英数字を含む）
+          </label>
 
-          <div class="d-flex align-items-center">
-            <div class="position-relative flex-grow-1">
-              {{ form.password|add_class:"form-control" }}
-              
-              <span onclick="togglePassword()" 
-                    style="position: absolute; right: 10px; top: 50px; transform:translateY(-50%); 
-                           cursor: pointer;">
-                <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
-              </span>
-            </div>
+          <div class="position-relative">
+            {{ form.password|add_class:"form-control" }}
+
+            <span onclick="togglePassword()" 
+                  style="position: absolute; right: 10px; top: 50px; transform:translateY(-50%); 
+                         cursor: pointer;">
+              <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
+            </span>
           </div>
-
-          <span class="ms-2 d-inline-block">
+          {% comment %} <span class="ms-2 d-inline-block">
               {% include "partials/password_rule.html" %}
-          </span>
+          </span> {% endcomment %}
         </div>        
         <button type="submit" class="btn btn-primary w-75 mx-auto d-block">ログインする</button>
       </form>
@@ -51,21 +50,17 @@
 </div>
 
 <script>
-  function togglePassword() {
-    const pwInput = document.getElementById("id_password");
-    const eyeIcon = document.getElementById("eye-icon");
-
-    if (pwInput.type === "password") {
-      pwInput.type = "text";
-      eyeIcon.classList.remove("fa-eye-slash");
-      eyeIcon.classList.add("fa-eye");
-    } else {
-      pwInput.type = "password";
-      eyeIcon.classList.remove("fa-eye");
-      eyeIcon.classList.add("fa-eye-slash");
-    }
+function togglePassword() {
+  const pw = document.getElementById('id_password');
+  const icon = document.getElementById('eye-icon');
+  if (pw.type === 'password') {
+    pw.type = 'text';
+    icon.classList.replace('fa-eye-slash', 'fa-eye');
+  } else {
+    pw.type = 'password';
+    icon.classList.replace('fa-eye', 'fa-eye-slash');
   }
+}
 </script>
-
 
 {% endblock %}
