@@ -19,11 +19,11 @@
   {# ---- パスワード１：入力欄＋❓を横並び ---- #}
   <p>
     {{ form.password.label_tag }}<br>
-    <div class="pw-field" style="position: relative;">
+    <div style="position: relative;">
       {{ form.password }}
       {% include "partials/password_rule.html" %}
       <span onclick="togglePassword('id_password', 'eye-icon1')" 
-            style="position: absolute; right: 10px; bottom: 10px; cursor: pointer;">
+            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
         <i id="eye-icon1" class="fa-regular fa-eye-slash"></i>
       </span>
     </div>
@@ -36,12 +36,13 @@
     <div style="position: relative;">
       {{ form.password2 }}
       <span onclick="togglePassword('id_password2', 'eye-icon2')" 
-            style="position: absolute; right: 10px; bottom: 10px; cursor: pointer;">
+            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
         <i id="eye-icon2" class="fa-regular fa-eye-slash"></i>
       </span>
     </div>
     {{ form.password2.errors }}
   </p>
+
 
   <button type="submit" class="btn-primary">新規登録</button>
 </form>
