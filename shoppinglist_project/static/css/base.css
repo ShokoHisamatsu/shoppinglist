@@ -249,8 +249,7 @@ form .cancel-link {
 .pw-wrapper {
   position: relative;       /* アイコンを absolute で中に置くため */
   display: inline-block;    /* 入力欄の幅だけで折り返す */
-  max-width: 260px;         /* ← お好みの幅に統一（再入力欄と同じくらい） */
-  width: 100%;              /* 親が狭い場合でも伸縮可 */
+  max-width: 260px;
 }
 
 /* 入力欄の右側にアイコンぶん余白を確保 */
@@ -266,6 +265,7 @@ form .cancel-link {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+  z-index: 2;
 }
 
 
