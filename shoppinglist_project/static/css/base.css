@@ -245,3 +245,27 @@ form .cancel-link {
 }
 
 
+/* パスワード入力＋アイコン用ラッパー */
+.pw-wrapper {
+  position: relative;       /* アイコンを absolute で中に置くため */
+  display: inline-block;    /* 入力欄の幅だけで折り返す */
+  max-width: 260px;         /* ← お好みの幅に統一（再入力欄と同じくらい） */
+  width: 100%;              /* 親が狭い場合でも伸縮可 */
+}
+
+/* 入力欄の右側にアイコンぶん余白を確保 */
+.pw-wrapper input.form-control {
+  padding-right: 2.5rem;    /* アイコン幅 + 余白 */
+  width: 100%;
+}
+
+/* 👁️アイコンの位置 */
+.pw-wrapper .toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
