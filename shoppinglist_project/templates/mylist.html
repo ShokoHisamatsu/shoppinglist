@@ -9,24 +9,25 @@
 <div class="category-wrapper">
   {% for category, items in category_item_map.items %}
     <div class="category-block">
+
+      <!-- ✅ カテゴリ名＋削除ボタン -->
       <div class="category-header">
         <h3>{{ category.item_category_name }}</h3>
 
-        <!-- ✅ 削除リンク -->
-         {% with list_category=category_id_map|dict_get:category %}
-            {% if list_category %}
-              <form method="post"
-                    action="{% url 'app:category_delete' list_category.pk %}"
-                    onsubmit="return confirm('{{ category.item_category_name }}内のアイテムもすべて消えてしまいますがよろしいですか？');"
-                    class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-danger btn-xs mb-1">削除</button>
-              </form>
-            {% endif %}
-          {% endwith %}
+        {% with list_category=category_id_map|dict_get:category %}
+          {% if list_category %}
+            <form method="post"
+                  action="{% url 'app:category_delete' list_category.pk %}"
+                  onsubmit="return confirm('{{ category.item_category_name }}内のアイテムもすべて消えてしまいますがよろしいですか？');"
+                  class="d-inline">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger btn-xs mb-1">削除</button>
+            </form>
+          {% endif %}
+        {% endwith %}
       </div>
 
-      <!-- 🔽 アイテム入力フォーム -->
+      <!-- ✅ アイテム登録フォーム -->
       <form method="POST" action="{% url 'app:mylist' store.store_id %}">
         {% csrf_token %}
         <input type="hidden" name="category_id" value="{{ category.id }}">
@@ -34,14 +35,17 @@
           <input type="text" name="commodity" placeholder="商品名" required>
           <input type="number" name="quantity" min="1" value="1" placeholder="個数">
           <input type="text" name="memo" placeholder="メモ">
-          <button type="submit" class="btn btn-primary">保存</button>
+          <input type="submit" class="btn btn-primary" value="保存">
         </div>
       </form>
 
-      <!-- 🔽 登録済みアイテムの表示 -->
+      <!-- ✅ 登録済みアイテムの表示 -->
       {% for item in items %}
         <div class="item-row">
+
+          <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
           <span class="check-dot {% if item.status %}checked{% endif %}" data-id="{{ item.id }}"></span>
+
           <div class="item-info">
             <span class="item-name">{{ item.commodity }}</span>
             <span class="item-quantity">{{ item.quantity }}</span>
@@ -49,6 +53,8 @@
               <span class="item-note">{{ item.memo }}</span>
             {% endif %}
           </div>
+
+          <!-- ✅ 削除フォーム -->
           <form method="post" action="{% url 'app:item_delete' item.id %}">
             {% csrf_token %}
             <button class="delete-btn">×</button>
@@ -57,11 +63,11 @@
       {% empty %}
         <p>アイテムが登録されていません。</p>
       {% endfor %}
+
     </div>
-  {% empty %}
-  <p>カテゴリがまだ登録されていません。</p>
   {% endfor %}
 </div>
+
 
 <!-- ✅ 新規追加ボタン -->
 <a href="{% url 'app:category_add' store.store_id %}" class="btn btn-secondary mt-3">＋カテゴリ追加</a>
