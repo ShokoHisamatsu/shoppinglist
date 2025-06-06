@@ -358,8 +358,8 @@ form .cancel-link {
 /* カテゴリ削除ボタンの調整 */
 .category-delete-btn {
   font-size: 0.8rem;             /* 少し大きくしてクリックしやすく */
-  padding: 2px 10px;             /* 十分な余白 */
-  margin-right: 12px;            /* 保存ボタンとの間隔 */
+  padding: 2px 8px;             /* 十分な余白 */
+  margin-bottom: 8px;            /* 保存ボタンとの間隔 */
   border-radius: 4px;            /* 角を少し丸く */
   background-color: white;
   color: red;
