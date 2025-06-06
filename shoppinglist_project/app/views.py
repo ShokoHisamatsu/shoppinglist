@@ -303,9 +303,8 @@ class CategoryAddView(FormView):
     
 @require_POST
 @login_required
-def category_delete(request, pk):
-    category = get_object_or_404(ItemCategory, pk=pk, created_by=request.user)
-    store_id = category.store.store_id
+def category_delete(request, store_id, pk):
+    category = get_object_or_404(ItemCategory, pk=pk, store__store_id=store_id, created_by=request.user)
     messages.success(request, f'「{category.item_category_name}」を削除しました。')
     category.delete()
     return redirect('app:mylist', store_id=store_id)
