@@ -564,16 +564,14 @@ class SharedListAddView(LoginRequiredMixin, View):
         if not store_id:
             return redirect('app:shared_list_manage')
         
-        store = get_object_or_404(Store,
-                                  pk=store_id,
-                                  created_by=request.user)
+        store = get_object_or_404(Store, pk=store_id, created_by=request.user)
         
         shopping_list, _ = ShoppingList.objects.get_or_create(
             store=store,
             user=request.user,
             defaults={
                 'list_name': f'{store.store_name}のリスト',
-            'created_by' : request.user
+                'created_by' : request.user
             }
         )
 
