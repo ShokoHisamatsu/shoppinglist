@@ -301,15 +301,7 @@ class CategoryAddView(FormView):
     
         return redirect('app:mylist', store_id=store.store_id)
     
-@require_POST
-@login_required
-def category_delete(request, store_id, pk):
-    category = get_object_or_404(ItemCategory, pk=pk, store__store_id=store_id, created_by=request.user)
-    messages.success(request, f'「{category.item_category_name}」を削除しました。')
-    category.delete()
-    return redirect('app:mylist', store_id=store_id)
-
-    
+   
 @login_required
 def category_delete(request, pk):
     list_category = get_object_or_404(List_ItemCategory, pk=pk)
@@ -605,6 +597,16 @@ def toggle_item(request, item_id):
     item.status = not item.status
     item.save(update_fields=['status'])
     return JsonResponse({'checked': item.status}) 
+
+@require_POST
+@login_required
+def category_delete(request, store_id, pk):
+    """カテゴリを削除してカテゴリ追加画面に戻す"""
+    category = get_object_or_404(ItemCategory, id=pk, created_by=request.user)
+    category_name = category.item_category_name
+    category.delete()
+    messages.success(request, f"「{category_name}」を削除しました。")
+    return redirect('app:category_add', store_id=store_id)
    
 class SharedListRemoveView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):

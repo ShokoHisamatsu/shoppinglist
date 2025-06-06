@@ -19,12 +19,19 @@
             {{ category.item_category_name }}
           </label>
 
-          <a href="{% url 'app:category_delete' store_id=store.store_id pk=category.id %}" 
-             onclick="return confirm('このカテゴリを削除しますか？');"
-             class="text-danger" 
-             style="text-decoration: none; margin-left: 0.5em;">
-            ×
-          </a>
+          <button type="button"
+                  class="btn btn-link text-danger p-0"
+                  onclick="if (confirm(`「{{ category.item_category_name }}」を本当に削除しますか？`)) {
+                            document.getElementById('delete-cat-{{ category.id }}').submit();
+                          }">
+              ×
+          </button>
+          <form id="delete-cat-{{ category.id }}"
+                method="POST"
+                action="{% url 'app:category_delete' store_id=store.store_id pk=category.id %}"
+                style="display: none;">
+            {% csrf_token %}
+          </form>
         </li>
       {% endfor %}
     </ul>
