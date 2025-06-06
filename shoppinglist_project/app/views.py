@@ -586,7 +586,7 @@ class SharedListAddView(LoginRequiredMixin, View):
         else:
             messages.success(request, f"{store.store_name} は既に共有済みです。")
             
-        return redirect('app:shared_list_manage', url_token=shared.url_token)   
+        return redirect('app:shared_list_manage')   
     
 class SharedListRemoveView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
