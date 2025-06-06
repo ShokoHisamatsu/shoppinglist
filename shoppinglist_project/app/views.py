@@ -76,7 +76,14 @@ class UserLoginView(FormView):
         user = authenticate(email=email, password=password)
         if user:
             login(self.request, user)
-        return super().form_valid(form)
+            return super().form_valid(form)
+        else:
+            messages.error(self.request, "メールアドレスまたはパスワードが違います")
+            return self.form_invalid(form)
+        
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
     
     def get_success_url(self):
         next_url = self.request.GET.get('next')
