@@ -292,7 +292,7 @@ class CategoryAddView(FormView):
         # if shared_list:
         #     shared_list.shared_with.add(self.request.user)
         
-        categories = form.cleaned_data['categories']        
+        categories = self.request.POST.getlist('categories')        
         for category in categories:
             List_ItemCategory.objects.get_or_create(
                 list=shopping_list,
