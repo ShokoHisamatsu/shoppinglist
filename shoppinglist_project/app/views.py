@@ -29,7 +29,6 @@ from django.views import View
 from django.core.exceptions import ValidationError
 from uuid import uuid4
 from django.views.decorators.http import require_POST
-from app.models import Item 
 
 
 
@@ -593,7 +592,7 @@ class SharedListAddView(LoginRequiredMixin, View):
 @login_required
 @require_POST
 def toggle_item(request, item_id):
-    item = get_object_or_404(Item, id=item_id, list__user=request.user)
+    item = get_object_or_404(ShoppingItem, id=item_id, list__user=request.user)
     item.is_checked = not item.is_checked
     item.save(update_fields=['is_checked'])
     return JsonResponse({'checked': item.is_checked})   
