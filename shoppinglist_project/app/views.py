@@ -605,7 +605,7 @@ def category_delete(request, store_id, pk):
     category = get_object_or_404(ItemCategory, id=pk, created_by=request.user)
     category_name = category.item_category_name
     category.delete()
-    messages.success(request, f"「{category_name}」を削除しました。")
+    # messages.success(request, f"「{category_name}」を削除しました。")
     return redirect('app:category_add', store_id=store_id)
    
 class SharedListRemoveView(LoginRequiredMixin, View):
