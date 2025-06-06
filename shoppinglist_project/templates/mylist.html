@@ -231,6 +231,33 @@
     });
   });
   </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.item-check').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+          const itemId = this.dataset.id;
+          const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+          fetch(`/shopli/item/${itemId}/toggle/`, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': csrfToken,
+              'Content-Type': 'application/json'
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('チェック状態を保存しました:', data);
+          })
+          .catch(error => {
+            console.error('エラーが発生しました:', error);
+          });
+        });
+      });
+    });
+  </script>
+
   
   
 {% endblock %}

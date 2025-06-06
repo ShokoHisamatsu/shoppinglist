@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from app.views import PortfolioView   
+from app.views import PortfolioView 
+from app import views
+  
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', PortfolioView.as_view(), name='portfolio'),
     path('shopli/', include('app.urls')),
+    path('item/<int:item_id>/toggle/', views.toggle_item, name='item_toggle'),
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse, Http404
 from django.views.generic import(
     TemplateView, CreateView, FormView, View, DeleteView, UpdateView,
     DetailView, ListView
@@ -28,6 +28,8 @@ from secrets import token_urlsafe
 from django.views import View
 from django.core.exceptions import ValidationError
 from uuid import uuid4
+from django.views.decorators.http import require_POST
+from app.models import Item 
 
 
 
@@ -586,7 +588,15 @@ class SharedListAddView(LoginRequiredMixin, View):
         else:
             messages.success(request, f"{store.store_name} は既に共有済みです。")
             
-        return redirect('app:shared_list_manage')   
+        return redirect('app:shared_list_manage')
+    
+@login_required
+@require_POST
+def toggle_item(request, item_id):
+    item = get_object_or_404(Item, id=item_id, list__user=request.user)
+    item.is_checked = not item.is_checked
+    item.save(update_fields=['is_checked'])
+    return JsonResponse({'checked': item.is_checked})   
     
 class SharedListRemoveView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
