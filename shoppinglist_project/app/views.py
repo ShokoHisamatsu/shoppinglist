@@ -592,7 +592,7 @@ class SharedListAddView(LoginRequiredMixin, View):
 @login_required
 @require_POST
 def toggle_item(request, item_id):
-    item = get_object_or_404(ShoppingItem, id=item_id, list__user=request.user)
+    item = get_object_or_404(ShoppingItem, id=item_id, shopping_list__user=request.user)
     item.status = not item.status
     item.save(update_fields=['status'])
     return JsonResponse({'checked': item.status})   
