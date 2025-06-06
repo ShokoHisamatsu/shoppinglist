@@ -447,10 +447,7 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
         )
 
         messages.success(request, f"{store.store_name}の共有設定を更新しました。")
-        return redirect(
-            'app:shared_list_fix', 
-            token=shared_list.url_token
-        )
+        return redirect('app:shared_list_manage')
 
 
     
