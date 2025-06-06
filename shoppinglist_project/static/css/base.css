@@ -349,7 +349,7 @@ form .cancel-link {
 /* 画面が広い端末ではもう少し大きく見せたい場合 */
 @media (min-width: 768px) {
   .shopli-logo {
-    height: 70px;   /* 好みで調整 */
+    height: 80px;   /* 好みで調整 */
   }
 }
 
