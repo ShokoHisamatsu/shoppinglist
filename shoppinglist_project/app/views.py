@@ -286,19 +286,22 @@ class CategoryAddView(FormView):
     def form_valid(self, form):
         store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
         shopping_list = get_object_or_404(ShoppingList, store=store)
-        
-        # shared_list = SharedList.objects.filter(list=shopping_list).first()
-                   
-        # if shared_list:
-        #     shared_list.shared_with.add(self.request.user)
-        
-        categories = form.cleaned_data['categories']        
-        for category in categories:
+
+        # ① POST から選択された ID を取得
+        category_ids = self.request.POST.getlist('categories')
+
+        # ② 何も選択されなかった場合はフォーム再表示
+        if not category_ids:
+            return self.form_invalid(form)
+
+        # ③ 取得した ID でカテゴリを追加
+        for cid in category_ids:
+            category = get_object_or_404(ItemCategory, id=cid, created_by=self.request.user)
             List_ItemCategory.objects.get_or_create(
                 list=shopping_list,
-                item_category=category,
+                item_category=category
             )
-    
+
         return redirect('app:mylist', store_id=store.store_id)
     
    
