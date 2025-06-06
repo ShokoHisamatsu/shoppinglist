@@ -292,13 +292,15 @@ class CategoryAddView(FormView):
         # if shared_list:
         #     shared_list.shared_with.add(self.request.user)
         
-        categories = form.cleaned_data['categories']        
-        for category in categories:
+        category_ids = self.request.POST.getlist('categories')
+
+        for cat_id in category_ids:
+            category = get_object_or_404(ItemCategory, id=cat_id, created_by=self.request.user)
             List_ItemCategory.objects.get_or_create(
                 list=shopping_list,
-                item_category=category,
+                item_category=category
             )
-    
+        
         return redirect('app:mylist', store_id=store.store_id)
     
    
