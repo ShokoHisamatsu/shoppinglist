@@ -27,6 +27,7 @@ import secrets
 from secrets import token_urlsafe
 from django.views import View
 from django.core.exceptions import ValidationError
+from uuid import uuid4
 
 
 
@@ -441,11 +442,15 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
             created_by=user,
             defaults={
                 'url_token': token_urlsafe(8),
+                'can_edit': True  
             }
         )
 
         messages.success(request, f"{store.store_name}の共有設定を更新しました。")
-        return redirect('app:shared_list_create', store_id=store_id)
+        return redirect(
+            'app:shared_list_fix', 
+            token=shared_list.url_token
+        )
 
 
     
