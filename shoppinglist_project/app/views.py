@@ -593,9 +593,9 @@ class SharedListAddView(LoginRequiredMixin, View):
 @require_POST
 def toggle_item(request, item_id):
     item = get_object_or_404(ShoppingItem, id=item_id, list__user=request.user)
-    item.is_checked = not item.is_checked
-    item.save(update_fields=['is_checked'])
-    return JsonResponse({'checked': item.is_checked})   
+    item.status = not item.status
+    item.save(update_fields=['status'])
+    return JsonResponse({'checked': item.status})   
     
 class SharedListRemoveView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
