@@ -319,7 +319,7 @@ form .cancel-link {
 /* メール入力欄を広めに */
 .email-input {
   width: 100%;
-  max-width: 5%;
+  max-width: 500%;
   padding: 12px 16px;
   font-size: 1rem;
   border: 1px solid #ccc;
