@@ -358,7 +358,7 @@ form .cancel-link {
 /* カテゴリ削除ボタンの調整 */
 .category-delete-btn {
   font-size: 0.75rem !important;
-  padding: 2px 6px !important;
+  padding: 2px 10px !important;
   margin-bottom: 8px !important;
   min-width: auto !important;
   border-radius: 4px !important;
