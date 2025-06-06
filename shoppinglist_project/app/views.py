@@ -527,8 +527,10 @@ class SharedListManageView(LoginRequiredMixin, TemplateView):
         shared_stores = all_stores.filter(store_id__in=shared_store_ids)
         unshared_stores = all_stores.exclude(store_id__in=shared_store_ids)
 
-        context['stores'] = shared_stores
-        context['unshared_stores'] = unshared_stores
+        context.update({
+            "shared_stores": shared_stores,
+            "unshared_stores": unshared_stores,
+        })
         return context
 
     def post(self, request, *args, **kwargs):

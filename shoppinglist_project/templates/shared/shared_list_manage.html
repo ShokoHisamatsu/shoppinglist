@@ -23,7 +23,7 @@
 
 <!-- お店一覧 -->
 <ul>
-  {% for store in stores %}
+  {% for store in shared_stores %}
     <li>
       {{ store.store_name }}　
       {% with shared_list=store.sharedlist_set.first %}
