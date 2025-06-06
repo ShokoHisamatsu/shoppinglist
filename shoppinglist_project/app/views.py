@@ -57,7 +57,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
             store = form.save(commit=False)
             store.created_by = request.user 
             store.save()
-            messages.success(request, 'お店を追加しました。')
+            messages.success(request, f"{store.store_name}を追加しました。")
             return redirect('app:home')
         else:
             messages.error(request, 'お店の追加に失敗しました。')
