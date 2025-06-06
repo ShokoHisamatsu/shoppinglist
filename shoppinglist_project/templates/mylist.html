@@ -41,7 +41,7 @@
       <!-- 🔽 登録済みアイテムの表示 -->
       {% for item in items %}
         <div class="item-row">
-          <span class="check-dot {% if item.status %}checked{% endif %}" onclick="toggleCheck(this)"></span>
+          <span class="check-dot {% if item.status %}checked{% endif %}" data-id="{{ item.id }}"></span>
           <div class="item-info">
             <span class="item-name">{{ item.commodity }}</span>
             <span class="item-quantity">{{ item.quantity }}</span>
@@ -230,33 +230,30 @@
       });
     });
   });
-  </script>
+</script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.item-check').forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-          const itemId = this.dataset.id;
-          const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.check-dot').forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        // 1. 見た目切り替え
+        this.classList.toggle('checked');
 
-          fetch(`/shopli/item/${itemId}/toggle/`, {
-            method: 'POST',
-            headers: {
-              'X-CSRFToken': csrfToken,
-              'Content-Type': 'application/json'
-            },
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log('チェック状態を保存しました:', data);
-          })
-          .catch(error => {
-            console.error('エラーが発生しました:', error);
-          });
+        // 2. データ送信
+        const itemId = this.dataset.id;
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(`/shopli/item/${itemId}/toggle/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json'
+          },
         });
       });
     });
-  </script>
+  });
+</script>
 
   
   
