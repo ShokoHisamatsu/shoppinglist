@@ -355,6 +355,24 @@ form .cancel-link {
   }
 }
 
+/* カテゴリ削除ボタンの調整 */
+.category-delete-btn {
+  font-size: 0.9rem;             /* 少し大きくしてクリックしやすく */
+  padding: 4px 12px;             /* 十分な余白 */
+  margin-right: 10px;            /* 保存ボタンとの間隔 */
+  border-radius: 4px;            /* 角を少し丸く */
+  background-color: white;
+  color: red;
+  border: 1px solid red;
+}
+
+.category-delete-btn:hover {
+  background-color: #ffe5e5;     /* ホバー時に色を薄く変更 */
+  color: darkred;
+  border-color: darkred;
+}
+
+
 
 
 

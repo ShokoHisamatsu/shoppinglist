@@ -21,7 +21,7 @@
                   onsubmit="return confirm('{{ category.item_category_name }}内のアイテムもすべて消えてしまいますがよろしいですか？');"
                   class="d-inline">
               {% csrf_token %}
-              <button type="submit" class="btn btn-outline-danger btn-xs mb-1">削除</button>
+              <button type="submit" class="btn btn-outline-danger category-delete-btn">削除</button>
             </form>
           {% endif %}
         {% endwith %}
