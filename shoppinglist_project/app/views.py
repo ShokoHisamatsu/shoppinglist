@@ -26,6 +26,8 @@ from django.contrib.auth.views import (
 import secrets
 from secrets import token_urlsafe
 from django.views import View
+from django.core.exceptions import ValidationError
+
 
 
 
@@ -64,6 +66,19 @@ class RegistUserView(CreateView):
     template_name = 'regist.html'
     form_class = RegistForm
     success_url = reverse_lazy('app:home')
+    
+    def form_valid(self, form):
+        try:
+            form.save()
+        except ValidationError as e:
+            # エラー内容をフォームに追加（この行が大事）
+            form.add_error(None, e)
+            return self.form_invalid(form)
+        messages.success(self.request, "登録が完了しました。ログインしてください。")
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
     
 class UserLoginView(FormView):
     template_name = 'user_login_form.html'
