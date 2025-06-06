@@ -268,19 +268,23 @@ form .cancel-link {
   z-index: 2;
 }
 
+/* ボタンを大きく */
 .large-btn {
   font-size: 1.1rem;
-  padding: 0.8rem 2rem;
-  border-radius: 8px;
+  padding: 10px 24px;
+  border-radius: 6px;
+  min-width: 160px;
 }
 
+/* ボタンとログインリンクの間に余白 */
 .form-button-wrapper {
-  margin-top: 20px;
-  margin-bottom: 16px;
+  margin-top: 24px;
+  margin-bottom: 20px;
 }
 
+/* ログインリンクに少し余白と見やすさを */
 .login-link {
-  margin-top: 24px;
+  margin-top: 16px;
   font-size: 0.95rem;
 }
 
