@@ -570,7 +570,7 @@ class SharedListAddView(LoginRequiredMixin, View):
         
         shopping_list, _ = ShoppingList.objects.get_or_create(
             store=store,
-            user=request.user,
+            created_by=request.user,
             defaults={'list_name': f'{store.store_name}のリスト'}
         )
 
