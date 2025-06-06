@@ -26,16 +26,19 @@
                           }">
               ×
           </button>
-          <form id="delete-cat-{{ category.id }}"
-                method="POST"
-                action="{% url 'app:category_delete' store_id=store.store_id pk=category.id %}"
-                style="display: none;">
-            {% csrf_token %}
-          </form>
         </li>
       {% endfor %}
     </ul>
 
+    {% for category in form.fields.categories.queryset %}
+      <form id="delete-cat-{{ category.id }}"
+            method="POST"
+            action="{% url 'app:category_delete' store_id=store.store_id pk=category.id %}"
+            style="display: none;">
+        {% csrf_token %}
+      </form>
+    {% endfor %}
+    
     <div class="d-flex align-items-center gap-2 mt-3">
       <button type="submit" class="btn btn-primary">リストに追加する</button>
       <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style cancel-link">キャンセル</a>
