@@ -288,5 +288,24 @@ form .cancel-link {
   font-size: 0.95rem;
 }
 
+/* 大きめの青ボタン（ログイン・送信など共通） */
+.big-action-btn {
+  font-size: 1.1rem;
+  padding: 10px 24px;
+  border-radius: 6px;
+  min-width: 180px;
+  display: block;
+  margin: 20px auto 10px auto;
+}
+
+/* リンクの下に余白をつけて並べる用 */
+.form-link {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+
 
 

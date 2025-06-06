@@ -41,14 +41,17 @@
               <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
             </span>
           </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn-primary big-action-btn">ログインする</button>
         </div>        
-        <button type="submit" class="btn btn-primary w-75 mx-auto d-block">ログインする</button>
+        
       </form>
       <div class="mt-2 text-center">
-        <a href="{% url 'app:password_reset' %}">パスワードを忘れた方はこちら</a>
+        <a href="{% url 'app:password_reset' %}" class="form-link">パスワードを忘れた方はこちら</a>
       </div>
       <div class="mt-1 text-center">
-        <a href="{% url 'app:regist' %}">新規登録はこちら</a>
+        <a href="{% url 'app:regist' %}" class="form-link">新規登録はこちら</a>
       </div>
     </div>
   </div>
