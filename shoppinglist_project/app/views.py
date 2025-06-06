@@ -561,24 +561,31 @@ class SharedListManageView(LoginRequiredMixin, TemplateView):
 class SharedListAddView(LoginRequiredMixin, View):
     def post(self, request):
         store_id = request.POST.get('store_id')
+        if not store_id:
+            return redirect('app:shared_list_manage')
         
-        if store_id:
-            try:
-                store = Store.objects.get(pk=store_id)  
-                
-                if not SharedList.objects.filter(list__store=store, created_by=request.user).exists():
-                    shopping_list = ShoppingList.objects.get(store=store, user=request.user)
-                    SharedList.objects.create(list=shopping_list, created_by=request.user, url_token= token_urlsafe(8))
-                    messages.success(request, f"{store.store_name}を共有リストに追加しました。")
-                else:
-                    messages.success(request, f"{store.store_name}は既に追加されています。")
-                    
-            except Store.DoesNotExist:
-                messages.error(request, "対象のお店が見つかりません。")
-            except ShoppingList.DoesNotExist:
-                messages.error(request, "対象のショッピングリストが見つかりません。")
-                
-        return redirect('app:shared_list_manage')
+        store = get_object_or_404(Store,
+                                  pk=store_id,
+                                  created_by=request.user)
+        
+        shopping_list, _ = ShoppingList.objects.get_or_create(
+            store=store,
+            user=request.user,
+            defaults={'list_name': f'{store.store_name}のリスト'}
+        )
+
+        shared, created = SharedList.objects.get_or_create(
+            list=shopping_list,
+            created_by=request.user,
+            defaults={'url_token': token_urlsafe(8), 'can_edit': True}
+        )
+        
+        if created:
+            messages.success(request, f"{store.store_name} を共有リストに追加しました。")
+        else:
+            messages.success(request, f"{store.store_name} は既に共有済みです。")
+            
+        return redirect('app:shared_list_fix', token=shared.url_token)   
     
 class SharedListRemoveView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
