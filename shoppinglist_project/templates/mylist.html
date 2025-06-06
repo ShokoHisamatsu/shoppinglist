@@ -249,7 +249,7 @@
         const itemId = this.dataset.id;
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-        fetch(`/shopli/item/${itemId}/toggle/`, {
+        fetch(`/item/${itemId}/toggle/`, {
           method: 'POST',
           headers: {
             'X-CSRFToken': csrfToken,
@@ -260,7 +260,4 @@
     });
   });
 </script>
-
-  
-  
 {% endblock %}
