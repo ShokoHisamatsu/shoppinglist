@@ -320,10 +320,14 @@ form .cancel-link {
 .email-input {
   width: 100%;
   max-width: 400px;
-  padding: 8px;
+  padding: 12px 16px;
   font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
   margin-bottom: 20px;
 }
+
 
 /* 戻るリンクを中央＆大きく */
 .back-link {
