@@ -340,6 +340,19 @@ form .cancel-link {
   margin-top: 16px;
 }
 
+/* --- Shopli ロゴ専用 --- */
+.shopli-logo {
+  height: 60px;     /* ← ヘッダーと同じ高さに固定  */
+  width: auto;      /*   横だけ比率に合わせて拡大   */
+}
+
+/* 画面が広い端末ではもう少し大きく見せたい場合 */
+@media (min-width: 768px) {
+  .shopli-logo {
+    height: 70px;   /* 好みで調整 */
+  }
+}
+
 
 
 

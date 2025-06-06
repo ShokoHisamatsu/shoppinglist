@@ -12,7 +12,7 @@
 
         <header class="d-flex justify-content-between align-items-center px-3" style="background-color: white; padding: 10px;">
             <a href="{% url 'app:home' %}">
-                <img src="{% static 'img/Shopli_logo.png' %}" alt="Shopli" style="height: 60px;">
+                <img src="{% static 'img/Shopli_logo.png' %}" alt="Shopli" class="shopli-logo">
             </a>
             {% if user.is_authenticated %}
                 {% include "partials/menu.html" %}
