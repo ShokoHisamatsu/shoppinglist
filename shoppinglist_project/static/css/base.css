@@ -344,7 +344,7 @@ form .cancel-link {
 .shopli-logo {
   height: 60px;     /* ← ヘッダーと同じ高さに固定  */
   width: auto;      /*   横だけ比率に合わせて拡大   */
-  transform: scale(1.3);         /* ← 見た目を1.3倍に拡大 */
+  transform: scale(1.6);         /* ← 見た目を1.3倍に拡大 */
   transform-origin: left center;
 }
 
