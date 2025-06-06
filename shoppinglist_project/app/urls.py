@@ -35,6 +35,7 @@ urlpatterns = [
     path('email_change/', EmailChangeView.as_view(), name='email_change'),
     path('email_change/done/', TemplateView.as_view(template_name='email_change_done.html'), name='email_change_done'),
     path('share/create/<int:store_id>/', views.SharedListCreateView.as_view(), name='shared_list_create'),
+    path('share/<str:token>/', views.SharedListCreateView.as_view(), name='shared_list_fix'),
     path('share/manage/', views.SharedListManageView.as_view(), name='shared_list_manage'),
     path('share/<slug:url_token>/', views.SharedListDetailView.as_view(), name='shared_list_detail'),
     path('shared/add/', views.SharedListAddView.as_view(), name='shared_list_add'),
