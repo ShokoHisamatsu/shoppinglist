@@ -268,4 +268,21 @@ form .cancel-link {
   z-index: 2;
 }
 
+.large-btn {
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+}
+
+.form-button-wrapper {
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+
+.login-link {
+  margin-top: 24px;
+  font-size: 0.95rem;
+}
+
+
 

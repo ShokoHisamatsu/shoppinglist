@@ -56,10 +56,13 @@
     {% endfor %}
   </p>
 
-  <button type="submit" class="btn-primary">新規登録</button>
+  <div class="form-button-wrapper">
+    <button type="submit" class="btn-primary large-btn">新規登録</button>
+  </div>
 
-  <p>
-    すでに登録済みの方は <a href="{% url 'app:user_login' %}">こちらからログイン</a>
+
+  <p class="login-link">
+    <a href="{% url 'app:user_login' %}">ログインはこちら</a>
   </p>
 </form>
 
