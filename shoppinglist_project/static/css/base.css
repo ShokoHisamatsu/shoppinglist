@@ -45,6 +45,12 @@ header {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+.shopli-header {
+  max-width: 960px;       
+  margin: 0 auto;         
+  padding: 4px 20px;
+}
+
 body {
   padding-top: 80px;
 }
@@ -378,11 +384,6 @@ form .cancel-link {
     display: none !important;
 }
 
-.shopli-header {
-  max-width: 960px;       
-  margin: 0 auto;         
-  width: 100%;
-  padding: 10px 20px;
-}
+
 
 
