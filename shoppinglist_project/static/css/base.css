@@ -374,6 +374,9 @@ form .cancel-link {
 }
 
 
+.no-footer-page footer {
+    display: none !important;
+}
 
 
 
