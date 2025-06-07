@@ -287,14 +287,13 @@ class CategoryAddView(FormView):
         store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
         shopping_list = get_object_or_404(ShoppingList, store=store)
 
-        # ① POST から選択された ID を取得
+        # 🔽 修正ポイント：POSTデータからカテゴリIDを直接取得
         category_ids = self.request.POST.getlist('categories')
 
-        # ② 何も選択されなかった場合はフォーム再表示
+        # 何も選択されていなければフォーム再表示
         if not category_ids:
             return self.form_invalid(form)
 
-        # ③ 取得した ID でカテゴリを追加
         for cid in category_ids:
             category = get_object_or_404(ItemCategory, id=cid, created_by=self.request.user)
             List_ItemCategory.objects.get_or_create(
