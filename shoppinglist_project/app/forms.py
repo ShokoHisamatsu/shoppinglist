@@ -39,9 +39,6 @@ class StoreForm(forms.ModelForm):
     class Meta:
         model = Store
         fields = ['store_name']
-        labels = {
-            'store_name': 'リスト名'
-        }
         widgets = {
             'store_name': forms.TextInput(
                 attrs={'class': 'form-control list-name-input',
