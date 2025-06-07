@@ -1,50 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>カテゴリをリストに追加</h2>
+<h2>カテゴリをリストに追加</h2>
 
-  <a href="{% url 'app:itemcategory_add' store.store_id %}" 
-     class="btn btn-secondary mb-3">
-    ＋カテゴリを作成
-  </a>
+<a href="{% url 'app:itemcategory_add' store.store_id %}"
+   class="btn btn-secondary mb-3">＋カテゴリを作成</a>
 
-  <form method="post">
-    {% csrf_token %}
+<!-- 🔵 親フォームはこれ１つだけ -->
+<form method="post">
+  {% csrf_token %}
 
-    <p>追加するカテゴリを選んでください:</p>
-    <ul class="list-unstyled">
-      {% for category in form.fields.categories.queryset %}
-        <li class="mb-2">
-            <label class="mb-0">
-              <input type="checkbox" name="categories" value="{{ category.id }}">
-              {{ category.item_category_name }}
-            </label>
+  <p>追加するカテゴリを選んでください:</p>
+  <ul class="list-unstyled">
+    {% for cat in form.fields.categories.queryset %}
+      <li class="mb-2">
+        <!-- ✅ タイポ修正：class="mb-0" -->
+        <label class="mb-0">
+          <input type="checkbox" name="categories" value="{{ cat.id }}">
+          {{ cat.item_category_name }}
+        </label>
 
-          <button type="button"
-                  class="btn btn-link text-danger p-0"
-                  onclick="if (confirm(`「{{ category.item_category_name }}」を本当に削除しますか？`)) {
-                            document.getElementById('delete-category-{{ category.id }}').submit();
-                          }">
-              ×
-          </button>
-        </li>
-      {% endfor %}
-    </ul>
+        <!-- ×ボタン：隠しフォームを submit -->
+        <button type="button"
+                class="btn btn-link text-danger p-0"
+                onclick="if (confirm('「{{ cat.item_category_name }}」を本当に削除しますか？')) {
+                          document.getElementById('delete-cat-{{ cat.id }}').submit();
+                        }">×</button>
+      </li>
+    {% endfor %}
+  </ul>
 
-    <div class="d-flex align-items-center gap-2 mt-3">
-      <button type="submit" class="btn btn-primary">リストに追加する</button>
-      <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}" class="link-style cancel-link">キャンセル</a>
-    </div>
-  </form>
+  <div class="d-flex gap-2 mt-3">
+    <button type="submit" class="btn btn-primary">リストに追加する</button>
+    <a href="{% url 'app:mylist' store_id=view.kwargs.store_id %}"
+       class="link-style cancel-link">キャンセル</a>
+  </div>
+</form>   {# ← 🔵 親フォームここで閉じる #}
 
-
-  {% for category in form.fields.categories.queryset %}
-  <form id="delete-category-{{ category.id }}"
-        method="POST"
-        action="{% url 'app:category_delete' store_id=store.store_id pk=category.id %}"
-        style="display: none;">
-    {% csrf_token %}
-  </form>
-  {% endfor %}
-
-      
+<!-- 🔴 削除用の非表示フォームは親フォームの外に１回だけ -->
+{% for cat in form.fields.categories.queryset %}
+<form id="delete-cat-{{ cat.id }}"
+      method="post"
+      action="{% url 'app:category_delete' store_id=store.store_id pk=cat.id %}"
+      style="display:none;">
+  {% csrf_token %}
+</form>
+{% endfor %}
 {% endblock %}
