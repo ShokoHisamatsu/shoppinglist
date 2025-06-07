@@ -44,8 +44,9 @@ class StoreForm(forms.ModelForm):
         }
         widgets = {
             'store_name': forms.TextInput(
-                attrs={'placeholder': '例：スーパー、週末BBQ'}
-            )
+                attrs={'class': 'form-control list-name-input',
+                       'placeholder': '例：スーパー、週末BBQ'
+                    })
         }
         
 class ItemCategoryForm(forms.ModelForm):

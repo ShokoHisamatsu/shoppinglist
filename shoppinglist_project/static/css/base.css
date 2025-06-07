@@ -207,6 +207,18 @@ body {
   border-color: #0062cc;
 }
 
+/* リスト名入力枠 */
+.list-name-input {
+  height: 54px !important;       
+  padding-top: 6px;               
+  padding-bottom: 6px;
+  line-height: 24px;              
+  font-size: 16px;              
+  box-sizing: border-box;        
+}
+
+
+
 .btn-xs {
   padding: 2px 6px !important;
   font-size: 0.75rem !important;
