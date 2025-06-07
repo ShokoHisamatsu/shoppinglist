@@ -193,7 +193,9 @@ body {
 
 /* --- マイリスト追加ボタン専用 --- */
 .add-list-btn {
+  flex: 0 0 auto;
   min-width: 200px;
+  height: 48px;
   white-space: nowrap;
   font-weight: 600;
   color: #fff;
@@ -209,7 +211,7 @@ body {
 
 /* リスト名入力枠 */
 .list-name-input {
-  height: 54px !important;       
+  height: 48px !important;       
   padding-top: 6px;               
   padding-bottom: 6px;
   line-height: 24px;              
