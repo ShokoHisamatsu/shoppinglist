@@ -37,6 +37,15 @@
 </form>   {# ← 🔵 親フォームここで閉じる #}
 
 <!-- 🔴 削除用の非表示フォームは親フォームの外に１回だけ -->
+{% comment %} {% for cat in form.fields.categories.queryset %}
+<form id="delete-cat-{{ cat.id }}"
+      method="post"
+      action="{% url 'app:category_delete' store_id=store.store_id pk=cat.id %}"
+      style="display:none;">
+  {% csrf_token %}
+</form>
+{% endfor %} {% endcomment %}
+
 {% for cat in form.fields.categories.queryset %}
 <form id="delete-cat-{{ cat.id }}"
       method="post"
