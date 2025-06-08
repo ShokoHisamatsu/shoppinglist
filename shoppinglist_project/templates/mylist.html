@@ -44,16 +44,15 @@
         <div class="item-row">
 
           <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
-          <div class="item-display-row">
-            <span class="check-dot {% if item.status %}checked{% endif %}" data-id="{{ item.id }}"></span>
-            <div class="item-info">
-              <span class="item-name">{{ item.commodity }}</span>
-              <span class="item-quantity">{{ item.quantity }}</span>
-              {% if item.memo %}
-                <span class="item-note">{{ item.memo }}</span>
-              {% endif %}
-            </div>
+          <span class="check-dot {% if item.status %}checked{% endif %}" data-id="{{ item.id }}"></span>
+          <div class="item-info">
+            <span class="item-name">{{ item.commodity }}</span>
+            <span class="item-quantity">{{ item.quantity }}</span>
+            {% if item.memo %}
+              <span class="item-note">{{ item.memo }}</span>
+            {% endif %}
           </div>
+          
 
           <!-- ✅ 削除フォーム -->
           <form method="post" action="{% url 'app:item_delete' item.id %}">
@@ -158,6 +157,7 @@
   
     .item-name {
       min-width: 80px;
+      font-size: 16px;
     }
     
     .item-quantity {
