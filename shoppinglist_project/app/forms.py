@@ -76,9 +76,9 @@ class ShoppingItemForm(forms.ModelForm):
         fields = ['commodity', 'quantity', 'memo']
 
         widgets={
-            'commodity': forms.TextInput(attrs={'placeholder': '商品名'}),
+            'commodity': forms.TextInput(attrs={'maxlength': '100', 'placeholder': '商品名'}),
             'quantity': forms.NumberInput(attrs={'min':1, 'value':1}),
-            'memo': forms.TextInput(attrs={'placeholder': 'メモ(例：メーカーや特徴)'})
+            'memo': forms.TextInput(attrs={'maxlength': '100', 'placeholder': 'メモ(例：メーカーや特徴)'})
         }
         
 class EmailChangeForm(forms.ModelForm):
