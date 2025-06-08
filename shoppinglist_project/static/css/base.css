@@ -387,10 +387,21 @@ form .cancel-link {
   border-color: darkred;
 }
 
-
+/* プロフィールフッターなし */
 .no-footer-page footer {
     display: none !important;
 }
+
+/* アイテム入力幅調整 */
+.item-name-input,
+.item-quantity-input,
+.item-memo-input {
+  height: 48px;
+  padding: 6px 12px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
 
 
 

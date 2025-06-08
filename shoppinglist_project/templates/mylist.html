@@ -30,7 +30,7 @@
       <!-- ✅ アイテム登録フォーム -->
       <form method="POST" action="{% url 'app:mylist' store.store_id %}">
         {% csrf_token %}
-        <input type="hidden" name="category_id" value="{{ category.id }}">
+        <input class=item-name-input, item-quantity-input, item-memo-input type="hidden" name="category_id" value="{{ category.id }}">
         <div class="item-row">
           <input type="text" name="commodity" placeholder="商品名" required>
           <input type="number" name="quantity" min="1" value="1" placeholder="個数">
@@ -44,14 +44,15 @@
         <div class="item-row">
 
           <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
-          <span class="check-dot {% if item.status %}checked{% endif %}" data-id="{{ item.id }}"></span>
-
-          <div class="item-info">
-            <span class="item-name">{{ item.commodity }}</span>
-            <span class="item-quantity">{{ item.quantity }}</span>
-            {% if item.memo %}
-              <span class="item-note">{{ item.memo }}</span>
-            {% endif %}
+          <div class="item-display-row">
+            <span class="check-dot {% if item.status %}checked{% endif %}" data-id="{{ item.id }}"></span>
+            <div class="item-info">
+              <span class="item-name">{{ item.commodity }}</span>
+              <span class="item-quantity">{{ item.quantity }}</span>
+              {% if item.memo %}
+                <span class="item-note">{{ item.memo }}</span>
+              {% endif %}
+            </div>
           </div>
 
           <!-- ✅ 削除フォーム -->
@@ -131,8 +132,8 @@
     }
   
     .check-dot {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       border: 2px solid #999;
       border-radius: 50%;
       margin-right: 10px;
@@ -142,13 +143,13 @@
       transition: all 0.2s ease;
     }
   
+    /* 「色をキープする」 */
     .check-dot.checked {
       background-color: #007bff;
       border-color: #007bff;
     }
   
     .item-info {
-      flex-grow: 1;
       display: flex;
       flex-direction: row;
       gap: 12px;
