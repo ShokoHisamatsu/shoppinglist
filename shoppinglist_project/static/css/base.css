@@ -403,6 +403,21 @@ form .cancel-link {
 }
 
 
+/* カテゴリ選択のチェックと文字を拡大 */
+.category-checkbox {
+  font-size: 18px;               /* ✅ 文字大きく */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-checkbox input[type="checkbox"] {
+  width: 20px;                   /* ✅ □を大きく */
+  height: 20px;
+  cursor: pointer;
+}
+
+
 
 
 
