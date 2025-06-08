@@ -16,14 +16,13 @@
         <div class="category-checkbox d-flex align-items-center gap-2">
           <input type="checkbox" name="categories" value="{{ cat.id }}">
           <span class="category-name">{{ cat.item_category_name }}</span>
-        </div>
-
         <!-- ×ボタン：隠しフォームを submit -->
-        <button type="button"
-                class="btn btn-link text-danger p-0"
-                onclick="if (confirm('「{{ cat.item_category_name }}」を本当に削除しますか？')) {
-                          document.getElementById('delete-cat-{{ cat.id }}').submit();
-                        }">×</button>
+          <button type="button"
+                  class="btn btn-link text-danger p-0"
+                  onclick="if (confirm('「{{ cat.item_category_name }}」を本当に削除しますか？')) {
+                            document.getElementById('delete-cat-{{ cat.id }}').submit();
+                          }">×</button>
+        </div>
       </li>
     {% endfor %}
   </ul>
