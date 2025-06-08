@@ -603,9 +603,9 @@ def toggle_item(request, item_id):
 
 @require_POST
 @login_required
-def category_delete(request, store_id, category_id):
+def category_delete(request, store_id, pk):
     """カテゴリを削除してカテゴリ追加画面に戻す"""
-    category = get_object_or_404(ItemCategory, id=category_id, created_by=request.user)
+    category = get_object_or_404(ItemCategory, id=pk, created_by=request.user)
     category_name = category.item_category_name
     category.delete()
     messages.success(request, f"「{category_name}」を削除しました。")
