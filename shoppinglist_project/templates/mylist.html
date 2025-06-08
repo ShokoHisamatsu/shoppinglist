@@ -17,7 +17,7 @@
         {% with list_category=category_id_map|dict_get:category %}
           {% if list_category %}
             <form method="post"
-                  action="{% url 'app:category_delete' list_category.pk %}"
+                  action="{% url 'app:category_delete' store_id=store.store_id category_id=list_category.pk %}"
                   onsubmit="return confirm('{{ category.item_category_name }}内のアイテムもすべて消えてしまいますがよろしいですか？');"
                   class="d-inline">
               {% csrf_token %}
