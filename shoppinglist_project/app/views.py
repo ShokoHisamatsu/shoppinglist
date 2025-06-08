@@ -281,6 +281,7 @@ class CategoryAddView(FormView):
        context = super().get_context_data(**kwargs)
        store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
        context["store"] = store
+       context["store_id"] = store.store_id 
        return context
     
     def form_valid(self, form):
