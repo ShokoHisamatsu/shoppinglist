@@ -404,14 +404,16 @@ form .cancel-link {
 
 
 /* カテゴリ選択のチェックと文字を拡大 */
-.category-checkbox {
-  font-size: 18px;              
+.category-checkbox-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  font-size: 18px;
+  gap: 10px;
 }
 
-.category-checkbox input[type="checkbox"] {
+
+.category-checkbox-container input[type="checkbox"] {
   width: 20px;                   
   height: 20px;
   cursor: pointer;
