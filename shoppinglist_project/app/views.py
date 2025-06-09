@@ -601,15 +601,34 @@ def toggle_item(request, item_id):
     item.save(update_fields=['status'])
     return JsonResponse({'checked': item.status}) 
 
-@require_POST
 @login_required
+@require_POST
 def category_delete(request, store_id, pk):
-    """カテゴリを削除してカテゴリ追加画面に戻す"""
-    category = get_object_or_404(ItemCategory, pk=pk, store_id=store_id, created_by=request.user)
-    category_name = category.item_category_name
-    category.delete()
-    messages.success(request, f"{category_name}を削除しました。")
-    return redirect('app:category_add', store_id=store_id)
+    """
+    指定ストアのリストに紐づくカテゴリなら、作成者を問わず誰でも削除できる
+    """
+    # 1. ストアに紐づくショッピングリストを取得（共有でもOK）
+    shopping_list = get_object_or_404(ShoppingList, store_id=store_id)
+
+    # 2. 中間テーブルからリンクを取得
+    link = get_object_or_404(
+        List_ItemCategory,
+        list=shopping_list,
+        item_category_id=pk,
+    )
+
+    # カテゴリ名を先に保存しておく
+    category_name = link.item_category.item_category_name
+
+    # 3. 中間テーブルのレコードを削除
+    link.delete()
+
+    # 4. 他にどのリストにも紐づいてなければカテゴリ自体も削除
+    if not link.item_category.list_itemcategory.exists():
+        link.item_category.delete()
+
+    messages.success(request, f"{category_name} を削除しました。")
+    return redirect("app:mylist", store_id=store_id)
    
 class SharedListRemoveView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
