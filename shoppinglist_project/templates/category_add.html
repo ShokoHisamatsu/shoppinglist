@@ -16,12 +16,20 @@
         <div class="category-checkbox d-flex align-items-center gap-2">
           <input type="checkbox" name="categories" value="{{ cat.id }}">
           <span class="category-name">{{ cat.item_category_name }}</span>
+          {% with list_pk=category_id_map|dict_get:cat.id %}
+            {% if list_pk %}
+              <form id="delete-cat-{{ cat.id }}" method="post"
+                    action="{% url 'app:category_delete' store_id=store.store_id pk=list_pk %}">
+                {% csrf_token %}
+              </form>
         <!-- ×ボタン：隠しフォームを submit -->
-          <button type="button"
-                  class="btn btn-link text-danger p-0"
-                  onclick="if (confirm('「{{ cat.item_category_name }}」を本当に削除しますか？')) {
-                            document.getElementById('delete-cat-{{ cat.id }}').submit();
-                          }">×</button>
+              <button type="button"
+                      class="btn btn-link text-danger p-0"
+                      onclick="if (confirm('「{{ cat.item_category_name }}」を本当に削除しますか？')) {
+                                document.getElementById('delete-cat-{{ cat.id }}').submit();
+                              }">×</button>
+            {% endif %}
+          {% endwith %}
         </div>
       </li>
     {% endfor %}

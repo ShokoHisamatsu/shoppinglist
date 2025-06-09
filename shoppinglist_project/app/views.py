@@ -280,8 +280,14 @@ class CategoryAddView(FormView):
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
        store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
+       shopping_list = get_object_or_404(ShoppingList, store=store)
+
+       linked_categories = List_ItemCategory.objects.filter(list=shopping_list).select_related('item_category')
+       category_id_map = {cat.item_category.id: cat.pk for cat in linked_categories}
+       
        context["store"] = store
        context["store_id"] = store.store_id 
+       context["category_id_map"] = category_id_map
        return context
     
     def form_valid(self, form):
