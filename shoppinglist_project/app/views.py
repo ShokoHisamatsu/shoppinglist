@@ -604,26 +604,15 @@ def toggle_item(request, item_id):
 @login_required
 @require_POST
 def category_delete(request, store_id, pk):
-    """
-    指定ストアのリストに紐づくカテゴリなら、作成者を問わず誰でも削除できる
-    """
-    # 1. ストアに紐づくショッピングリストを取得（共有でもOK）
     shopping_list = get_object_or_404(ShoppingList, store_id=store_id)
-
-    # 2. 中間テーブルからリンクを取得
     link = get_object_or_404(
         List_ItemCategory,
+        pk=pk,
         list=shopping_list,
-        item_category_id=pk,
     )
-
-    # カテゴリ名を先に保存しておく
     category_name = link.item_category.item_category_name
-
-    # 3. 中間テーブルのレコードを削除
     link.delete()
 
-    # 4. 他にどのリストにも紐づいてなければカテゴリ自体も削除
     if not link.item_category.linked_lists.exists():
         link.item_category.delete()
 
