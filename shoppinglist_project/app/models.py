@@ -102,7 +102,7 @@ class ShoppingList(models.Model):
     
 class List_ItemCategory(models.Model):
     list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
-    item_category = models.ForeignKey(ItemCategory, on_delete=models.CASCADE)
+    item_category = models.ForeignKey(ItemCategory, on_delete=models.CASCADE, related_name='linked_lists')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

@@ -624,7 +624,7 @@ def category_delete(request, store_id, pk):
     link.delete()
 
     # 4. 他にどのリストにも紐づいてなければカテゴリ自体も削除
-    if not link.item_category.list_itemcategory.exists():
+    if not link.item_category.linked_lists.exists():
         link.item_category.delete()
 
     messages.success(request, f"{category_name} を削除しました。")
