@@ -281,7 +281,7 @@ class CategoryAddView(FormView):
        context = super().get_context_data(**kwargs)
        store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
        shopping_list = get_object_or_404(ShoppingList, store=store)
-
+       
        linked_categories = List_ItemCategory.objects.filter(list=shopping_list).select_related('item_category')
        category_id_map = {cat.item_category.id: cat.pk for cat in linked_categories}
        
@@ -293,11 +293,8 @@ class CategoryAddView(FormView):
     def form_valid(self, form):
         store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
         shopping_list = get_object_or_404(ShoppingList, store=store)
-
-        # 🔽 修正ポイント：POSTデータからカテゴリIDを直接取得
         category_ids = self.request.POST.getlist('categories')
 
-        # 何も選択されていなければフォーム再表示
         if not category_ids:
             return self.form_invalid(form)
 
