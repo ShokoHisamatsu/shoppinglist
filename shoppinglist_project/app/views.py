@@ -606,7 +606,7 @@ def toggle_item(request, item_id):
 
 @login_required
 @require_POST
-def category_delete(request, store_id, pk):
+def category_link_delete(request, store_id, pk):
     shopping_list = get_object_or_404(ShoppingList, store_id=store_id)
     link = get_object_or_404(
         List_ItemCategory,
@@ -621,6 +621,19 @@ def category_delete(request, store_id, pk):
 
     messages.success(request, f"{category_name} を削除しました。")
     return redirect("app:mylist", store_id=store_id)
+
+@require_POST
+@login_required
+def category_master_delete(request, pk):
+    item_category = get_object_or_404(ItemCategory, pk=pk)
+
+    if not item_category.linked_lists.exists():  
+        item_category.delete()
+        messages.success(request, "カテゴリを削除しました。")
+    else:
+        messages.warning(request, "このカテゴリはリストに追加されているため削除できません。")
+
+    return redirect('app:category_add', store_id=request.POST.get('store_id'))
    
 class SharedListRemoveView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
