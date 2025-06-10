@@ -1,47 +1,61 @@
-{# templates/category_add.html #}
 {% extends "base.html" %}
 {% load form_tags %}
 
 {% block content %}
 <h2>カテゴリをリストに追加</h2>
 
+<!-- カテゴリ作成ボタン -->
 <a href="{% url 'app:itemcategory_add' store.store_id %}"
    class="btn btn-secondary mb-3">＋カテゴリを作成</a>
 
+<!-- ✅ リストに追加するための親フォーム -->
 <form method="post" class="mb-4">
-    {# ① 親フォームに必ず CSRF トークンを入れる！ #}
     {% csrf_token %}
 
     <p>追加するカテゴリを選んでください:</p>
     <ul class="list-unstyled">
-    {% for cat in form.fields.categories.queryset %}
+        {% for cat in form.fields.categories.queryset %}
         <li class="mb-2 d-flex align-items-center gap-2">
-
+            <!-- チェックボックス -->
             <input type="checkbox" name="categories" value="{{ cat.id }}">
             <span class="category-name">{{ cat.item_category_name }}</span>
 
-            {# ② 削除フォームは “外” に置き、button から参照する #}
-            <form id="delete-{{ cat.id }}" method="post"
-                  action="{% url 'app:category_master_delete' pk=cat.id %}">
-                {% csrf_token %}
-                <input type="hidden" name="store_id" value="{{ store.store_id }}">
-            </form>
-
-            {# form 属性で外部フォームを指定 = ネストしない #}
-            <button type="submit"
-                    class="btn btn-link text-danger p-0"
-                    form="delete-{{ cat.id }}"
-                    onclick="return confirm('「{{ cat.item_category_name }}」を本当に削除しますか？');">
-              ×
-            </button>
+            {% with list_pk=category_id_map|dict_get:cat.id %}
+              {% if list_pk %}
+              <!-- 削除ボタン（外のフォームを使う） -->
+              <button type="submit"
+                      class="btn btn-link text-danger p-0"
+                      form="delete-{{ cat.id }}"
+                      onclick="return confirm('「{{ cat.item_category_name }}」を本当に削除しますか？');">
+                ×
+              </button>
+              {% endif %}
+            {% endwith %}
         </li>
-    {% endfor %}
+        {% endfor %}
     </ul>
 
+    <!-- リストに追加する＆キャンセル -->
     <div class="d-flex gap-2 mt-3">
         <button type="submit" class="btn btn-primary">リストに追加する</button>
         <a href="{% url 'app:mylist' store_id=store.store_id %}" class="btn btn-link">キャンセル</a>
     </div>
 </form>
+
+<!-- ✅ ここから下は「親フォームの外」！ -->
+<!-- 削除用フォーム（listに追加されたカテゴリだけ） -->
+{% for cat in form.fields.categories.queryset %}
+  {% with list_pk=category_id_map|dict_get:cat.id %}
+    {% if list_pk %}
+    <form id="delete-{{ cat.id }}" method="post"
+          action="{% url 'app:category_master_delete' pk=cat.id %}" style="display: none;">
+      {% csrf_token %}
+      <input type="hidden" name="store_id" value="{{ store.store_id }}">
+    </form>
+    {% endif %}
+  {% endwith %}
+{% endfor %}
+
 {% endblock %}
+
 
