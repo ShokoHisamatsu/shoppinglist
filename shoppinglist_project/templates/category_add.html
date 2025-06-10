@@ -45,7 +45,7 @@
 {% for cat in form.fields.categories.queryset %}
 <form id="delete-cat-{{ cat.id }}"
       method="post"
-      action="{% url 'app:category_delete' store_id=store.store_id pk=cat.id %}"
+      action="{% url 'app:category_master_delete' pk=cat.id %}"
       style="display:none;">
   {% csrf_token %}
 </form>
