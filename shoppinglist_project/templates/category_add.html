@@ -23,6 +23,7 @@
                     action="{% url 'app:category_master_delete' pk=cat.id %}"
                     style="display:none;">
                 {% csrf_token %}
+                <input type="hidden" name="store_id" value="{{ store.store_id }}">
               </form>
               <button type="button"
                       class="btn btn-link text-danger p-0"
