@@ -20,7 +20,7 @@
           {% with list_pk=category_id_map|dict_get:cat.id %}
             {% if list_pk %}
               <form id="delete-cat-{{ cat.id }}" method="post"
-                    action="{% url 'app:category_delete' store_id=store.store_id pk=list_category.pk %}">
+                    action="{% url 'app:category_delete' store_id=store.store_id pk=list_pk %}">
                 {% csrf_token %}
               </form>
               <button type="button"
