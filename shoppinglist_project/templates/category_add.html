@@ -23,7 +23,6 @@
                     action="{% url 'app:category_delete' store_id=store.store_id pk=list_category.pk %}">
                 {% csrf_token %}
               </form>
-        <!-- ×ボタン：隠しフォームを submit -->
               <button type="button"
                       class="btn btn-link text-danger p-0"
                       onclick="if (confirm('「{{ cat.item_category_name }}」を本当に削除しますか？')) {

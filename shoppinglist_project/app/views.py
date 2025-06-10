@@ -616,8 +616,8 @@ def category_delete(request, store_id, pk):
     category_name = link.item_category.item_category_name
     link.delete()
 
-    if not link.item_category.linked_lists.exists():
-        link.item_category.delete()
+    # if not link.item_category.linked_lists.exists():
+    #     link.item_category.delete()
 
     messages.success(request, f"{category_name} を削除しました。")
     return redirect("app:mylist", store_id=store_id)
