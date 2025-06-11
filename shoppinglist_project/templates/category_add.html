@@ -19,18 +19,13 @@
             <!-- チェックボックス -->
             <input type="checkbox" name="categories" value="{{ cat.id }}">
             <span class="category-name">{{ cat.item_category_name }}</span>
-
-            {% with list_pk=category_id_map|dict_get:cat.id %}
-              {% if list_pk %}
               <!-- 削除ボタン（外のフォームを使う） -->
-              <button type="submit"
-                      class="btn btn-link text-danger p-0"
-                      form="delete-{{ cat.id }}"
-                      onclick="return confirm('「{{ cat.item_category_name }}」を本当に削除しますか？');">
-                ×
-              </button>
-              {% endif %}
-            {% endwith %}
+            <button type="submit"
+                    class="btn btn-link text-danger p-0"
+                    form="delete-{{ cat.id }}"
+                    onclick="return confirm('「{{ cat.item_category_name }}」を本当に削除しますか？');">
+            ×
+            </button>
         </li>
         {% endfor %}
     </ul>
@@ -45,15 +40,11 @@
 <!-- ✅ ここから下は「親フォームの外」！ -->
 <!-- 削除用フォーム（listに追加されたカテゴリだけ） -->
 {% for cat in form.fields.categories.queryset %}
-  {% with list_pk=category_id_map|dict_get:cat.id %}
-    {% if list_pk %}
     <form id="delete-{{ cat.id }}" method="post"
-          action="{% url 'app:category_master_delete' pk=cat.id %}" style="display: none;">
+        action="{% url 'app:category_master_delete' pk=cat.id %}" style="display: none;">
       {% csrf_token %}
       <input type="hidden" name="store_id" value="{{ store.store_id }}">
     </form>
-    {% endif %}
-  {% endwith %}
 {% endfor %}
 
 {% endblock %}
