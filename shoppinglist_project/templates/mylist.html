@@ -220,7 +220,6 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     document.querySelectorAll('.add-item-button').forEach(button => {
       button.addEventListener('click', () => {
@@ -272,7 +271,7 @@ document.querySelectorAll('.check-dot').forEach(dot => {
     const itemId = this.dataset.id;
 
     // サーバーに状態を送信
-    fetch('/toggle_item_check/', {
+    fetch('/shopli/toggle_item_check/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
