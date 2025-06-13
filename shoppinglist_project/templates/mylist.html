@@ -44,7 +44,7 @@
         <div class="item-row">
 
           <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
-          <span class="check-dot {% if item.status %}checked{% endif %}" data-id="{{ item.id }}"></span>
+          <span class="check-dot {% if item.is_checked %}checked{% endif %}" data-id="{{ item.id }}"></span>
           <div class="item-info">
             <span class="item-name">{{ item.commodity }}</span>
             <span class="item-quantity">{{ item.quantity }}</span>
@@ -212,11 +212,11 @@
     }
 </style>
   
-<script>
+{% comment %} <script>
     function toggleCheck(el) {
       el.classList.toggle('checked');
     }
-</script>
+</script> {% endcomment %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -245,6 +245,64 @@
 </script>
 
 <script>
+// ✅ CSRFトークンを取得する関数（Django公式）
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // cookieの名前と一致するか確認
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+// ✅ 全チェックドットにイベントを付与
+document.querySelectorAll('.check-dot').forEach(dot => {
+  dot.addEventListener('click', function () {
+    // 見た目のトグル
+    const isChecked = this.classList.toggle('checked');
+
+    // データ属性から item_id を取得
+    const itemId = this.dataset.id;
+
+    // サーバーに状態を送信
+    fetch('/toggle_item_check/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify({
+        item_id: itemId,
+        is_checked: isChecked
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        console.error('サーバーエラー:', response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.status !== 'ok') {
+        console.error('保存失敗:', data.message);
+      }
+    })
+    .catch(error => {
+      console.error('通信エラー:', error);
+    });
+  });
+});
+</script>
+
+
+{% comment %} <script>
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.check-dot').forEach(function (dot) {
       dot.addEventListener('click', function () {
@@ -265,5 +323,5 @@
       });
     });
   });
-</script>
+</script> {% endcomment %}
 {% endblock %}

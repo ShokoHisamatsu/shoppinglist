@@ -40,6 +40,7 @@ urlpatterns = [
     path('share/<slug:url_token>/', views.SharedListDetailView.as_view(), name='shared_list_detail'),
     path('shared/add/', views.SharedListAddView.as_view(), name='shared_list_add'),
     path('share/remove/<slug:url_token>/', views.SharedListRemoveView.as_view(), name='shared_list_remove'),
+    path('toggle_item_check/', views.toggle_item_check, name='toggle_item_check'),
     ]
 
 urlpatterns +=[

@@ -29,6 +29,8 @@ from django.views import View
 from django.core.exceptions import ValidationError
 from uuid import uuid4
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 
@@ -634,6 +636,24 @@ def category_master_delete(request, pk):
         messages.warning(request, "このカテゴリはリストに追加されているため削除できません。")
 
     return redirect('app:category_add', store_id=request.POST.get('store_id'))
+
+@require_POST
+@csrf_exempt  
+def toggle_item_check(request):
+    try:
+        data = json.loads(request.body)
+        item_id = data.get('item_id')
+        is_checked = data.get('is_checked')
+
+        item = ShoppingItem.objects.get(pk=item_id)
+        item.is_checked = is_checked
+        item.save()
+
+        return JsonResponse({'status': 'ok'})
+    except ShoppingItem.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Item not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
    
 class SharedListRemoveView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
