@@ -426,6 +426,13 @@ form .mb-3 {
   margin-bottom: 20px;
 }
 
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+
 
 
 
