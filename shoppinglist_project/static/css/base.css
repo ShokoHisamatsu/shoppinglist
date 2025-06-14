@@ -304,10 +304,11 @@ form .cancel-link {
 
 /* 大きめの青ボタン（ログイン・送信など共通） */
 .big-action-btn {
-  font-size: 1.1rem;
-  padding: 10px 24px;
-  border-radius: 6px;
-  min-width: 180px;
+  font-size: 1.2rem;
+  padding: 14px 24px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 320px;
   display: block;
   margin: 20px auto 10px auto;
 }
@@ -430,6 +431,9 @@ form .mb-3 {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 
