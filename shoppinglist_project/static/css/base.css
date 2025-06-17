@@ -203,16 +203,9 @@ body {
   box-sizing: border-box;
 }
 
-/* 目のアイコン付きのパスワード入力欄にも対応させる */
+/* --- 目アイコン付きだけ右余白 --- */
 .pw-wrapper input.form-input {
   padding-right: 2.5rem;
-  width: 100%;
-  height: 48px;
-  font-size: 1.1rem;
-  padding: 12px 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
 }
 
 /* --- マイリスト追加ボタン専用 --- */
