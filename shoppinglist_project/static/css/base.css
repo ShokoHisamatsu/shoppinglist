@@ -428,18 +428,22 @@ form .mb-3 {
 }
 
 .login-card {
-  width: 100% !important;
-  max-width: 400px !important;
+  width: 100%;
+  max-width: 400px;
   aspect-ratio: 1 / 1;
   margin: 0 auto;
-  padding: 32px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+.login-card-inner {
+  padding: 32px;
+  height: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
 
 .centered-login-wrapper {
   display: flex;
