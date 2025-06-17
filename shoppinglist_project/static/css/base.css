@@ -434,7 +434,7 @@ form .mb-3 {
   margin: 0 auto;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,.08);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .login-card-inner {
   padding: 32px;
