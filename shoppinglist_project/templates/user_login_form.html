@@ -7,104 +7,120 @@
 {% block content %}
 
 <style>
-/* ===================== カード本体 ===================== */
+/* ========================= 画面全体 ========================= */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;                /* ヘッダー＋フッターでサンドイッチ */
+}
+
+/* ログインカードを画面中央に ───────────── */
+.centered-login-wrapper {
+  flex: 1;                          /* 残り縦スペースを占有 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px);  /* header+footer 分を差し引く */
+  padding: 24px 16px;               /* スマホでも余白確保 */
+}
+
+/* ========================= ログインカード ========================= */
 .login-card {
   position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 560px;                 /* 横広にして可愛く */
+  padding: 48px 64px;               /* たっぷり余白 */
   border: 1px solid #e7e7e7;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  border-radius: 20px;
   background: #fff;
-  padding: 40px 32px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 24px;                        /* 要素間の間隔 */
 }
-/* アクセントバー */
+/* アクセントバー（ブルーライン） */
 .login-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  border-radius: 16px 16px 0 0;
+  top: 0; left: 0;
+  width: 100%; height: 4px;
+  border-radius: 20px 20px 0 0;
   background: #0066ff;
 }
 
-/* ===================== 入力欄 ===================== */
+/* ========================= 見出し ========================= */
+h3.text-center {
+  margin: 0 0 24px;                 /* 上マージンを詰める */
+  font-weight: 700;
+}
+
+/* ========================= 入力フォーム ========================= */
 .login-card label {
   font-weight: 600;
   color: #555;
 }
 
 .login-card .form-control {
-  height: 48px;
-  font-size: 0.95rem;
-}
-
-/* ===================== ボタン ===================== */
-.big-action-btn {
-  height: 48px;
-  font-weight: 600;
-  background: linear-gradient(180deg,#1e7cff 0%,#0066ff 100%);
-  border: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,.12);
-}
-.big-action-btn:hover {
-  opacity: .90;
-}
-
-/* ===================== フッターリンク ===================== */
-.form-footer a {
-  font-size: 0.85rem;
-  color: #0066ff;
-  text-decoration: none;
-  position: relative;
-  padding-right: 14px;
-}
-.form-footer a::after {
-  content: "\f054";           /* Font Awesome chevron-right */
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 0.7rem;
-}
-
-/* ===================== 中央寄せ & 高さ調整 ===================== */
-.centered-login-wrapper{
-  flex:1;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:calc(100vh - 120px); /* header+footer 分調整 */
-  padding:40px 16px;
-}
-
-.centered-login-wrapper {
-  padding: 24px 16px;
-}
-h3.text-center {
-  margin: 0 0 24px;
-}
-
-.login-card {
-  max-width: 460px;
-}
-.login-card .form-control {
   height: 56px;
   font-size: 1rem;
-  padding: 0 16px;
+  padding: 0 20px;
+  border-radius: 10px;
 }
+
+/* パスワードアイコン位置を微調整（任意） */
+.position-relative span {
+  top: 14px !important;
+}
+
+/* ========================= アクションボタン ========================= */
 .big-action-btn {
   height: 56px;
+  width: 100%;                      /* 横いっぱい */
   font-size: 1.05rem;
+  font-weight: 600;
   letter-spacing: 0.8px;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(180deg,#1e7cff 0%,#0066ff 100%);
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+.big-action-btn:hover { opacity: .9; }
+
+/* ========================= フッターリンク ========================= */
+.form-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+.form-footer a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;   /* テキスト左／アイコン右 */
+  width: 100%;
+  padding: 6px 0;
+  color: #0066ff;
+  text-decoration: none;
+}
+.form-footer a::after {
+  content: "\f054";                 /* Font Awesome chevron-right */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 0.7rem;
+  margin-left: auto;
+}
+
+/* ========================= レスポンシブ（任意調整） ========================= */
+@media (max-width: 600px) {
+  .login-card {
+    padding: 32px 24px;
+    max-width: 100%;
+    border-radius: 16px;
+  }
 }
 </style>
+
 
 <div class="centered-login-wrapper">
   <div>
