@@ -1,71 +1,73 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>新規登録</h2>
 
-<form method="post" novalidate>
-  {% csrf_token %}
-  {% if form.non_field_errors %}
-    <div class="alert alert-danger">
-      {{ form.non_field_errors }}
+<div class="centered-form">
+  <h2>新規登録</h2>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <!-- nickname -->
+    <p>
+      {{ form.nickname.label_tag }}<br>
+      {{ form.nickname }}
+      {% for error in form.nickname.errors %}
+        <p class="text-danger">{{ error }}</p>
+      {% endfor %}
+    </p>
+
+    <!-- email -->
+    <p>
+      {{ form.email.label_tag }}<br>
+      {{ form.email }}
+      {% for error in form.email.errors %}
+        <p class="text-danger">{{ error }}</p>
+      {% endfor %}
+    </p>
+
+    <!-- password1 -->
+    <p>
+      {{ form.password.label_tag }}<br>
+      <div class="pw-wrapper">
+        {{ form.password }}
+        <span class="toggle-eye" onclick="togglePassword('id_password1', 'eye-icon1')">
+          <i id="eye-icon1" class="fa-regular fa-eye-slash"></i>
+        </span>
+      </div>
+      {% for error in form.password1.errors %}
+        <p class="text-danger">{{ error }}</p>
+      {% endfor %}
+    </p>
+
+    <!-- password2 -->
+    <p>
+      {{ form.password2.label_tag }}<br>
+      <div class="pw-wrapper">
+        {{ form.password2 }}
+        <span class="toggle-eye" onclick="togglePassword('id_password2', 'eye-icon2')">
+          <i id="eye-icon2" class="fa-regular fa-eye-slash"></i>
+        </span>
+      </div>
+      {% for error in form.password2.errors %}
+        <p class="text-danger">{{ error }}</p>
+      {% endfor %}
+    </p>
+
+    <div class="form-button-wrapper">
+      <button type="submit" class="btn btn-primary large-btn">新規登録</button>
     </div>
-  {% endif %}
-
-  <!-- nickname -->
-  <p>
-    {{ form.nickname.label_tag }}<br>
-    {{ form.nickname }}
-    {% for error in form.nickname.errors %}
-      <p class="text-danger">{{ error }}</p>
-    {% endfor %}
-  </p>
-
-  <!-- email -->
-  <p>
-    {{ form.email.label_tag }}<br>
-    {{ form.email }}
-    {% for error in form.email.errors %}
-      <p class="text-danger">{{ error }}</p>
-    {% endfor %}
-  </p>
-
-  <!-- password1 -->
-  <p>
-    {{ form.password.label_tag }}<br>
-    <div class="pw-wrapper">
-      {{ form.password }}
-      <span class="toggle-eye" onclick="togglePassword('id_password1', 'eye-icon1')">
-        <i id="eye-icon1" class="fa-regular fa-eye-slash"></i>
-      </span>
-    </div>
-    {% for error in form.password1.errors %}
-      <p class="text-danger">{{ error }}</p>
-    {% endfor %}
-  </p>
-
-  <!-- password2 -->
-  <p>
-    {{ form.password2.label_tag }}<br>
-    <div class="pw-wrapper">
-      {{ form.password2 }}
-      <span class="toggle-eye" onclick="togglePassword('id_password2', 'eye-icon2')">
-        <i id="eye-icon2" class="fa-regular fa-eye-slash"></i>
-      </span>
-    </div>
-    {% for error in form.password2.errors %}
-      <p class="text-danger">{{ error }}</p>
-    {% endfor %}
-  </p>
-
-  <div class="form-button-wrapper">
-    <button type="submit" class="btn btn-primary large-btn">新規登録</button>
-  </div>
 
 
-  <p class="login-link">
-    <a href="{% url 'app:user_login' %}">ログインはこちら</a>
-  </p>
-</form>
-
+    <p class="login-link">
+      <a href="{% url 'app:user_login' %}">ログインはこちら</a>
+    </p>
+  </form>
+</div>
 
 <script>
 function togglePassword(inputId, iconId) {
