@@ -305,7 +305,7 @@ form .cancel-link {
 /* 大きめの青ボタン（ログイン・送信など共通） */
 .big-action-btn {
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: bold !important;
   padding: 18px 24px;
   border-radius: 8px;
   width: 100%;
