@@ -191,6 +191,18 @@ body {
   align-items: center;
 }
 
+/* 共通フォーム入力拡大 */
+.form-input {
+  height: 48px;
+  padding: 12px 14px;
+  font-size: 1.1rem;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 /* --- マイリスト追加ボタン専用 --- */
 .add-list-btn {
   flex: 0 0 auto;
@@ -472,6 +484,9 @@ body {
   padding-top: 11px;
   padding-bottom: 11px;
 }
+
+
+
 
 
 
