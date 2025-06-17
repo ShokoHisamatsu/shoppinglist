@@ -430,20 +430,23 @@ form .mb-3 {
 .login-card {
   width: 100%;
   max-width: 400px;
-  aspect-ratio: 1 / 1;
+  /* aspect-ratio: 1 / 1;  ← 削除 */
+  min-height: 500px;          /* ← 450〜520px で調整してみて */
   margin: 0 auto;
+  padding: 32px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,.08);
-  /* overflow: hidden; */
-}
-.login-card-inner {
-  padding: 32px;
-  height: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 }
+
+.login-card-inner {
+  flex: 1;                       /* 高さいっぱいに伸ばす */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;/* 上＝フォーム, 下＝リンクへ */
+}
+
 .form-footer {
   font-size: 0.9rem;
   line-height: 1.2;
