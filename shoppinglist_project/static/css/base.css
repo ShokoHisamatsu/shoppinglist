@@ -453,11 +453,17 @@ form .mb-3 {
   margin-top: auto;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .centered-login-wrapper {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;  
   padding: 40px 16px;
 }
 
