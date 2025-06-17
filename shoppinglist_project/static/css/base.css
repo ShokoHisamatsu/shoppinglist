@@ -428,10 +428,10 @@ form .mb-3 {
 }
 
 .login-card {
-  background-color: pink;
-  width: 100%;
-  max-width: 400px;
-  height: 400px;  
+  aspect-ratio: 1/1;
+  width: 100% !important;
+  max-width: 400px !important;
+  height: 400px !important;  
   margin: 0 auto;
   padding: 32px;
   border-radius: 12px;
@@ -448,6 +448,11 @@ form .mb-3 {
   align-items: center;
   min-height: 100vh;  
   padding: 40px 16px;
+}
+
+.login-card .btn-primary {
+  padding-top: 11px;
+  padding-bottom: 11px;
 }
 
 
