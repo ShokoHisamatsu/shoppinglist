@@ -442,7 +442,7 @@ form .mb-3 {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .centered-login-wrapper {
