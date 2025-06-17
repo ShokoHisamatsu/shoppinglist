@@ -7,17 +7,82 @@
 {% block content %}
 
 <style>
-  .container.mt-3 {
-    margin-top: 0 !important;
-  }
-  .centered-login-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex:1;
-    min-height: calc(100vh - 120px); /* ヘッダー+フッター分を引く */
-    padding: 40px 16px;
-  }
+/* ===================== カード本体 ===================== */
+.login-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid #e7e7e7;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  background: #fff;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+/* アクセントバー */
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 16px 16px 0 0;
+  background: #0066ff;
+}
+
+/* ===================== 入力欄 ===================== */
+.login-card label {
+  font-weight: 600;
+  color: #555;
+}
+
+.login-card .form-control {
+  height: 48px;
+  font-size: 0.95rem;
+}
+
+/* ===================== ボタン ===================== */
+.big-action-btn {
+  height: 48px;
+  font-weight: 600;
+  background: linear-gradient(180deg,#1e7cff 0%,#0066ff 100%);
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+.big-action-btn:hover {
+  opacity: .90;
+}
+
+/* ===================== フッターリンク ===================== */
+.form-footer a {
+  font-size: 0.85rem;
+  color: #0066ff;
+  text-decoration: none;
+  position: relative;
+  padding-right: 14px;
+}
+.form-footer a::after {
+  content: "\f054";           /* Font Awesome chevron-right */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.7rem;
+}
+
+/* ===================== 中央寄せ & 高さ調整 ===================== */
+.centered-login-wrapper{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:calc(100vh - 120px); /* header+footer 分調整 */
+  padding:40px 16px;
+}
 </style>
 
 <div class="centered-login-wrapper">
