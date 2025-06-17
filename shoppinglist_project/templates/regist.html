@@ -62,12 +62,11 @@
       <button type="submit" class="btn btn-primary large-btn">新規登録</button>
     </div>
 
-
     <p class="login-link">
       <a href="{% url 'app:user_login' %}">ログインはこちら</a>
     </p>
   </form>
-</div>
+</div>  <!-- ← ここで閉じる -->
 
 <script>
 function togglePassword(inputId, iconId) {
@@ -80,5 +79,6 @@ function togglePassword(inputId, iconId) {
 }
 </script>
 {% endblock %}
+
 
 
