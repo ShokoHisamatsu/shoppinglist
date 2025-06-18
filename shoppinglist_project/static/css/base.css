@@ -316,22 +316,26 @@ form .cancel-link {
   margin-bottom: 20px;
 }
 
+.login-link a {
+  font-size: 1.05rem;     /* ← 0.95→1.05 で文字をアップ */
+  font-weight: 500;       /* ← 少し太く */
+}
+
 /* ログインリンクに少し余白と見やすさを */
 .login-link {
-  margin-top: 16px;
-  font-size: 0.95rem;
+  margin-top: 20px;
 }
 
 /* 大きめの青ボタン（ログイン・送信など共通） */
 .big-action-btn {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: bold !important;
   padding: 18px 24px;
   border-radius: 8px;
   width: 100%;
-  max-width: 320px;
+  max-width: 340px;
   display: block;
-  margin: 20px auto 10px auto;
+  margin: 24px auto 12px;
 }
 
 /* リンクの下に余白をつけて並べる用 */
