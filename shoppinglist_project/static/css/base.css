@@ -205,6 +205,7 @@ body {
 
 /* --- 目アイコン付きだけ右余白 --- */
 .pw-wrapper input.form-input {
+  width: 100%;
   padding-right: 2.5rem;
 }
 
@@ -282,6 +283,7 @@ form .cancel-link {
   display: block; 
   width: 100%;    
   max-width: 500px;
+  margin:0 auto;
 }
 
 /* 入力欄の右側にアイコンぶん余白を確保 */
