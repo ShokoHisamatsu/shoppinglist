@@ -279,7 +279,8 @@ form .cancel-link {
 /* パスワード入力＋アイコン用ラッパー */
 .pw-wrapper {
   position: relative;       /* アイコンを absolute で中に置くため */
-  display: inline-block;    /* 入力欄の幅だけで折り返す */
+  display: block; 
+  width: 100%;    
   max-width: 500px;
 }
 
