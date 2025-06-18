@@ -280,7 +280,7 @@ form .cancel-link {
 .pw-wrapper {
   position: relative;       /* アイコンを absolute で中に置くため */
   display: inline-block;    /* 入力欄の幅だけで折り返す */
-  width: 100px;
+  max-width: 500px;
 }
 
 /* 入力欄の右側にアイコンぶん余白を確保 */
