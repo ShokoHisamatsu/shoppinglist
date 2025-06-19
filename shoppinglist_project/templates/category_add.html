@@ -24,7 +24,7 @@
     <p>追加するカテゴリを選んでください:</p>
     <ul class="list-unstyled">
         {% for cat in form.fields.categories.queryset %}
-        <li class="mb-2 d-flex align-items-center gap-2">
+        <li class="category-checkbox mb-2">
             <!-- チェックボックス -->
             <input type="checkbox" name="categories" value="{{ cat.id }}">
             <span class="category-name">{{ cat.item_category_name }}</span>
