@@ -8,7 +8,7 @@
 
 <style>
 /* ===================== カード本体 ===================== */
-.login-card {
+.login-card--login {
   position: relative;
   width: 100%;
   max-width: 500px;
@@ -16,7 +16,7 @@
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,.15);
   background: #fff;
-  padding: 40px 32px;
+  padding: 48px 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -106,57 +106,53 @@ h3.text-center {
 }
 </style>
 
-<div class="centered-login-wrapper">
-  <div>
-    <h3 class="text-center mb-4">ログイン</h3>
-    <div class="card p-4 login-card">       
-      {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-          {{ form.non_field_errors }}
-        </div>
-      {% endif %}
-
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-      {% endfor %}
-
-      <form method="post">
-        {% csrf_token %}
-
-        <div class="mb-3">
-          {{ form.email.label_tag }}<br>
-          {{ form.email|add_class:"form-control" }}<br>
-        </div>
-
-        <div class="mb-3">
-          <label for="id_password" class="form-label">
-            パスワード（8文字以上・英数字を含む）
-          </label>
-
-          <div class="position-relative">
-            {{ form.password|add_class:"form-control pe-5" }}
-
-            <span onclick="togglePassword()" 
-                  style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
-              <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
-            </span>
-          </div>
-        </div>
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary big-action-btn">ログインする</button>
-        </div>        
-        
-      </form>
-      <div class="form-footer">
-        <div class="mt-2 text-center">
-          <a href="{% url 'app:password_reset' %}" class="form-link">パスワードを忘れた方はこちら</a>
-        </div>
-        <div class="mt-1 text-center">
-          <a href="{% url 'app:regist' %}" class="form-link">新規登録はこちら</a>
-        </div>
-      </div>  
+<h3 class="text-center mb-4">ログイン</h3>
+<div class="card login-card login-card--login mx-auto">    
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+      {{ form.non_field_errors }}
     </div>
-  </div>
+  {% endif %}
+
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      {{ form.email.label_tag }}<br>
+      {{ form.email|add_class:"form-control" }}<br>
+    </div>
+
+    <div class="mb-3">
+      <label for="id_password" class="form-label">
+        パスワード（8文字以上・英数字を含む）
+      </label>
+
+      <div class="position-relative">
+        {{ form.password|add_class:"form-control pe-5" }}
+
+        <span onclick="togglePassword()" 
+              style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
+          <i id="eye-icon" class="fa-regular fa-eye-slash"></i>
+        </span>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary big-action-btn">ログインする</button>
+    </div>        
+    
+  </form>
+  <div class="form-footer">
+    <div class="mt-2 text-center">
+      <a href="{% url 'app:password_reset' %}" class="form-link">パスワードを忘れた方はこちら</a>
+    </div>
+    <div class="mt-1 text-center">
+      <a href="{% url 'app:regist' %}" class="form-link">新規登録はこちら</a>
+    </div>
+  </div>  
 </div>
 
 <script>
