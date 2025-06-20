@@ -5,7 +5,7 @@
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn-primary">変更する</button>
+    <button type="submit" class="btn btn-primary">変更する</button>
 </form>
 
 <a href="{% url 'app:home' %}">ホームに戻る</a>
