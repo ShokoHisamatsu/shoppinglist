@@ -94,7 +94,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'app.validators.CustomMinimumLengthValidator',
         'OPTIONS': {'min_length': 8},
     },
     {
