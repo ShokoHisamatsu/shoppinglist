@@ -537,6 +537,26 @@ body {
   font-size: 1rem;
 }
 
+/* プルダウンのデザイン統一 */
+.fixed-width-select {
+  font-size: 1.1rem;
+  padding: 8px 12px;
+  width: 250px;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+
+/* 共有済みリストの表示（お店名とリンク）を大きく */
+.shared-list-item {
+  margin-bottom: 12px;
+}
+
+.shared-list-label,
+.shared-list-link {
+  font-size: 1.1rem;
+}
+
 
 
 
