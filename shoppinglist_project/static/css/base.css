@@ -497,6 +497,19 @@ body {
   padding-bottom: 11px;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-center button {
+  margin: 0 auto;
+  display: block;
+}
+
+.text-center a {
+  display: inline-block;
+  margin-top: 15px;
+}
 
 
 
