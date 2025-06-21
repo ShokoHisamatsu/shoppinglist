@@ -511,6 +511,32 @@ body {
   margin-top: 15px;
 }
 
+/* カード内中央寄せ */
+.email-change-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* 垂直方向中央 */
+  align-items: center;       /* 水平方向中央 */
+  min-height: 400px;         /* 高さを持たせて中央寄せを可能に */
+}
+
+/* 中のformを中央揃え・最大幅調整 */
+.form-center {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 横幅を広くしたボタン */
+.wide-btn {
+  width: 100%;
+  max-width: 300px;
+  height: 48px;
+  font-size: 1rem;
+}
+
 
 
 
