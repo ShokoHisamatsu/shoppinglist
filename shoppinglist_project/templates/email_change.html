@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load form_tags %}
+
 {% block content %}
-<h2>メールアドレスを変更</h2>
+<div class="login-card">
 
-<form method="POST">
+  <h2 class="text-center">メールアドレスを変更</h2>
+
+  <form method="post" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">変更する</button>
-</form>
+    {{ form.non_field_errors }}
 
-<a href="{% url 'app:home' %}">ホームに戻る</a>
+    <p>
+      {{ form.email.label_tag }}<br>
+      {{ form.email|add_class:"form-input" }}
+      {{ form.email.errors }}
+    </p>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">変更する</button>
+    </div>
+  </form>
+
+  <p class="text-center">
+    <a href="{% url 'app:home' %}">ホームに戻る</a>
+  </p>
+
+</div>
 {% endblock %}
