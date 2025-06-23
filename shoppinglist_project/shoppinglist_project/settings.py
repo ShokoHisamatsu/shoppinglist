@@ -142,7 +142,7 @@ EMAIL_HOST = 'smtp.office365.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'shopli2025@outlook.com'
-EMAIL_HOST_PASSWORD = '2025shopli' 
+EMAIL_HOST_PASSWORD = 'iclqrwtkwgyckrso' 
 DEFAULT_FROM_EMAIL = 'Shopli <shopli2025@outlook.com>'
 
 LOGOUT_REDIRECT_URL = 'app:login'
