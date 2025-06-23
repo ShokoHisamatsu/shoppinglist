@@ -144,6 +144,6 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = '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'
-DEFAULT_FROM_EMAIL = 'Shopli <noreply@shopli.jp>' 
+DEFAULT_FROM_EMAIL = 'Shopli <shopli2025@outlook.com>' 
 
 LOGOUT_REDIRECT_URL = 'app:login'
