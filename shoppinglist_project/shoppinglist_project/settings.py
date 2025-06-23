@@ -138,11 +138,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/shopli/user_login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'shopli2025@outlook.com'
-EMAIL_HOST_PASSWORD = 'majatfyzwlvekpfk' 
-DEFAULT_FROM_EMAIL = 'Shopli <shopli2025@outlook.com>'
+
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+DEFAULT_FROM_EMAIL = 'Shopli <noreply@shopli.jp>' 
 
 LOGOUT_REDIRECT_URL = 'app:login'
