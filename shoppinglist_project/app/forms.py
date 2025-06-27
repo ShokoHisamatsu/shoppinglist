@@ -58,6 +58,12 @@ class ItemCategoryForm(forms.ModelForm):
             'item_category_name': 'カテゴリ名'
         }
         
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['item_category_name'].widget.attrs.update({
+            'placeholder': '例）野菜・果物 など'
+        })
+        
 class CategorySelectForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(
         queryset=ItemCategory.objects.none(),
