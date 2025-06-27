@@ -5,7 +5,7 @@
 <div class="container d-flex justify-content-center">
   <div style="width: 100%; max-width: 450px;">
 
-    <h2 class="text-center mb-4">マイリスト</h2>
+    <h2 class="text-center mb-4">マイショッピングリスト</h2>
 
     {% for store in own_stores %}
       <div class="mylist-item-box d-flex justify-content-between align-items-center py-2 px-3 mb-3">
@@ -23,7 +23,7 @@
 
     <hr class="my-4">
 
-    <h2 class="text-center mb-4">招待されているリスト</h2>
+    <h2 class="text-center mb-4">招待されているショッピングリスト</h2>
 
     {% for store in shared_stores %}
       <div class="d-flex justify-content-between align-items-center border rounded py-2 px-3 mb-3 bg-light" style="width: 50%;">
@@ -32,16 +32,16 @@
         </a>
       </div>
     {% empty %}
-      <p class="text-center">招待されているリストはありません</p>
+      <p class="text-center">招待されているショッピングリストはありません</p>
     {% endfor %}
 
-    <h3 class="text-center mt-5">マイリストを追加</h3>
+    <h3 class="text-center mt-5">マイショッピングリストを追加</h3>
     <form method="post" class="d-flex justify-content-between mt-2">
       {% csrf_token %}
       <div class="me-2 flex-grow-1">
         {{ form.store_name }}
       </div>
-      <button type="submit" class="btn btn-primary add-list-btn">マイリストを追加</button>
+      <button type="submit" class="btn btn-primary add-list-btn">マイショッピングリストを追加</button>
     </form>
 
   </div>
