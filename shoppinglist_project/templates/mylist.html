@@ -131,14 +131,14 @@
     }
 
     .item-row input[name="commodity"] {
-      flex: 2;
+      width: 50%;
     }
     .item-row input[name="quantity"] {
       width: 40px;
       text-align: center;
     }
     .item-row input[name="memo"] {
-      flex: 3;
+      width: 50%;
     }
   
     .check-dot {
@@ -169,8 +169,11 @@
     }
   
     .item-name {
-      min-width: 80px;
       font-size: 16px;
+      word-break: break-all;
+      display: inline-block;
+      max-width: 10em;   /* 10文字幅 */
+      white-space: normal;
     }
     
     .item-quantity {
@@ -179,8 +182,11 @@
     }
     
     .item-memo {
-      min-width: 120px;
       color: #666;
+      word-break: break-all;
+      display: inline-block;
+      max-width: 10em;  /* ←10文字分幅 */
+      white-space: normal;
     }
   
     .delete-btn {
