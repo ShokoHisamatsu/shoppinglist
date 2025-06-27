@@ -573,6 +573,10 @@ ul.errorlist li {
   line-height: 1.6;
 }
 
+.btn.btn-link.text-danger {
+  font-size: 1.4rem; /* お好みで 1.6rem くらいも可 */
+  font-weight: bold;
+}
 
 
 
