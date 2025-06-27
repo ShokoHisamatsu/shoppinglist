@@ -247,15 +247,22 @@ body {
 }
 
 .delete-btn {
-  background: none !important;
-  border: none !important;
-  color: #E53935 !important;
-  font-size: 1.2em !important;
-  font-weight: bold !important;
+  border: 1px solid #dc3545;
+  background-color: white;
+  color: #dc3545;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 2px 8px;
   cursor: pointer;
-  padding: 0 !important;
-  line-height: 1 !important;
+  transition: all 0.2s ease-in-out;
 }
+
+.delete-btn:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
 
 /* ✅ カテゴリ名（ラベル）を大きくする */
 form p label {
