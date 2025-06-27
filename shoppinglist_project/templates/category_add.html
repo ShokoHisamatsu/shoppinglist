@@ -21,23 +21,30 @@
 <form method="post" class="mb-4">
     {% csrf_token %}
 
-    <p>追加するカテゴリを選んでください:</p>
-    <ul class="list-unstyled">
-        {% for cat in form.fields.categories.queryset %}
-        <li class="category-checkbox mb-2">
-            <!-- チェックボックス -->
-            <input type="checkbox" name="categories" value="{{ cat.id }}">
-            <span class="category-name">{{ cat.item_category_name }}</span>
-              <!-- 削除ボタン（外のフォームを使う） -->
-            <button type="submit"
-                    class="btn btn-link text-danger p-0"
-                    form="delete-{{ cat.id }}"
-                    onclick="return confirm('「{{ cat.item_category_name }}」を本当に削除しますか？');">
-            ×
-            </button>
-        </li>
-        {% endfor %}
-    </ul>
+    {% if form.fields.categories.queryset %}
+      <p>追加するカテゴリを選んでください:</p>
+      <ul class="list-unstyled">
+          {% for cat in form.fields.categories.queryset %}
+          <li class="category-checkbox mb-2">
+              <!-- チェックボックス -->
+              <input type="checkbox" name="categories" value="{{ cat.id }}">
+              <span class="category-name">{{ cat.item_category_name }}</span>
+                <!-- 削除ボタン（外のフォームを使う） -->
+              <button type="submit"
+                      class="btn btn-link text-danger p-0"
+                      form="delete-{{ cat.id }}"
+                      onclick="return confirm('「{{ cat.item_category_name }}」を本当に削除しますか？');">
+              ×
+              </button>
+          </li>
+          {% endfor %}
+      </ul>
+    {% else %}
+        <p class="text-danger fw-bold mt-3">
+            カテゴリがまだ登録されていないため、<br>
+            まずは「＋カテゴリを作成」ボタンから新しくカテゴリを作ってください。
+        </p>
+    {% endif %}
 
     <!-- リストに追加する＆キャンセル -->
     <div class="d-flex gap-2 mt-3">
