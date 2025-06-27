@@ -68,6 +68,13 @@
   {% endfor %}
 </div>
 
+<!-- ✅ カテゴリがないときだけ表示 -->
+{% if not category_item_map %}
+  <p class="text-danger fw-bold text-center mt-4">
+    「カテゴリ」は「野菜・果物」「肉・魚」など、買い物リストを整理するための分類です。<br>
+    まずは「＋カテゴリ追加」ボタンからカテゴリを登録してください。
+  </p>
+{% endif %}
 
 <!-- ✅ 新規追加ボタン -->
 <a href="{% url 'app:category_add' store.store_id %}" class="btn btn-secondary mt-3">＋カテゴリ追加</a>
