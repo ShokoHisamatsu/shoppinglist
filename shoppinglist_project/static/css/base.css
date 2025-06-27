@@ -579,10 +579,11 @@ ul.errorlist li {
 }
 
 .category-delete-btn:hover {
-  background-color: #dc3545;
-  color: white;
-  border-color: #dc3545;
+  background-color: #dc3545 !important;
+  color: white !important;
+  border-color: #dc3545 !important;
 }
+
 
 
 
