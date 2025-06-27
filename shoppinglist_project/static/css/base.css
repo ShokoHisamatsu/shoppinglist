@@ -413,6 +413,9 @@ form .cancel-link {
   border-color: darkred;
 }
 
+.no-header-page header {
+  display: none !important;
+}
 /* プロフィールフッターなし */
 .no-footer-page footer {
     display: none !important;

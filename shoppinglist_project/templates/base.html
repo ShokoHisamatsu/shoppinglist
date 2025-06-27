@@ -10,7 +10,6 @@
     </head> 
     <body class="d-flex flex-column min-vh-100 {% block body_class %}{% endblock %}" style="background-color: #fff9e6;">
 
-        {% if 'no-header-page' not in body_class %}
         <header class="d-flex justify-content-between align-items-center px-3" style="background-color: white; padding: 10px;">
             <a href="{% url 'app:home' %}">
                 <img src="{% static 'img/Shopli_logo.png' %}" alt="Shopli" class="shopli-logo">
@@ -19,7 +18,6 @@
                 {% include "partials/menu.html" %}
             {% endif %}
         </header>
-        {% endif %}
     
         <!-- 各ページごとの内容 -->
         <div class="container mt-3 flex-grow-1">
