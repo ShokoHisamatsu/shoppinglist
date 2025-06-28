@@ -75,6 +75,12 @@ class ItemCategory(models.Model):
     
     class Meta:
         db_table = 'item_category'
+        constraints = [
+    models.UniqueConstraint(
+        fields=["item_category_name", "created_by"],
+        name="unique_category_per_user"
+    )
+]
         
     def __str__(self):
         return self.item_category_name    
