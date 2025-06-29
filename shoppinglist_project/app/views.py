@@ -650,6 +650,30 @@ def category_master_delete(request, pk):
     return redirect('app:category_add', store_id=request.POST.get('store_id'))
 
 @require_POST
+@login_required
+def category_link_add(request, store_id):
+    shopping_list = get_object_or_404(ShoppingList, store_id=store_id)
+
+    for cat_id in request.POST.getlist('categories'):
+        item_cat = get_object_or_404(ItemCategory, pk=cat_id)
+
+        if List_ItemCategory.objects.filter(
+            list=shopping_list, item_category=item_cat
+        ).exists():
+            # ★ここが今回欲しい警告
+            messages.warning(
+                request,
+                f"「{item_cat.item_category_name}」はすでにリストに追加されています。"
+            )
+        else:
+            List_ItemCategory.objects.create(
+                list=shopping_list, item_category=item_cat
+            )
+
+    return redirect('app:category_add', store_id=store_id)
+
+
+@require_POST
 @csrf_exempt  
 def toggle_item_check(request):
     try:
