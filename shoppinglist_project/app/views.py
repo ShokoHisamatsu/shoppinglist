@@ -248,6 +248,12 @@ class ItemCategoryCreateView(LoginRequiredMixin, CreateView):
         context["store"] = store 
         return context
     
+    def get_form_kwargs(self):
+        # ✅ ここでフォームにログインユーザーを渡す
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         return super().form_valid(form)

@@ -59,10 +59,18 @@ class ItemCategoryForm(forms.ModelForm):
         }
         
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         self.fields['item_category_name'].widget.attrs.update({
             'placeholder': '例）野菜・果物 など'
         })
+        
+    def clean_item_category_name(self):
+        name = self.cleaned_data['item_category_name']
+        # ✅ ログインユーザーがすでに同名カテゴリを持っていたらエラー
+        if ItemCategory.objects.filter(item_category_name=name, created_by=self.user).exists():
+            raise forms.ValidationError("このカテゴリはすでに存在します。")
+        return name
         
 class CategorySelectForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(
