@@ -258,14 +258,6 @@ class ItemCategoryCreateView(LoginRequiredMixin, CreateView):
         form.instance.created_by = self.request.user
         return super().form_valid(form)
     
-    def form_invalid(self, form):
-        # ✅ すでに存在するカテゴリ名エラーが含まれていたら messages に追加
-        if 'item_category_name' in form.errors:
-            for error in form.errors['item_category_name']:
-                if '存在します' in error:
-                    messages.error(self.request, error)
-        return super().form_invalid(form)
-    
 class CategoryItemListView(TemplateView):
     template_name='category_item_list.html'
     
