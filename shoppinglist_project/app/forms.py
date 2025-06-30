@@ -79,7 +79,7 @@ class ItemCategoryForm(forms.ModelForm):
                 item_category__item_category_name=name
             ).exists():
                 raise forms.ValidationError("共有中のリストで同じカテゴリ名が存在します。")
-            return name
+        return name
         
 class CategorySelectForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(
