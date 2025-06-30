@@ -300,7 +300,7 @@ class CategoryAddView(FormView):
        return context
     
     def form_valid(self, form):
-        store = form.cleaned_data["store"]              
+        store = form.store              
         shopping_list = get_object_or_404(ShoppingList, store=store)
 
         created_any = False           
