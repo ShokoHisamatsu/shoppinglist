@@ -80,9 +80,16 @@ class CategorySelectForm(forms.Form):
     )
     
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user')
+        user  = kwargs.pop('user')         # ← 元々のまま
+        store = kwargs.pop('store')        # ← storeも受け取るように追加！
+
         super().__init__(*args, **kwargs)
+
+        # 必要に応じて store を使ってフィルタをカスタマイズ可能
         self.fields['categories'].queryset = ItemCategory.objects.filter(created_by=user)
+
+        # store を今後使うなら self.store に保存しておいてもOK
+        self.store = store
     
 class ShoppingItemForm(forms.ModelForm):
     class Meta:
