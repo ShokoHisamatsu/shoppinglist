@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Store, ItemCategory, ShoppingItem, SharedList, ShoppingList
+from .models import User, Store, ItemCategory, ShoppingItem, SharedList, ShoppingList, List_ItemCategory
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 
@@ -70,7 +70,16 @@ class ItemCategoryForm(forms.ModelForm):
         # ✅ ログインユーザーがすでに同名カテゴリを持っていたらエラー
         if ItemCategory.objects.filter(item_category_name=name, created_by=self.user).exists():
             raise forms.ValidationError("このカテゴリはすでに存在します。")
-        return name
+        
+        # ② 共有先リストでも使われていれば NG
+        store_id = self.initial.get("store_id")  # __init__ で initial に入れておく
+        if store_id:
+            if List_ItemCategory.objects.filter(
+                list__store__store_id=store_id,
+                item_category__item_category_name=name
+            ).exists():
+                raise forms.ValidationError("共有中のリストで同じカテゴリ名が存在します。")
+            return name
         
 class CategorySelectForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(

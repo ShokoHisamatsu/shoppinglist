@@ -302,15 +302,25 @@ class CategoryAddView(FormView):
     def form_valid(self, form):
         store = form.store              
         shopping_list = get_object_or_404(ShoppingList, store=store)
+        
+        existing_names = set(
+            List_ItemCategory.objects
+            .filter(list=shopping_list)
+            .values_list("item_category__item_category_name", flat=True)
+        )
 
         created_any = False           
         for category in form.cleaned_data["categories"]:
-            _, created = List_ItemCategory.objects.get_or_create(
+        # ① 名前が重複しているか？
+            if category.item_category_name in existing_names:
+                continue  # → 後で一括で warning を出す
+            # ② リンクを作成
+            List_ItemCategory.objects.create(
                 list=shopping_list,
                 item_category=category
             )
-            if created:
-                created_any = True
+            existing_names.add(category.item_category_name)  # set に追加して重複判定を更新
+            created_any = True
 
         if created_any:
             return redirect("app:mylist", store_id=store.store_id)
@@ -651,23 +661,33 @@ def category_master_delete(request, pk):
 def category_link_add(request, store_id):
     shopping_list = get_object_or_404(ShoppingList, store_id=store_id)
 
-    for cat_id in request.POST.getlist('categories'):
+    # いまリストに付いているカテゴリ名の集合を取得
+    existing_names = set(
+        List_ItemCategory.objects
+        .filter(list=shopping_list)
+        .values_list("item_category__item_category_name", flat=True)
+    )
+
+    for cat_id in request.POST.getlist("categories"):
         item_cat = get_object_or_404(ItemCategory, pk=cat_id)
 
-        if List_ItemCategory.objects.filter(
-            list=shopping_list, item_category=item_cat
-        ).exists():
-            # ★ここが今回欲しい警告
+        # 🟡 名前重複チェック（ID が違っても名前が同じなら弾く）
+        if item_cat.item_category_name in existing_names:
             messages.warning(
                 request,
-                f"「{item_cat.item_category_name}」はすでにリストに追加されています。"
+                f"「{item_cat.item_category_name}」はすでにこのリストに存在します。"
             )
-        else:
-            List_ItemCategory.objects.create(
-                list=shopping_list, item_category=item_cat
-            )
+            continue
 
-    return redirect('app:category_add', store_id=store_id)
+        # link を作成
+        List_ItemCategory.objects.create(
+            list=shopping_list,
+            item_category=item_cat
+        )
+        existing_names.add(item_cat.item_category_name)  # 次ループ用に更新
+
+    return redirect("app:category_add", store_id=store_id)
+
 
 
 @require_POST
