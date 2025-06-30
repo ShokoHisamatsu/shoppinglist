@@ -601,9 +601,11 @@ class SharedListAddView(LoginRequiredMixin, View):
         )
         
         if created:
-            messages.success(request, f"{store.store_name} を共有リストに追加しました。", extra_tags="share_added")
+            # messages.success(request, f"{store.store_name} を共有リストに追加しました。", extra_tags="share_added")
+            pass
         else:
-            messages.success(request, f"{store.store_name} は既に共有済みです。", extra_tags="share_added")
+            # messages.success(request, f"{store.store_name} は既に共有済みです。", extra_tags="share_added")
+            pass
             
         return redirect('app:shared_list_manage')
     
