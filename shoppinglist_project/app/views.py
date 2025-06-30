@@ -282,9 +282,10 @@ class CategoryAddView(FormView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
+        kwargs["store"] = get_object_or_404(Store,
+                                            store_id=self.kwargs["store_id"])
         return kwargs
 
-    
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
        store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
@@ -299,21 +300,23 @@ class CategoryAddView(FormView):
        return context
     
     def form_valid(self, form):
-        store = get_object_or_404(Store, store_id=self.kwargs['store_id'])
+        store = form.cleaned_data["store"]              
         shopping_list = get_object_or_404(ShoppingList, store=store)
-        category_ids = self.request.POST.getlist('categories')
 
-        if not category_ids:
-            return self.form_invalid(form)
-
-        for cid in category_ids:
-            category = get_object_or_404(ItemCategory, id=cid, created_by=self.request.user)
-            List_ItemCategory.objects.get_or_create(
+        created_any = False           
+        for category in form.cleaned_data["categories"]:
+            _, created = List_ItemCategory.objects.get_or_create(
                 list=shopping_list,
                 item_category=category
             )
+            if created:
+                created_any = True
 
-        return redirect('app:mylist', store_id=store.store_id)
+        if created_any:
+            return redirect("app:mylist", store_id=store.store_id)
+
+        messages.warning(self.request, "すでにこのカテゴリはショッピングリストに存在します。")
+        return self.render_to_response(self.get_context_data(form=form))
     
    
 @login_required

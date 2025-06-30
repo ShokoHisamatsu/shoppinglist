@@ -11,7 +11,7 @@
   {% endfor %}
 {% endif %}
 
-<h2>カテゴリをリストに追加</h2>
+<h2>カテゴリをショッピングリストに追加</h2>
 
 <!-- カテゴリ作成ボタン -->
 <a href="{% url 'app:itemcategory_add' store.store_id %}"
@@ -48,7 +48,7 @@
 
     <!-- リストに追加する＆キャンセル -->
     <div class="d-flex gap-2 mt-3">
-        <button type="submit" class="btn btn-primary">リストに追加する</button>
+        <button type="submit" class="btn btn-primary">ショッピングリストに追加する</button>
         <a href="{% url 'app:mylist' store_id=store.store_id %}" class="btn btn-link">キャンセル</a>
     </div>
 </form>
