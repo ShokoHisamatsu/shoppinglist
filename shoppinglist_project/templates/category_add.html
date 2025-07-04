@@ -13,7 +13,7 @@
   {% endfor %}
 {% endif %}
 
-<h2>カテゴリをショッピングリストに追加</h2>
+<h2>カテゴリを{{ shopping_list.list_name }}のリストに追加</h2>
 
 <!-- カテゴリ作成ボタン -->
 <a href="{% url 'app:itemcategory_add' store.store_id %}"

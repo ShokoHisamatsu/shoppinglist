@@ -298,6 +298,7 @@ class CategoryAddView(FormView):
        context["store"] = store
        context["store_id"] = store.store_id 
        context["category_id_map"] = category_id_map
+       context["shopping_list"] = shopping_list
        return context
     
     def form_valid(self, form):
