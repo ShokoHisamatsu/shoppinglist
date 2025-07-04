@@ -655,19 +655,21 @@ def category_master_delete(request, pk):
         .values_list('list__list_name', flat=True)
         .distinct()
     )
-    if not linked_qs:          # どのリストにも使われていなければ削除
+    if not linked_qs:
+        # どのリストにも使われていなければ削除
         item_category.delete()
-        messages.success(request, f'カテゴリ「{item_category.item_category_name}」を削除しました。')
+        messages.success(request,
+            f'カテゴリ「{item_category.item_category_name}」を削除しました。')
     else:
-        # ①リスト名を「, 」区切りで連結
-        list_names = "、".join(linked_qs)
-        # ②複数行にしたい場合は <br> を挿入
+        # 使われているリスト名を箇条書き
         msg = format_html(
             '「{cat}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
-            '{lists}<br>'
+            '{}<br>'
             '削除するには、該当するリスト画面でこのカテゴリを削除してください。',
+            # ↓ まず箇条書き HTML（位置引数）
+            format_html_join('<br>', '・ {}', ((name,) for name in linked_qs)),
+            # ↓ 次に cat=（名前付き引数）
             cat=item_category.item_category_name,
-            lists=format_html_join("<br>", "・ {}", ((name,) for name in linked_qs))
         )
         messages.warning(request, msg)
     # 元の入力画面へリダイレクト
