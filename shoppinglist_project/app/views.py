@@ -652,7 +652,7 @@ def category_master_delete(request, pk):
     linked_qs = (
         item_category.linked_lists        # ← related_name="linked_lists"
         .select_related('list')
-        .values_list('list__list_name', flat=True)
+        .values_list('list__store_id', 'list__list_name')
         .distinct()
     )
     if not linked_qs:
@@ -661,17 +661,26 @@ def category_master_delete(request, pk):
         messages.success(request,
             f'カテゴリ「{item_category.item_category_name}」を削除しました。')
     else:
-        # ───────── SafeString を作る ─────────
+        # ─── リストへのリンクを 1 行ずつ作成 ───
+        lists_html = format_html_join(
+            mark_safe('<br>'),
+            '・ <a href="{}">{}</a>',
+            (
+                (
+                    reverse('app:mylist', kwargs={'store_id': store_id}),
+                    list_name
+                )
+                for store_id, list_name in linked_qs
+            )
+        )
+
+        # ─── 警告メッセージ本体 ───
         msg = format_html(
             '「{cat}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
             '{lists}<br>'
             '削除するには、該当するリスト画面でこのカテゴリを削除してください。',
-            cat=item_category.item_category_name,                        # ★名前付き
-            lists=format_html_join(                                      # ★Safe
-                mark_safe('<br>'),                 # 区切り
-                '・ {}',                # 各行のフォーマット
-                ((name,) for name in linked_qs)
-            ),
+            cat=item_category.item_category_name,
+            lists=lists_html
         )
         messages.warning(request, msg)
     # 元の入力画面へリダイレクト
