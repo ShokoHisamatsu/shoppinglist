@@ -626,6 +626,41 @@ body.portfolio-page {
   width: 100%;
 }
 
+.shopping-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.shopping-item-row .check-col {
+  flex: 0 0 24px;
+  display: flex;
+  align-items: center;
+}
+
+.shopping-item-row .item-name {
+  flex: 2;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.shopping-item-row .item-quantity {
+  flex: 0 0 40px;
+  text-align: center;
+}
+
+.shopping-item-row .item-memo {
+  flex: 2;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.shopping-item-row .item-delete {
+  flex: 0 0 24px;
+  text-align: right;
+}
 
 
 
