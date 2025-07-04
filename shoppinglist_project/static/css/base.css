@@ -584,6 +584,12 @@ ul.errorlist li {
   border-color: #dc3545 !important;
 }
 
+/* ポートフォリオだけ背景を真っ白にする */
+body.portfolio-page {
+  background: #fff !important;   /* 「!important」で inline の #fff9e6 を上書き */
+}
+
+
 
 
 
