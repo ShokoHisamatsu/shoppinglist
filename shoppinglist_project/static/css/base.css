@@ -662,18 +662,7 @@ body.portfolio-page {
   text-align: right;
 }
 
-@media (max-width: 600px) {
-  .alert-message {
-    white-space: normal;
-    word-break: break-word;
-  }
-}
 
-@media (min-width: 601px) {
-  .alert-message {
-    white-space: nowrap;
-  }
-}
 
 
 
