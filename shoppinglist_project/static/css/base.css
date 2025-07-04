@@ -665,11 +665,11 @@ body.portfolio-page {
 /* すっきり見せる用 */
 ul.linked-list {
   padding-left: 1.2rem;
-  margin: 0.2rem;
+  margin: 0.3rem;
 }
 
 ul.linked-list li {
-  margin-bottom: 4px;
+  margin-bottom: 0%;
 }
 
 ul.linked-list a.list-link {
