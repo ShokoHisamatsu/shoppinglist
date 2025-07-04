@@ -32,7 +32,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.utils.html import format_html_join, format_html
-
+from django.utils.safestring import mark_safe
 
 
 
@@ -668,7 +668,7 @@ def category_master_delete(request, pk):
             '削除するには、該当するリスト画面でこのカテゴリを削除してください。',
             cat=item_category.item_category_name,                        # ★名前付き
             lists=format_html_join(                                      # ★Safe
-                '<br>',                 # 区切り
+                mark_safe('<br>'),                 # 区切り
                 '・ {}',                # 各行のフォーマット
                 ((name,) for name in linked_qs)
             ),
