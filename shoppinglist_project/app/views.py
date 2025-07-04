@@ -674,13 +674,11 @@ def category_master_delete(request, pk):
             )
         )
 
-
-
         # ─── 警告メッセージ本体 ───
         msg = format_html(
             '「{cat}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
             '{lists}<br>'
-            '削除するには、該当するリスト画面でこのカテゴリを削除してください。',
+            '<p class="delete-hint">削除するには、該当するリスト画面でこのカテゴリを削除してください。</p>',
             cat=item_category.item_category_name,
             lists=lists_html
         )
