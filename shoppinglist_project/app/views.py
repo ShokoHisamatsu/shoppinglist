@@ -651,7 +651,7 @@ def category_master_delete(request, pk):
     # ――― このカテゴリが使われているリスト名を取得 ―――
     linked_qs = (
         item_category.linked_lists        # ← related_name="linked_lists"
-        .select_related('shopping_list')
+        .select_related('list')
         .values_list('list__list_name', flat=True)
         .distinct()
     )
