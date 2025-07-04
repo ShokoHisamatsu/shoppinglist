@@ -663,8 +663,8 @@ def category_master_delete(request, pk):
     else:
         # 使われているリスト名を箇条書き
         msg = format_html(
-            '「{}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
-            '{}<br>'
+            '「{cat}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
+            '{llist}<br>'
             '削除するには、該当するリスト画面でこのカテゴリを削除してください。',
             # ↓ まず箇条書き HTML（位置引数）
             format_html_join('<br>', '・ {}', ((name,) for name in linked_qs)),
