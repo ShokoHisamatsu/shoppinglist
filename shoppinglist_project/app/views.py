@@ -652,7 +652,7 @@ def category_master_delete(request, pk):
     if not item_category.linked_lists.exists():  
         item_category.delete()
     else:
-        messages.warning(request, f"「{item_category.item_category_name}」のカテゴリはショッピングリストに追加されているため削除できません。<br>削除するには、先にショッピングリスト画面で「{item_category.item_category_name}」カテゴリを削除してください。")
+        messages.warning(request, f"「{item_category.item_category_name}」のカテゴリはショッピングリストに追加されているため削除できません。<br>削除するには、先にリスト画面で「{item_category.item_category_name}」カテゴリを削除してください。")
 
 
     return redirect('app:category_add', store_id=request.POST.get('store_id'))
