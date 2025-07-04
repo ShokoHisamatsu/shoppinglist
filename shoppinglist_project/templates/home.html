@@ -40,7 +40,7 @@
     {% endfor %}
 
     <h3 class="text-center mt-5">マイショッピングリストを追加</h3>
-    <form method="post" class="d-flex justify-content-between mt-2">
+    <form method="post" class="list-add-form mt-2">
       {% csrf_token %}
       <div class="me-2 flex-grow-1">
         {{ form.store_name }}

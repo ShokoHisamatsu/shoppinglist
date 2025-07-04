@@ -237,6 +237,15 @@ body {
   box-sizing: border-box;        
 }
 
+/* 横並びフォーム全体の揃え方（新規追加） */
+.list-add-form {
+  display: flex;
+  gap: 8px;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  align-items: stretch;
+}
 
 
 .btn-xs {
