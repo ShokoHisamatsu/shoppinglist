@@ -170,23 +170,27 @@
   
     .item-name {
       font-size: 16px;
-      word-break: break-all;
+      word-break: break-word;
       display: inline-block;
       max-width: 10em;   /* 10文字幅 */
       white-space: normal;
+      text-align: left;
     }
     
     .item-quantity {
-      min-width: 30px;
+      width: 2em;
+      flex-shrink: 0;
       text-align: center;
     }
     
     .item-memo {
+      font-size: 16px;
       color: #666;
-      word-break: break-all;
+      word-break: break-word;
       display: inline-block;
       max-width: 10em;  /* ←10文字分幅 */
       white-space: normal;
+      text-align: left;
     }
   
     .delete-btn {
@@ -315,27 +319,4 @@ document.querySelectorAll('.check-dot').forEach(dot => {
 });
 </script>
 
-
-{% comment %} <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.check-dot').forEach(function (dot) {
-      dot.addEventListener('click', function () {
-        // 1. 見た目切り替え
-        this.classList.toggle('checked');
-
-        // 2. データ送信
-        const itemId = this.dataset.id;
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        fetch(`/item/${itemId}/toggle/`, {
-          method: 'POST',
-          headers: {
-            'X-CSRFToken': csrfToken,
-            'Content-Type': 'application/json'
-          },
-        });
-      });
-    });
-  });
-</script> {% endcomment %}
 {% endblock %}
