@@ -663,8 +663,8 @@ def category_master_delete(request, pk):
     else:
         # ─── リストへのリンクを 1 行ずつ作成 ───
         lists_html = format_html_join(
-            mark_safe('<br>'),
-            '・ <a class="list-link d-block py-1" href="{}">{}</a>',
+            '',  # ← 空文字にして<br>を使わない
+            '・ <a class="list-link d-block py-2" href="{}">{}</a>',
             (
                 (reverse('app:mylist', kwargs={'store_id': store_id}), list_name)
                 for store_id, list_name in linked_qs

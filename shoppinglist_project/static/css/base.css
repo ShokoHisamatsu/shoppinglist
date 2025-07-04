@@ -663,13 +663,18 @@ body.portfolio-page {
 }
 
 a.list-link {
-  font-size: 1.05rem;   /* 少し大きめ文字 */
-  transition: background .15s;
+  display: block;
+  padding: 10px 8px;        /* 上下10pxでタッチしやすく、行間も自然に */
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: #0d6efd;
 }
-a.list-link:hover,
-a.list-link:focus {
-  background: rgba(0, 123, 255, .1); /* うす青ハイライト */
+
+a.list-link:hover {
+  text-decoration: underline;
+  background: rgba(13, 110, 253, 0.05);  /* 青の薄背景 */
 }
+
 
 
 
