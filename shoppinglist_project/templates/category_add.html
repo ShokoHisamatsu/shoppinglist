@@ -20,7 +20,7 @@
    class="btn btn-secondary mb-3">＋カテゴリを作成</a>
 
 <!-- ✅ リストに追加するための親フォーム -->
-<form method="post" class="mb-4">
+<form id="category-form" method="post" class="mb-4">
     {% csrf_token %}
 
     {% if form.fields.categories.queryset %}
@@ -64,6 +64,19 @@
       <input type="hidden" name="store_id" value="{{ store.store_id }}">
     </form>
 {% endfor %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('category-form');
+    form.addEventListener('submit', function (e) {
+      const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+      if (checkboxes.length === 0) {
+        e.preventDefault();
+        alert("追加するカテゴリを1つ以上選択してください。");
+      }
+    });
+  });
+</script>
 
 {% endblock %}
 
