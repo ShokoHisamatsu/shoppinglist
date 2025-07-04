@@ -666,6 +666,7 @@ def category_master_delete(request, pk):
             '「{}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
             '{}<br>'
             '削除するには、該当するリスト画面でこのカテゴリを削除してください。',
+            item_category.item_category_name, 
             # ↓ まず箇条書き HTML（位置引数）
             format_html_join('<br>', '・ {}', ((name,) for name in linked_qs)),
         )
