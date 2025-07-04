@@ -680,6 +680,10 @@ ul.linked-list a.list-link {
   text-decoration: none;
 }
 
+ul.linked-list li:last-child a.list-link {
+  padding-bottom: 0;
+}
+
 ul.linked-list a.list-link:hover {
   text-decoration: underline;
   background-color: rgba(13, 110, 253, 0.05);
