@@ -662,18 +662,29 @@ body.portfolio-page {
   text-align: right;
 }
 
-a.list-link {
-  display: block;
-  padding: 10px 8px;        /* 上下10pxでタッチしやすく、行間も自然に */
-  font-size: 1.05rem;
-  text-decoration: none;
-  color: #0d6efd;
+/* すっきり見せる用 */
+ul.linked-list {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
 }
 
-a.list-link:hover {
-  text-decoration: underline;
-  background: rgba(13, 110, 253, 0.05);  /* 青の薄背景 */
+ul.linked-list li {
+  margin-bottom: 4px;
 }
+
+ul.linked-list a.list-link {
+  display: inline-block;     /* ← d-block は外す */
+  padding: 6px 8px;          /* タッチ領域確保 */
+  font-size: 1rem;
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+ul.linked-list a.list-link:hover {
+  text-decoration: underline;
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
 
 
 
