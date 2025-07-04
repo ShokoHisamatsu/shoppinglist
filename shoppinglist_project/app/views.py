@@ -661,14 +661,17 @@ def category_master_delete(request, pk):
         messages.success(request,
             f'カテゴリ「{item_category.item_category_name}」を削除しました。')
     else:
-        # 使われているリスト名を箇条書き
+        # ───────── SafeString を作る ─────────
         msg = format_html(
-            '「{}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
-            '{}<br>'
+            '「{cat}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
+            '{lists}<br>'
             '削除するには、該当するリスト画面でこのカテゴリを削除してください。',
-            item_category.item_category_name, 
-            # ↓ まず箇条書き HTML（位置引数）
-            format_html_join('<br>', '・ {}', ((name,) for name in linked_qs)),
+            cat=item_category.item_category_name,                        # ★名前付き
+            lists=format_html_join(                                      # ★Safe
+                '<br>',                 # 区切り
+                '・ {}',                # 各行のフォーマット
+                ((name,) for name in linked_qs)
+            ),
         )
         messages.warning(request, msg)
     # 元の入力画面へリダイレクト
