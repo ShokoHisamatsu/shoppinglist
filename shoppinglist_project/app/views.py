@@ -664,15 +664,13 @@ def category_master_delete(request, pk):
         # ─── リストへのリンクを 1 行ずつ作成 ───
         lists_html = format_html_join(
             mark_safe('<br>'),
-            '・ <a href="{}">{}</a>',
+            '・ <a class="list-link d-block py-1" href="{}">{}</a>',
             (
-                (
-                    reverse('app:mylist', kwargs={'store_id': store_id}),
-                    list_name
-                )
+                (reverse('app:mylist', kwargs={'store_id': store_id}), list_name)
                 for store_id, list_name in linked_qs
             )
         )
+
 
         # ─── 警告メッセージ本体 ───
         msg = format_html(
