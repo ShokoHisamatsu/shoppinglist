@@ -161,17 +161,17 @@
   
     .item-info {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;  /* 商品名・数量・メモの順 */
+      grid-template-columns: 10em 2em 10em;  /* 商品名・数量・メモの順 */
       gap: 8px;
       align-items: center;
     }
   
     .item-name {
       justify-self: start;
-      font-size: 16px;
+      {% comment %} font-size: 16px; {% endcomment %}
       word-break: break-word;
-      display: inline-block;
-      max-width: 10em;   /* 10文字幅 */
+      {% comment %} display: inline-block; {% endcomment %}
+      {% comment %} max-width: 10em;   /* 10文字幅 */ {% endcomment %}
       white-space: normal;
       text-align: left;
     }
