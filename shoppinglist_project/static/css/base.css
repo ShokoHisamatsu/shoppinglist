@@ -665,6 +665,7 @@ body.portfolio-page {
 @media (max-width: 600px) {
   .alert-message {
     white-space: normal;
+    word-break: break-word;
   }
 }
 
