@@ -31,6 +31,7 @@ from uuid import uuid4
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.utils.html import format_html_join, format_html
 
 
 
@@ -644,18 +645,33 @@ def category_link_delete(request, store_id, pk):
 
     return redirect("app:mylist", store_id=store_id)
 
-@require_POST
-@login_required
 def category_master_delete(request, pk):
     item_category = get_object_or_404(ItemCategory, pk=pk)
 
-    if not item_category.linked_lists.exists():  
+    # ――― このカテゴリが使われているリスト名を取得 ―――
+    linked_qs = (
+        item_category.linked_lists        # ← related_name="linked_lists"
+        .select_related('shopping_list')
+        .values_list('shopping_list__list_name', flat=True)
+        .distinct()
+    )
+    if not linked_qs:          # どのリストにも使われていなければ削除
         item_category.delete()
+        messages.success(request, f'カテゴリ「{item_category.item_category_name}」を削除しました。')
     else:
-        messages.warning(request, f"「{item_category.item_category_name}」のカテゴリはショッピングリストに追加されているため削除できません。<br>削除するには、先にリスト画面で「{item_category.item_category_name}」カテゴリを削除してください。")
-
-
-    return redirect('app:category_add', store_id=request.POST.get('store_id'))
+        # ①リスト名を「, 」区切りで連結
+        list_names = "、".join(linked_qs)
+        # ②複数行にしたい場合は <br> を挿入
+        msg = format_html(
+            '「{cat}」のカテゴリは、以下のショッピングリストで使用されています。<br>'
+            '{lists}<br>'
+            '削除するには、該当するリスト画面でこのカテゴリを削除してください。',
+            cat=item_category.item_category_name,
+            lists=format_html_join("<br>", "・ {}", ((name,) for name in linked_qs))
+        )
+        messages.warning(request, msg)
+    # 元の入力画面へリダイレクト
+    return redirect("app:category_add", store_id=request.POST.get("store_id"))
 
 @require_POST
 @login_required
