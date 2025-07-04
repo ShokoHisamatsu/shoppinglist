@@ -652,7 +652,7 @@ def category_master_delete(request, pk):
     linked_qs = (
         item_category.linked_lists        # ← related_name="linked_lists"
         .select_related('shopping_list')
-        .values_list('shopping_list__list_name', flat=True)
+        .values_list('list__list_name', flat=True)
         .distinct()
     )
     if not linked_qs:          # どのリストにも使われていなければ削除
