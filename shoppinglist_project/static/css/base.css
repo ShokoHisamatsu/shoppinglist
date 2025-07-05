@@ -701,6 +701,18 @@ ul.linked-list a.list-link:hover {
   box-sizing: border-box;
 }
 
+.wide-add-btn {
+  /* ①最低でもこの幅を確保（キャンセルより大きく） */
+  min-width: 140px;
+
+  /* ②Flexbox でも縮まらないように */
+  flex: 0 0 140px;   /* grow 0, shrink 0, basis 140px */
+
+  /* お好みで左右パディングも増量して見た目をそろえる */
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 
 
 
