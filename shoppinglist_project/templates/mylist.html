@@ -2,7 +2,7 @@
 {% load static %}
 {% load custom_filters %} 
 {% block content %}
-{% include 'partials/menu.html' %}
+{% comment %} {% include 'partials/menu.html' %} {% endcomment %}
 
 <h3>{{ shopping_list.list_name }}</h3>
 
@@ -231,12 +231,6 @@
     }
 </style>
   
-{% comment %} <script>
-    function toggleCheck(el) {
-      el.classList.toggle('checked');
-    }
-</script> {% endcomment %}
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 
