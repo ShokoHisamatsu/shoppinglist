@@ -694,6 +694,12 @@ ul.linked-list a.list-link:hover {
   font-size: 0.95rem;
 }
 
+.custom-width {
+  width: 100%;
+  max-width: 400px;
+  min-width: 250px;
+  box-sizing: border-box;
+}
 
 
 
