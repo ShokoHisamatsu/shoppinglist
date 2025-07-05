@@ -713,6 +713,32 @@ ul.linked-list a.list-link:hover {
   padding-right: 1.25rem;
 }
 
+.menu-link {
+  display: block;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  font-size: 1.05rem;
+  color: #212529;
+  text-decoration: none;
+}
+.menu-link.active,
+.menu-link:hover {
+  background: #f1f3f5;
+}
+.avatar {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  color: #0066ff;
+  font-weight: 700;
+  text-align: center;
+  line-height: 32px;
+}
+
+
 
 
 
