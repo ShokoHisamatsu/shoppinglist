@@ -34,6 +34,17 @@
     .menu-content.active {
         display: block;
     }
+
+    .menu-link {
+    display:block;padding:1rem 1.5rem;font-weight:600;
+    letter-spacing:0.03em;font-size:1.05rem;color:#212529;text-decoration:none;
+    }
+    .menu-link.active,
+    .menu-link:hover { background:#f1f3f5; }
+    .avatar {display:inline-block;width:32px;height:32px;
+    border-radius:50%;background:#fff;color:#0066ff;font-weight:700;
+    text-align:center;line-height:32px;}
+
 </style>
 
 <script>
@@ -43,14 +54,30 @@
     }
 </script>
 
-<div class="menu-toggle" onclick="toggleMenu()">≡</div>
+<!-- ハンバーガーアイコン（大きくて見やすい） -->
+<button class="btn border-0 p-0"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#sideMenu"
+        aria-controls="sideMenu">
+  <i class="bi bi-list fs-2 fw-bold text-dark"></i>
+</button>
 
-<div class="menu-content" id="hamburger-menu">
-    <ul>
-        <li><a href="{% url 'app:home' %}">ホーム</a><li>
-        <li><a href="{% url 'app:shared_list_manage' %}">共有リストの作成・管理</a></li>
-        <li><a href="{% url 'app:email_change' %}">メールアドレス変更</a></li>
-        <li><a href="{% url 'app:password_change' %}">パスワード変更</a></li>
-        <li><a href="{% url 'app:user_logout' %}" onclick="return confirm('ログアウトしますか？');">ログアウト</a></li>
+<!-- Offcanvasメニュー本体 -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="sideMenu">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fw-bold">メニュー</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body p-0">
+    <ul class="list-unstyled m-0">
+      <li><a class="menu-link" href="{% url 'app:home' %}">ホーム</a></li>
+      <li><a class="menu-link" href="{% url 'app:shared_list_manage' %}">共有リストの作成・管理</a></li>
+      <li><a class="menu-link" href="{% url 'app:email_change' %}">メールアドレス変更</a></li>
+      <li><a class="menu-link" href="{% url 'app:password_change' %}">パスワード変更</a></li>
+      <li><a class="menu-link text-danger" href="{% url 'app:user_logout' %}" onclick="return confirm('ログアウトしますか？');">ログアウト</a></li>
     </ul>
+  </div>
 </div>
+
