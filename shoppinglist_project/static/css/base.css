@@ -626,9 +626,7 @@ body.portfolio-page {
   display: none; /* 青線なしにする */
 }
 
-.hover-link:hover {
-  background-color: #f1f3f5; /* ほのかなグレー背景 */
-}
+
 
 .shopping-item-row {
   display: flex;
