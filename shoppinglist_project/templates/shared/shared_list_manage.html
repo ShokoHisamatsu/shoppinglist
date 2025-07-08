@@ -41,11 +41,11 @@
             </button>
           </form>
         {% else %}
-          <!-- まだ共有されていない場合 -->
-          <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" style="margin-left: 10px;">
-            {{ store.store_name }}のリストを共有する
-          </a>
-        {% endif %}
+        <!-- まだ共有されていない場合 -->
+        <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary btn-sm ms-2">
+          {{ store.store_name }}のリストを共有する
+        </a>
+      {% endif %}
       {% endwith %}
     </li>
   {% empty %}
