@@ -753,19 +753,25 @@ input[type="password"]::-ms-clear {
 .form-buttons {
   display: flex;
   align-items: center;
-  gap: 16px; /* ボタンとリンクの間隔を調整 */
+  gap: 16px; /* ボタンとリンクの間隔 */
   margin-top: 16px;
+}
+
+.form-buttons .btn-primary {
+  min-width: 100px;  /* ← ボタンを少し広めに */
+  padding: 8px 16px;
+  font-size: 1rem;
 }
 
 .cancel-link {
   color: #007bff;
-  text-decoration: none;
+  text-decoration: underline;  /* ← アンダーライン追加 */
   font-size: 1rem;
 }
-
 .cancel-link:hover {
   text-decoration: underline;
 }
+
 
 
 
