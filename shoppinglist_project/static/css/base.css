@@ -602,28 +602,20 @@ body.portfolio-page {
 
 /* リスト名リンクにホバーエフェクトを追加 */
 .hover-link {
-  position: relative;
   display: inline-block;
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+  padding: 4px 8px;
 }
 
 .hover-link::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -2px;
-  left: 50%;
-  background-color: #007BFF;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-  transform-origin: center;
+  display: none; /* 青線なしにする */
 }
 
-.hover-link:hover::before {
-  width: 100%;
+.hover-link:hover {
+  background-color: #f1f3f5; /* ほのかなグレー背景 */
 }
 
 .shopping-item-row {
