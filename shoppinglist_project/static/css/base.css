@@ -742,6 +742,13 @@ ul.linked-list a.list-link:hover {
   line-height: 32px;
 }
 
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+input[type="password"]::-ms-clear {
+  display: none;
+}
 
 
 
