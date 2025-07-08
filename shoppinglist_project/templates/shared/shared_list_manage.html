@@ -42,7 +42,7 @@
           </form>
         {% else %}
         <!-- まだ共有されていない場合 -->
-        <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary">
+        <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary ms-3">
           {{ store.store_name }}のリストを共有する
         </a>
       {% endif %}
