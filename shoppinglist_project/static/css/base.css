@@ -157,15 +157,15 @@ body {
 
 /* ========== その他デザイン ========== */
 .mylist-item-box {
-  background-color: #f1f3f5;
-  border-radius: 6px;
+  background-color: white;
+  border-radius: 8px;
   border: 1px solid #dee2e6;
-  padding: 16px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .mylist-item-box:hover {
+  background-color: #f1f3f5;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.2s ease;
 }
 
 
@@ -614,6 +614,10 @@ body.portfolio-page {
   transition: background-color 0.2s ease;
   border-radius: 6px;
   padding: 4px 8px;
+}
+
+.hover-link:hover {
+  background-color: transparent;
 }
 
 .hover-link::before {
