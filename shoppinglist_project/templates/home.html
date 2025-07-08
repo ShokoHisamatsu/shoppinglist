@@ -29,14 +29,15 @@
     <h2 class="text-center mb-4">招待されているショッピングリスト</h2>
 
     {% for store in shared_stores %}
-      <div class="mylist-item-box d-flex justify-content-between align-items-center mb-3">
-        <a href="{% url 'app:mylist' store_id=store.store_id %}" class="hover-link text-decoration-none text-dark w-100">
+      <div class="mylist-item-box d-flex justify-content-between align-items-center py-2 px-3 mb-3">
+        <a href="{% url 'app:mylist' store_id=store.store_id %}" class="hover-link text-decoration-none text-dark w-100 fs-5 fw-bold">
           {{ store.store_name }}
         </a>
       </div>
     {% empty %}
       <p class="text-center">招待されているショッピングリストはありません</p>
     {% endfor %}
+
 
     <h3 class="text-center mt-5">マイショッピングリストを追加</h3>
     <form method="post" class="list-add-form mt-2">
