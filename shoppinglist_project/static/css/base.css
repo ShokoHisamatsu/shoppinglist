@@ -750,6 +750,23 @@ input[type="password"]::-ms-clear {
   display: none;
 }
 
+.form-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* ボタンとリンクの間隔を調整 */
+  margin-top: 16px;
+}
+
+.cancel-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.cancel-link:hover {
+  text-decoration: underline;
+}
+
 
 
 

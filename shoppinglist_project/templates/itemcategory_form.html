@@ -17,9 +17,10 @@
       {% endfor %}
     </div>
 
-    <div class="d-flex">
-      <button type="submit" class="btn btn-primary btn-lg px-4 fw-bold me-3">追加</button>
-      <a href="{% url 'app:category_add' store_id=store.store_id %}" class="btn btn-link">キャンセル</a>
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-primary">追加</button>
+      <a href="{% url 'app:category_add' store_id=store.store_id %}" class="cancel-link">キャンセル</a>
     </div>
+
   </form>
 {% endblock %}
