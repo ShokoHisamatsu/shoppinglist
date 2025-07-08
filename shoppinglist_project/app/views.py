@@ -430,6 +430,8 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
         share_url = self.request.build_absolute_uri(
             reverse('app:shared_list_detail', args=[shared_list.url_token])
         )
+        
+        is_shared = shared_list.shared_with.exists()  # 共有されている相手がいればTrue
 
         context.update({
             'store': store,
@@ -437,6 +439,8 @@ class SharedListCreateView(LoginRequiredMixin, FormView):
             'shared_list': shared_list,
             'share_url': share_url,
             'form': self.get_form(),
+            'is_shared': is_shared,  
+            'store_name': store.store_name,
         })
         return context
 
