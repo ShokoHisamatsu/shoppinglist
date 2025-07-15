@@ -1,6 +1,7 @@
 from django import forms
 from .models import User, Store, ItemCategory, ShoppingItem, SharedList, ShoppingList, List_ItemCategory
 from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -22,6 +23,14 @@ class RegistForm(forms.ModelForm):
             'email': 'メールアドレス',
             'password': 'パスワード（8文字以上・英数字を含む）',
         }
+        
+        def clean(self):
+            cleaned_data = super().clean()
+            password1 = cleaned_data.get('password')
+            password2 = cleaned_data.get('password2')
+
+            if password1 and password2 and password1 != password2:
+                self.add_error('password2', 'パスワードが一致しません')
         
 
     def save(self, commit=False):
