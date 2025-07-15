@@ -1,60 +1,64 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>共有リストの作成・管理</h2>
+<div class="container mt-5">
+  <div class="text-center">
+    <h2>共有リストの作成・管理</h2>
 
-<form method="post" action="{% url 'app:shared_list_add' %}">
-  {% csrf_token %}
-  <select name="store_id" class="fixed-width-select">
-    {% for store in unshared_stores %}
-      <option value="{{ store.store_id }}">{{ store.store_name }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit" class="btn btn-primary">共有したいリストを追加</button>
-</form>
+    <form method="post" action="{% url 'app:shared_list_add' %}">
+      {% csrf_token %}
+      <select name="store_id" class="fixed-width-select">
+        {% for store in unshared_stores %}
+          <option value="{{ store.store_id }}">{{ store.store_name }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-primary">共有したいリストを追加</button>
+    </form>
 
-<!-- 有効なメッセージ -->
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %} 
+    <!-- 有効なメッセージ -->
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %} 
 
 
-<!-- お店一覧 -->
-<ul>
-  {% for store in shared_stores %}
-    <li class="shared-list-item">
-      <span class="shared-list-label">{{ store.store_name }}</span>
-      {% with shared_list=store.sharedlist_set.first %}
-        {% if shared_list %}
-          <!-- 共有済みの場合 -->
-          <a href="{% url 'app:shared_list_fix' token=shared_list.url_token %}" class="shared-list-link">
-            {{ store.store_name }}
-          </a>
-          <form method="post" action="{% url 'app:shared_list_manage' %}" style="display:inline;">
-            {% csrf_token %}
-            <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
-            <button type="submit" class="btn btn- btn-sm" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">
-              共有をやめる
-            </button>
-          </form>
-        {% else %}
-        <!-- まだ共有されていない場合 -->
-        <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary ms-3">
-          {{ store.store_name }}のリストを共有する
-        </a>
-      {% endif %}
-      {% endwith %}
-    </li>
-  {% empty %}
-    <p class="no-shared-message fw-bold fs-5 mb-2">共有しているリストはありません。</p>
-    <p class="mb-2">
-      上のプルダウンから共有したいショッピングリストを選び、「共有したいリストを追加」ボタンを押してください。<br>
-      共有したいショッピングリストのURLをコピーし共有できるようになります。<br>
-      共有したショッピングリストは、他のユーザーとリアルタイムで共同編集できます。
-    </script>
-  {% endfor %}
-</ul>
+    <!-- お店一覧 -->
+    <ul>
+      {% for store in shared_stores %}
+        <li class="shared-list-item">
+          <span class="shared-list-label">{{ store.store_name }}</span>
+          {% with shared_list=store.sharedlist_set.first %}
+            {% if shared_list %}
+              <!-- 共有済みの場合 -->
+              <a href="{% url 'app:shared_list_fix' token=shared_list.url_token %}" class="shared-list-link">
+                {{ store.store_name }}
+              </a>
+              <form method="post" action="{% url 'app:shared_list_manage' %}" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
+                <button type="submit" class="btn btn- btn-sm" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">
+                  共有をやめる
+                </button>
+              </form>
+            {% else %}
+            <!-- まだ共有されていない場合 -->
+            <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary ms-3">
+              {{ store.store_name }}のリストを共有する
+            </a>
+          {% endif %}
+          {% endwith %}
+        </li>
+      {% empty %}
+        <p class="no-shared-message fw-bold fs-5 mb-2">共有しているリストはありません。</p>
+        <p class="mb-2">
+          上のプルダウンから共有したいショッピングリストを選び、「共有したいリストを追加」ボタンを押してください。<br>
+          共有したいショッピングリストのURLをコピーし共有できるようになります。<br>
+          共有したショッピングリストは、他のユーザーとリアルタイムで共同編集できます。
+        </script>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 {% endblock %}
