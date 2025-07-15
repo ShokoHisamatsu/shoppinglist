@@ -6,7 +6,7 @@ from django.views.generic import(
 )
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import get_object_or_404, redirect
 from .forms import (
     RegistForm, UserLoginForm, StoreForm, ItemCategoryForm, 
@@ -33,7 +33,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.utils.html import format_html_join, format_html
 from django.utils.safestring import mark_safe
-
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+AuthUser = get_user_model()
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -768,7 +770,20 @@ class PasswordResetDone(PasswordResetDoneView):
 
 class PasswordResetConfirm(PasswordResetConfirmView):
     template_name = 'auth/password_reset_confirm.html'
-    success_url = reverse_lazy('app:password_reset_complete') 
+    success_url = reverse_lazy('app:password_reset_complete')
+    
+    def dispatch(self, request, uidb64=None, token=None, *args, **kwargs):
+        try:
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = AuthUser.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        # トークンが無効 or 有効期限切れ
+        if user is None or not default_token_generator.check_token(user, token):
+            return render(request, 'auth/password_reset_expired.html')
+
+        return super().dispatch(request, uidb64=uidb64, token=token, *args, **kwargs)
 
 class PasswordResetComplete(PasswordResetCompleteView):
     template_name = 'auth/password_reset_complete.html'
