@@ -24,13 +24,13 @@ class RegistForm(forms.ModelForm):
             'password': 'パスワード（8文字以上・英数字を含む）',
         }
         
-        def clean(self):
-            cleaned_data = super().clean()
-            password1 = cleaned_data.get('password')
-            password2 = cleaned_data.get('password2')
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('password')
+        password2 = cleaned_data.get('password2')
 
-            if password1 and password2 and password1 != password2:
-                self.add_error('password2', 'パスワードが一致しません')
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', 'パスワードが一致しません')
         
 
     def save(self, commit=False):
