@@ -24,36 +24,29 @@
     {% endif %}
 
 
-    <!-- リスト表示 -->
-    <div class="d-flex flex-column align-items-center gap-3">
-      {% for store in shared_stores %}
-        {% with shared_list=store.sharedlist_set.first %}
-        <div class="d-flex align-items-center gap-3">
-          {% if shared_list %}
-            <!-- 店舗名がリンクになる -->
-            <a href="{% url 'app:shared_list_fix' token=shared_list.url_token %}" class="btn btn-outline-secondary btn-sm">
-              {{ store.store_name }}
-            </a>
-
-            <form method="post" action="{% url 'app:shared_list_manage' %}" style="display:inline;">
-              {% csrf_token %}
-              <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
-              <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">
-                共有をやめる
-              </button>
-            </form>
-          {% else %}
-            <!-- まだ共有されていない場合 -->
-            <span class="fw-bold">{{ store.store_name }}</span>
-            <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary btn-sm">
-              {{ store.store_name }}のリストを共有する
-            </a>
-          {% endif %}
-        </div>
-        {% endwith %}
-      {% endfor %}
-    </div>
-
+  <div class="d-flex flex-column align-items-center gap-3">
+    {% for store in shared_stores %}
+      {% with shared_list=store.sharedlist_set.first %}
+      <div class="d-flex align-items-center gap-3">
+        {% if shared_list %}
+          <a href="{% url 'app:shared_list_fix' token=shared_list.url_token %}" class="btn btn-outline-secondary btn-sm">
+            {{ store.store_name }}
+          </a>
+          <form method="post" action="{% url 'app:shared_list_manage' %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
+            <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">
+              共有をやめる
+            </button>
+          </form>
+        {% else %}
+          <span class="fw-bold">{{ store.store_name }}</span>
+          <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary btn-sm">
+            {{ store.store_name }}のリストを共有する
+          </a>
+        {% endif %}
+      </div>
+      {% endwith %}
     {% empty %}
       <p class="no-shared-message fw-bold fs-5 mb-2">共有しているリストはありません。</p>
       <p class="mb-2">
