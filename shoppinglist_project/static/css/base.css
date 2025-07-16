@@ -327,6 +327,7 @@ form .cancel-link {
   padding: 10px 24px;
   border-radius: 6px;
   min-width: 160px;
+  white-space: nowrap; 
 }
 
 /* ボタンとログインリンクの間に余白 */
