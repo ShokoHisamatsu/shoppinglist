@@ -4,15 +4,17 @@
   <div class="text-center">
     <h2 class="mb-4">共有リストの作成・管理</h2>
 
-    <form method="post" action="{% url 'app:shared_list_add' %}" class="d-flex justify-content-center align-items-center gap-2 mb-4">
-      {% csrf_token %}
-      <select name="store_id" class="form-select fixed-width-select">
-        {% for store in unshared_stores %}
-          <option value="{{ store.store_id }}">{{ store.store_name }}</option>
-        {% endfor %}
-      </select>
-      <button type="submit" class="btn btn-primary large-btn">共有したいリストを追加</button>
-    </form>
+    <div class="d-flex justify-content-center mb-4">
+      <form method="post" action="{% url 'app:shared_list_add' %}" class="d-flex justify-content-center align-items-center gap-2 mb-4">
+        {% csrf_token %}
+        <select name="store_id" class="form-select fixed-width-select">
+          {% for store in unshared_stores %}
+            <option value="{{ store.store_id }}">{{ store.store_name }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary large-btn">共有したいリストを追加</button>
+      </form>
+    </div>
 
     <!-- 有効なメッセージ -->
     {% if messages %}
