@@ -16,12 +16,12 @@
 
     <!-- 有効なメッセージ -->
     {% if messages %}
-      <ul class="messages">
+      <div class="mb-3">
         {% for message in messages %}
-          <li>{{ message }}</li>
+          <div class="alert alert-info py-2 px-3" role="alert">{{ message }}</div>
         {% endfor %}
-      </ul>
-    {% endif %} 
+      </div>
+    {% endif %}
 
 
     <!-- お店一覧 -->
