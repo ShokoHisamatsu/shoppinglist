@@ -2,11 +2,11 @@
 {% block content %}
 <div class="container mt-5">
   <div class="text-center">
-    <h2>共有リストの作成・管理</h2>
+    <h2 class="mb-4">共有リストの作成・管理</h2>
 
-    <form method="post" action="{% url 'app:shared_list_add' %}">
+    <form method="post" action="{% url 'app:shared_list_add' %}" class="d-flex justify-content-center align-items-center gap-2 mb-4">
       {% csrf_token %}
-      <select name="store_id" class="fixed-width-select">
+      <select name="store_id" class="form-select w-auto">
         {% for store in unshared_stores %}
           <option value="{{ store.store_id }}">{{ store.store_name }}</option>
         {% endfor %}
@@ -25,9 +25,9 @@
 
 
     <!-- お店一覧 -->
-    <ul>
+    <div class="d-flex flex-column align-items-center gap-3">
       {% for store in shared_stores %}
-        <li class="shared-list-item">
+        <div class="shared-list-item">
           <span class="shared-list-label">{{ store.store_name }}</span>
           {% with shared_list=store.sharedlist_set.first %}
             {% if shared_list %}
@@ -49,16 +49,16 @@
             </a>
           {% endif %}
           {% endwith %}
-        </li>
+          </div>
       {% empty %}
         <p class="no-shared-message fw-bold fs-5 mb-2">共有しているリストはありません。</p>
         <p class="mb-2">
           上のプルダウンから共有したいショッピングリストを選び、「共有したいリストを追加」ボタンを押してください。<br>
           共有したいショッピングリストのURLをコピーし共有できるようになります。<br>
           共有したショッピングリストは、他のユーザーとリアルタイムで共同編集できます。
-        </script>
+        </p>
       {% endfor %}
-    </ul>
+      </div>
   </div>
 </div>
 {% endblock %}
