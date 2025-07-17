@@ -28,7 +28,11 @@
     <div class="d-flex flex-column align-items-center gap-3">
       {% for store in shared_stores %}
         {% with shared_list=store.sharedlist_set.first %}
-          <div class="d-flex justify-content-center align-items-center gap-3">
+          <div class="d-flex align-items-center gap-3">
+            <div style="min-width: 200px;" class="text-end fw-bold">
+              {{ store.store_name }}
+            </div>
+
             {% if shared_list %}
               <a href="{% url 'app:shared_list_fix' token=shared_list.url_token %}" class="btn btn-outline-secondary large-btn">
                 {{ store.store_name }}
