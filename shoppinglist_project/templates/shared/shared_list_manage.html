@@ -45,7 +45,6 @@
                 </button>
               </form>
             {% else %}
-              <span class="shared-list-label">{{ store.store_name }}</span>
               <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary btn-sm">
                 {{ store.store_name }}のリストを共有する
               </a>
