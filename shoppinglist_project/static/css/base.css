@@ -773,6 +773,15 @@ input[type="password"]::-ms-clear {
   text-decoration: underline;
 }
 
+/* base.css などに追記（数値はお好みで） */
+.shared-row {
+  /* 中央に並べる用。必要なら幅制限を付けても OK */
+  display: flex;
+  justify-content: center;     /* ← 行全体を中央寄せ */
+  align-items: center;         /* ← 縦位置も中央寄せ */
+  gap: 1rem;                   /* ← 店舗名とボタンの間隔 */
+  flex-wrap: wrap;             /* 名前が長いときに自動改行させる */
+}
 
 
 
