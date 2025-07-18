@@ -28,8 +28,8 @@
     <div class="d-flex flex-column align-items-center gap-3">
       {% for store in shared_stores %}
         {% with shared_list=store.sharedlist_set.first %}
-          <div class="d-flex align-items-center gap-3">
-            <div style="min-width: 200px;" class="text-end fw-bold">
+          <div class="d-flex align-items-center justify-content-center gap-3">
+            <div style="min-width: 220px; text-align: right;" class="fw-bold">
               {{ store.store_name }}
             </div>
 
