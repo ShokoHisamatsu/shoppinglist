@@ -773,14 +773,17 @@ input[type="password"]::-ms-clear {
   text-decoration: underline;
 }
 
-/* base.css などに追記（数値はお好みで） */
+/* プルダウンと店舗名の幅をそろえる値（プルダウンの width と同じ）*/
+:root { --select-width: 160px; }   /* ← ここの数値だけ合わせれば OK */
+
+.fixed-width-select { width: var(--select-width); }  /* 既にあるなら不要 */
+
 .shared-row {
-  /* 中央に並べる用。必要なら幅制限を付けても OK */
-  display: flex;
-  justify-content: center;     /* ← 行全体を中央寄せ */
-  align-items: center;         /* ← 縦位置も中央寄せ */
-  gap: 1rem;                   /* ← 店舗名とボタンの間隔 */
-  flex-wrap: wrap;             /* 名前が長いときに自動改行させる */
+  display: grid;
+  grid-template-columns: var(--select-width) auto;  /* ２列レイアウト */
+  gap: 0.75rem;               /* 列間スペース (= Bootstrap gap-3) */
+  justify-content: center;    /* 行全体を中央寄せ */
+  align-items: center;        /* 垂直中央 */
 }
 
 
