@@ -33,22 +33,24 @@
               {{ store.store_name }}
             </div>
 
-            {% if shared_list %}
-              <a href="{% url 'app:shared_list_fix' token=shared_list.url_token %}" class="btn btn-outline-secondary large-btn">
-                {{ store.store_name }}
-              </a>
-              <form method="post" action="{% url 'app:shared_list_manage' %}" style="display:inline;">
-                {% csrf_token %}
-                <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
-                <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">
-                  共有をやめる
-                </button>
-              </form>
-            {% else %}
-              <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary btn-sm">
-                {{ store.store_name }}のリストを共有する
-              </a>
-            {% endif %}
+            <div>
+              {% if shared_list %}
+                <a href="{% url 'app:shared_list_fix' token=shared_list.url_token %}" class="btn btn-outline-secondary large-btn">
+                  {{ store.store_name }}
+                </a>
+                <form method="post" action="{% url 'app:shared_list_manage' %}" style="display:inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="shared_lists" value="{{ shared_list.id }}">
+                  <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('{{ store.store_name }} の共有を解除しますか？');">
+                    共有をやめる
+                  </button>
+                </form>
+              {% else %}
+                <a href="{% url 'app:shared_list_create' store_id=store.store_id %}" class="btn btn-outline-primary btn-sm">
+                  {{ store.store_name }}のリストを共有する
+                </a>
+              {% endif %}
+            </div>
           </div>
         {% endwith %}
       {% empty %}
