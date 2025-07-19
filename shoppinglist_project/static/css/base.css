@@ -786,6 +786,16 @@ input[type="password"]::-ms-clear {
   align-items: center;        /* 垂直中央 */
 }
 
+/* プルダウン矢印マークを表示させるための明示設定 */
+select.form-control {
+  -webkit-appearance: menulist;  /* Safari, Chrome */
+  -moz-appearance: menulist;     /* Firefox */
+  appearance: menulist;          /* 標準 */
+  background-color: #fff;        /* 白背景維持 */
+  background-image: none;        /* Bootstrapや他の装飾を除去 */
+}
+
+
 
 
 
