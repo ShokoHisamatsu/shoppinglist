@@ -10,7 +10,7 @@
     <form method="post" action="{% url 'app:shared_list_add' %}" class="list-add-form mb-4 d-flex gap-2">
       {% csrf_token %}
       <div class="flex-grow-1">
-        <select name="store_id" class="form-control">{{!-- 幅統一 --}}
+        <select name="store_id" class="form-control">
           {% for store in unshared_stores %}
             <option value="{{ store.store_id }}">{{ store.store_name }}</option>
           {% endfor %}
