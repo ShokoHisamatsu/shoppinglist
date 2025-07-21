@@ -1,43 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="centered-form"> 
 
-<h2>共有リストの設定</h2>
-{% if is_shared %}
-  <p><strong>{{ store_name }}のリスト</strong>を共有しています。</p>
-{% else %}
-  <p><strong>{{ store_name }}のリスト</strong>を共有できます。</p>
-  <p class="text-muted">
-    このURLを共有すると、他のユーザーとショッピングリストをリアルタイムで共同で編集できるようになります。
-  </p>
-{% endif %}
+  <h2>共有リストの設定</h2>
+  {% if is_shared %}
+    <p><strong>{{ store_name }}のリスト</strong>を共有しています。</p>
+  {% else %}
+    <p><strong>{{ store_name }}のリスト</strong>を共有できます。</p>
+    <p class="text-muted">
+      このURLを共有すると、他のユーザーとショッピングリストをリアルタイムで共同で編集できるようになります。
+    </p>
+  {% endif %}
 
 
-<!-- 共有URL表示 -->
-<p>共有URL：</p>
-<div class="share-url-form">
-  <input type="text" class="share-url-input" value="{{ share_url }}" readonly id="shareUrl" onclick="this.select();">
-  <button type="button" class="btn btn-primary share-url-btn" onclick="copyUrl()">URLをコピー</button>
+  <!-- 共有URL表示 -->
+  <p>共有URL：</p>
+  <div class="share-url-form">
+    <input type="text" class="share-url-input" value="{{ share_url }}" readonly id="shareUrl" onclick="this.select();">
+    <button type="button" class="btn btn-primary share-url-btn" onclick="copyUrl()">URLをコピー</button>
+  </div>
+
+  <script>
+    function copyUrl() {
+      const urlField = document.getElementById('shareUrl');
+      urlField.select();
+      document.execCommand('copy');
+      alert('URLをコピーしました！');
+    }
+  </script>
+
+  <hr>
+  <!-- 共有解除ボタン -->
+  <form method="post" action="{% url 'app:shared_list_create' store.store_id %}">
+    {% csrf_token %}
+    <input type="hidden" name="delete_shared_list" value="{{ shared_list.id }}">
+    <button type="submit" class="btn btn-outline-danger mt-2" onclick="return confirm('このリストの共有をやめますか？');">
+      共有をやめる
+    </button>
+  </form>
+
+  <p><a href="{% url 'app:shared_list_manage' %}">← 共有リストの作成・管理に戻る</a></p>
 </div>
-
-<script>
-  function copyUrl() {
-    const urlField = document.getElementById('shareUrl');
-    urlField.select();
-    document.execCommand('copy');
-    alert('URLをコピーしました！');
-  }
-</script>
-
-<hr>
-<!-- 共有解除ボタン -->
-<form method="post" action="{% url 'app:shared_list_create' store.store_id %}">
-  {% csrf_token %}
-  <input type="hidden" name="delete_shared_list" value="{{ shared_list.id }}">
-  <button type="submit" class="btn btn-outline-danger mt-2" onclick="return confirm('このリストの共有をやめますか？');">
-    共有をやめる
-  </button>
-</form>
-
-<p><a href="{% url 'app:shared_list_manage' %}">← 共有リストの作成・管理に戻る</a></p>
-
 {% endblock %}
