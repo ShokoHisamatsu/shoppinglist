@@ -796,18 +796,20 @@ select.form-control {
 }
 
 /* ========== 共有URL表示フォーム ========== */
+/* ========== 共有URLフォーム 左寄せ＆横幅広め ========== */
 .share-url-form {
   display: flex;
   gap: 8px;
-  max-width: 500px;     /* ← 横幅を説明文と同じぐらいに制限 */
-  width: 100%;
-  margin: 0 auto;
+  max-width: none;            /* 中央寄せや幅制限を解除 */
+  width: auto;
+  margin: 0;                  /* ← 中央寄せを解除 */
   align-items: stretch;
 }
 
+/* URL枠：全体が見えるように広く */
 .share-url-input {
-  flex: 1;
-  height: 48px;                  /* ← `.list-name-input`と同じ高さ */
+  width: 600px;               /* ← 例として全URLが見える程度（必要に応じて調整OK） */
+  height: 48px;
   padding: 6px 12px;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -815,14 +817,16 @@ select.form-control {
   box-sizing: border-box;
 }
 
+/* コピー用ボタン：5mm（20px）ずつ広げる */
 .share-url-btn {
-  height: 48px;                  /* ← ボタンの高さも揃える */
-  padding: 6px 16px;
+  height: 48px;
+  padding: 6px 32px;          /* ← 左右とも24px → 32pxへ広げる */
   font-size: 1rem;
   font-weight: bold;
   border-radius: 4px;
   white-space: nowrap;
 }
+
 
 
 
