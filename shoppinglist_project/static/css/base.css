@@ -795,6 +795,34 @@ select.form-control {
   background-image: none;        /* Bootstrapや他の装飾を除去 */
 }
 
+/* ========== 共有URL表示フォーム ========== */
+.share-url-form {
+  display: flex;
+  gap: 8px;
+  max-width: 500px;     /* ← 横幅を説明文と同じぐらいに制限 */
+  width: 100%;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+.share-url-input {
+  flex: 1;
+  height: 48px;                  /* ← `.list-name-input`と同じ高さ */
+  padding: 6px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.share-url-btn {
+  height: 48px;                  /* ← ボタンの高さも揃える */
+  padding: 6px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  white-space: nowrap;
+}
 
 
 

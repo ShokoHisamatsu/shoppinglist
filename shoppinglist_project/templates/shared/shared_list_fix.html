@@ -14,9 +14,9 @@
 
 <!-- 共有URL表示 -->
 <p>共有URL：</p>
-<div class="d-flex align-items-center gap-2" style="max-width: 100%;">
-  <input type="text" value="{{ share_url }}" id="shareUrl" readonly style="width: 80%;" onclick="this.select();">
-  <button class="btn btn-primary ms-2" onclick="copyUrl()" style="white-space: nowrap;">URLをコピー</button>
+<div class="share-url-form">
+  <input type="text" class="share-url-input" value="{{ share_url }}" readonly id="shareUrl" onclick="this.select();">
+  <button type="button" class="btn btn-primary share-url-btn" onclick="copyUrl()">URLをコピー</button>
 </div>
 
 <script>
