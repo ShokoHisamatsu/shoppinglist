@@ -664,12 +664,12 @@ body.portfolio-page {
   line-height: 1.2;
 }
 
-.item-row form .btn-link.text-danger {
-  flex: 0 0 24px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;     /* ← 上寄り→中央揃えに */
-  height: 48px;  
+.item-row form .btn-link.text-danger{
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0;
+  display: flex;          /* ← ここで縦中央揃え */
+  align-items: center;
 }
 
 /* すっきり見せる用 */
