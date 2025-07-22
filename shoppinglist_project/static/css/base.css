@@ -633,7 +633,7 @@ body.portfolio-page {
 
 .shopping-item-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   padding: 4px 0;
   border-bottom: 1px solid #eee;
@@ -643,10 +643,13 @@ body.portfolio-page {
   flex: 0 0 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.shopping-item-row .item-name {
-  flex: 2;
+.shopping-item-row .item-name,
+.shopping-item-row .item-memo {
+  flex: 1;
+  overflow-wrap: anywhere;
   word-break: break-word;
   min-width: 0;
 }
@@ -656,15 +659,11 @@ body.portfolio-page {
   text-align: center;
 }
 
-.shopping-item-row .item-memo {
-  flex: 2;
-  word-break: break-word;
-  min-width: 0;
-}
-
 .shopping-item-row .item-delete {
   flex: 0 0 24px;
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 /* すっきり見せる用 */
