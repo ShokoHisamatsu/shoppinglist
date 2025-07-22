@@ -633,7 +633,8 @@ body.portfolio-page {
 
 .item-row {
   display: flex;
-  align-items: center;
+  align-items: center;      /* ← 縦方向の中央揃え */
+  justify-content: center;  /* ← 横方向も中央 */
   gap: 8px;
   padding: 4px 0;
   border-bottom: 1px solid #eee;
@@ -664,15 +665,13 @@ body.portfolio-page {
   line-height: 1.2;
 }
 
-.item-row form .btn-link.text-danger {
-  font-size: 1.4rem;            /* ← 大きくする */
-  line-height: 1;
-  padding: 0.25rem 0.5rem;      /* ← クリック範囲を広げる */
-  display: flex;
-  align-items: center;          /* ← 縦方向中央揃え */
-  justify-content: center;      /* ← 中央寄せ（横方向） */
-  border: none;
-  background: none;
+.item-row form .btn-link.text-danger{
+  font-size: 1.4rem;  /* ひとまわり大きく */
+  line-height: 1;     /* 余計な縦方向スペース除去 */
+  padding: 0 2px;     /* クリック範囲を少し広げる */
+  display: inline-flex;
+  align-items: center; /* ここでも保険として中央 */
+  justify-content: center;
 }
 
 /* すっきり見せる用 */
