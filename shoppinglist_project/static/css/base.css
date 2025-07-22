@@ -657,13 +657,19 @@ body.portfolio-page {
 .shopping-item-row .item-quantity {
   flex: 0 0 40px;
   text-align: center;
+  display: flex;
+  align-items: center;  /* ← 縦中央に揃える */
+  justify-content: center;
+  height: 48px;         /* 入力欄と同じ高さに合わせる */
+  line-height: 1.2;
 }
 
 .shopping-item-row .item-delete {
   flex: 0 0 24px;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: center;     /* ← 上寄り→中央揃えに */
+  height: 48px;  
 }
 
 /* すっきり見せる用 */
