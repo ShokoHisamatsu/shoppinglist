@@ -664,7 +664,7 @@ body.portfolio-page {
   line-height: 1.2;
 }
 
-.item-row .item-delete {
+.item-row form .btn-link.text-danger {
   flex: 0 0 24px;
   display: flex;
   justify-content: flex-end;
