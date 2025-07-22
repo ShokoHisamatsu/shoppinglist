@@ -631,7 +631,7 @@ body.portfolio-page {
   background-color: #f1f3f5; /* ほのかなグレー背景 */
 }
 
-.shopping-item-row {
+.item-row {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -639,22 +639,22 @@ body.portfolio-page {
   border-bottom: 1px solid #eee;
 }
 
-.shopping-item-row .check-col {
+.item-row .check-col {
   flex: 0 0 24px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.shopping-item-row .item-name,
-.shopping-item-row .item-memo {
+.item-row .item-name,
+.item-row .item-memo {
   flex: 2;
   overflow-wrap: anywhere;
   word-break: break-word;
   min-width: 0;
 }
 
-.shopping-item-row .item-quantity {
+.item-row .item-quantity {
   flex: 0 0 40px;
   text-align: center;
   display: flex;
@@ -664,7 +664,7 @@ body.portfolio-page {
   line-height: 1.2;
 }
 
-.shopping-item-row .item-delete {
+.item-row .item-delete {
   flex: 0 0 24px;
   display: flex;
   justify-content: flex-end;
