@@ -31,9 +31,9 @@
         {% csrf_token %}
         <input class=item-name-input, item-quantity-input, item-memo-input type="hidden" name="category_id" value="{{ category.id }}">
         <div class="item-row">
-          <input type="text" name="commodity" maxlength="20" placeholder="商品名(20文字以内)" required>
-          <input type="number" name="quantity" min="1" value="1" placeholder="個数">
-          <input type="text" name="memo" maxlength="20" placeholder="メモ(20文字以内)">
+          <input type="text" name="commodity" maxlength="20" placeholder="商品名(20文字以内)" class="item-name-input" required>
+          <input type="number" name="quantity" min="1" value="1" placeholder="個数" class="item-quantity-input">
+          <input type="text" name="memo" maxlength="20" placeholder="メモ(20文字以内)" class="item-memo-input">
           <input type="submit" class="btn btn-primary" value="保存">
         </div>
       </form>
