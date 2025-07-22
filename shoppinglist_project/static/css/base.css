@@ -633,8 +633,8 @@ body.portfolio-page {
 
 .item-row {
   display: flex;
-  align-items: center;      /* ← 縦方向の中央揃え */
-  justify-content: center;  /* ← 横方向も中央 */
+  align-items: center;       /* 縦中央揃え */
+  justify-content: flex-start; /* ← ここを修正 */
   gap: 8px;
   padding: 4px 0;
   border-bottom: 1px solid #eee;
@@ -665,25 +665,22 @@ body.portfolio-page {
   line-height: 1.2;
 }
 
-/* ボタンのクリック領域 & 文字サイズ */
-.item-row form .btn-link.text-danger{
-  font-size: 1.4rem;         /* ひと回り大きく */
-  line-height: 1;            /* 余白削減 */
-  padding: 2px;              /* 押しやすく */
-  border: none;
-  background: none;
-  display: inline-flex;      /* 念のため中央保険 */
+/* フォーム（×ボタンを包む要素）を固定幅 & 中央揃え */
+.item-row form{
+  flex: 0 0 32px;            /* 押しやすい 32px 幅 */
+  display: flex;
   align-items: center;
   justify-content: center;
+  height: 48px;              /* 行高と合わせて完全中央 */
 }
 
-/* 削除フォーム全体 (=24px 幅) を縦横中央に */
-.item-row form{
-  flex: 0 0 24px;            /* 幅を固定 */
-  display: flex;
-  align-items: center;       /* ← 縦中央 */
-  justify-content: center;   /* ← 横中央 */
-  height: 48px;              /* 行全体と同じ高さに */
+.item-row form .btn-link.text-danger{
+  font-size: 1.4rem;  /* ひとまわり大きく */
+  line-height: 1;     /* 余計な縦方向スペース除去 */
+  padding: 0 2px;     /* クリック範囲を少し広げる */
+  display: inline-flex;
+  align-items: center; /* ここでも保険として中央 */
+  justify-content: center;
 }
 
 /* すっきり見せる用 */
