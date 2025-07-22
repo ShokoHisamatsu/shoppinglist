@@ -664,12 +664,15 @@ body.portfolio-page {
   line-height: 1.2;
 }
 
-.item-row form .btn-link.text-danger{
-  font-size: 1.2rem;
+.item-row form .btn-link.text-danger {
+  font-size: 1.4rem;            /* ← 大きくする */
   line-height: 1;
-  padding: 0;
-  display: flex;          /* ← ここで縦中央揃え */
-  align-items: center;
+  padding: 0.25rem 0.5rem;      /* ← クリック範囲を広げる */
+  display: flex;
+  align-items: center;          /* ← 縦方向中央揃え */
+  justify-content: center;      /* ← 中央寄せ（横方向） */
+  border: none;
+  background: none;
 }
 
 /* すっきり見せる用 */
