@@ -665,16 +665,26 @@ body.portfolio-page {
   line-height: 1.2;
 }
 
+/* ボタンのクリック領域 & 文字サイズ */
 .item-row form .btn-link.text-danger{
-  font-size: 1.4rem;  /* ひとまわり大きく */
-  line-height: 1;     /* 余計な縦方向スペース除去 */
-  padding: 0 2px;     /* クリック範囲を少し広げる */
-  display: inline-flex;
-  align-items: center; /* ここでも保険として中央 */
+  font-size: 1.4rem;         /* ひと回り大きく */
+  line-height: 1;            /* 余白削減 */
+  padding: 2px;              /* 押しやすく */
+  border: none;
+  background: none;
+  display: inline-flex;      /* 念のため中央保険 */
+  align-items: center;
   justify-content: center;
 }
 
-.item-row form{ margin-top: 2px; }   /* 1〜2px で微調整 */
+/* 削除フォーム全体 (=24px 幅) を縦横中央に */
+.item-row form{
+  flex: 0 0 24px;            /* 幅を固定 */
+  display: flex;
+  align-items: center;       /* ← 縦中央 */
+  justify-content: center;   /* ← 横中央 */
+  height: 48px;              /* 行全体と同じ高さに */
+}
 
 /* すっきり見せる用 */
 ul.linked-list {
