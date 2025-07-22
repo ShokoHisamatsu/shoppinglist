@@ -14,11 +14,14 @@
 
 
   <!-- 共有URL表示 -->
-  <p>共有URL：</p>
-  <div class="share-url-form">
-    <input type="text" class="share-url-input" value="{{ share_url }}" readonly id="shareUrl" onclick="this.select();">
-    <button type="button" class="btn btn-primary share-url-btn" onclick="copyUrl()">URLをコピー</button>
+  <div class="share-url-wrapper">
+    <label class="share-url-label" for="shareUrl">共有URL：</label>
+    <div class="share-url-form">
+      <input type="text" class="share-url-input" value="{{ share_url }}" readonly id="shareUrl" onclick="this.select();">
+      <button type="button" class="btn btn-primary share-url-btn" onclick="copyUrl()">URLをコピー</button>
+    </div>
   </div>
+
 
   <script>
     function copyUrl() {

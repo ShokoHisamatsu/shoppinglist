@@ -795,37 +795,51 @@ select.form-control {
   background-image: none;        /* Bootstrapや他の装飾を除去 */
 }
 
-/* ========== 共有URL表示フォーム ========== */
-/* ========== 共有URLフォーム 左寄せ＆横幅広め ========== */
+/* ラベルとフォームを縦に並べる親ラッパー */
+.share-url-wrapper {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto 16px auto;
+}
+
+/* 上の「共有URL：」ラベル */
+.share-url-label {
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  display: block;
+  text-align: left;   /* 必要なら center に変更可 */
+}
+
+/* URL欄とボタンを横並び */
 .share-url-form {
   display: flex;
   gap: 8px;
-  max-width: none;            /* 中央寄せや幅制限を解除 */
-  width: auto;
-  margin: 0;                  /* ← 中央寄せを解除 */
   align-items: stretch;
 }
 
-/* URL枠：全体が見えるように広く */
+/* 入力欄（URL） */
 .share-url-input {
-  width: 600px;               /* ← 例として全URLが見える程度（必要に応じて調整OK） */
+  flex: 1;
   height: 48px;
   padding: 6px 12px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  min-width: 400px;   /* 必要なら調整 */
 }
 
-/* コピー用ボタン：5mm（20px）ずつ広げる */
+/* コピー用ボタン */
 .share-url-btn {
   height: 48px;
-  padding: 6px 32px;          /* ← 左右とも24px → 32pxへ広げる */
+  padding: 6px 32px;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 4px;
   white-space: nowrap;
 }
+
 
 
 
