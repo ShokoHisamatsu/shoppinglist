@@ -674,6 +674,8 @@ body.portfolio-page {
   justify-content: center;
 }
 
+.item-row form{ margin-top: 1px; }   /* 1〜2px で微調整 */
+
 /* すっきり見せる用 */
 ul.linked-list {
   padding-left: 1.2rem;
