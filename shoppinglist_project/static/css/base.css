@@ -648,7 +648,7 @@ body.portfolio-page {
 
 .shopping-item-row .item-name,
 .shopping-item-row .item-memo {
-  flex: 1;
+  flex: 2;
   overflow-wrap: anywhere;
   word-break: break-word;
   min-width: 0;
