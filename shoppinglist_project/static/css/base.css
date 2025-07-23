@@ -102,7 +102,15 @@ body {
   border-color: #0d6efd;
   color: white;
   font-weight: bold;
+  height: 48px;
+  padding: 6px 12px;
+  font-size: 16px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .btn-primary:hover,
 .btn-primary:focus {
   background-color: #0b5ed7;
