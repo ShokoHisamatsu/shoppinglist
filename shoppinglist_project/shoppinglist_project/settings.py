@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
@@ -145,7 +149,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_API_KEY")
 DEFAULT_FROM_EMAIL = 'Shopli <shopli2025@outlook.com>' 
 
 LOGOUT_REDIRECT_URL = 'app:login'
