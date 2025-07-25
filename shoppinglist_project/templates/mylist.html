@@ -252,84 +252,90 @@
 </style>
   
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener('DOMContentLoaded', function () {
 
-    // ✅ 1. チェックボックスの状態をサーバに保存
-    document.querySelectorAll('.check-input').forEach(input => {
-      input.addEventListener('change', function () {
-        const isChecked = this.checked;
-        const itemId = this.dataset.id;
-
-        fetch('/shopli/toggle_item_check/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-          },
-          body: JSON.stringify({
-            item_id: itemId,
-            is_checked: isChecked
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status !== 'ok') {
-            console.error('保存失敗:', data.message);
-          }
-        })
-        .catch(error => {
-          console.error('通信エラー:', error);
-        });
+    document.querySelectorAll('.add-item-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const categoryId = button.dataset.categoryId;
+        const target = document.getElementById('new-item-form-' + categoryId);
+  
+        if (target.querySelector('form')) return;
+  
+        target.innerHTML = `
+          <form method="POST" action="${window.location.pathname}">
+            {% csrf_token %}
+            <input type="hidden" name="category_id" value="${categoryId}">
+            <input type="text" name="name" placeholder="商品名" required>
+            <input type="number" name="quantity" placeholder="個数">
+            <input type="text" name="memo" placeholder="メモ">
+            <button type="submit" class="btn-primary">保存</button>
+          </form>
+        `;
       });
     });
-
-    // ✅ 2. 「未チェックのみ表示」の状態を localStorage に保存・復元
-    const filters = document.querySelectorAll(".filter-unchecked");
-
-    filters.forEach(function (filter) {
-      const categoryId = filter.dataset.categoryId;
-      const savedState = localStorage.getItem("filter-" + categoryId);
-      if (savedState === "on") {
-        filter.checked = true;
-        toggleItems(categoryId, true); // 初回読み込み時に反映
-      }
-
-      filter.addEventListener("change", function () {
-        const isChecked = filter.checked;
-        localStorage.setItem("filter-" + categoryId, isChecked ? "on" : "off");
-        toggleItems(categoryId, isChecked); // 表示切り替え
-      });
-    });
-
-    function toggleItems(categoryId, showOnlyUnchecked) {
-      const items = document.querySelectorAll(`.item-row.existing-item[data-category-id="${categoryId}"]`);
-      items.forEach(function (item) {
-        const checkbox = item.querySelector('input[type="checkbox"]');
-        if (showOnlyUnchecked && checkbox.checked) {
-          item.style.display = "none";
-        } else {
-          item.style.display = "";
-        }
-      });
-    }
-
-    // ✅ 3. DjangoのCSRFトークン取得（fetchで使う用）
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-        }
-      }
-      return cookieValue;
-    }
-
   });
+</script>
+
+<script>
+// ✅ CSRFトークンを取得する関数（Django公式）
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // cookieの名前と一致するか確認
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+// ✅ 全チェックボックスにイベントを付与
+document.querySelectorAll('.check-input').forEach(input => {
+  input.addEventListener('change', function () {
+    const isChecked = this.checked;
+    const itemId = this.dataset.id;
+
+    fetch('/shopli/toggle_item_check/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify({
+        item_id: itemId,
+        is_checked: isChecked
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status !== 'ok') {
+        console.error('保存失敗:', data.message);
+      }
+    })
+    .catch(error => {
+      console.error('通信エラー:', error);
+    });
+  });
+});
+</script>
+
+<script>
+  function toggleFilter() {
+    const showUncheckedOnly = document.getElementById('filter-unchecked').checked;
+    const rows = document.querySelectorAll('.item-row.existing-item'); // ←既存アイテムだけ対象にするクラスを後でつけると便利
+
+    rows.forEach(row => {
+      const checkbox = row.querySelector('input[type="checkbox"]');
+      if (checkbox) {
+        row.style.display = (showUncheckedOnly && checkbox.checked) ? 'none' : '';
+      }
+    });
+  }
 </script>
 
 {% endblock %}
