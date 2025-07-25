@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-PASSWORD_RESET_TIMEOUT = 60 * 60 * 24   # 24 時間（86400 秒）
+PASSWORD_RESET_TIMEOUT = 10
 
 
 # Internationalization
