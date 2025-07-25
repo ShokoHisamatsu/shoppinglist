@@ -151,4 +151,5 @@ SENDGRID_ECHO_TO_STDOUT = True
 
 DEFAULT_FROM_EMAIL = 'Shopli <shopli2025@outlook.com>'
 
+
 LOGOUT_REDIRECT_URL = 'app:login'
