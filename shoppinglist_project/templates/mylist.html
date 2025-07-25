@@ -140,17 +140,16 @@
       width: 50%;
     }
   
-    /* デフォルトのチェックボックスを非表示にして、カスタム表示 */
     input[type="checkbox"].check-input {
       appearance: none;
       width: 20px;
       height: 20px;
       border: 2px solid #999;
-      border-radius: 50%;
+      border-radius: 4px;               /* ← □に変更 */
       margin-right: 10px;
       cursor: pointer;
-      background-color: transparent;
-      transition: all 0.2s ease;
+      background-color: white;
+      position: relative;
     }
 
     input[type="checkbox"].check-input:checked {
@@ -158,6 +157,18 @@
       border-color: #007bff;
     }
 
+    input[type="checkbox"].check-input:checked::after {
+      content: "✔";
+      color: white;
+      font-size: 14px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+    }
   
     .item-info {
       display: grid;
