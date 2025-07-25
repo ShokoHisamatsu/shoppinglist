@@ -43,7 +43,7 @@
         <div class="item-row">
 
           <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
-          <span class="check-dot {% if item.is_checked %}checked{% endif %}" data-id="{{ item.id }}"></span>
+           <input type="checkbox" class="check-input" data-id="{{ item.id }}" {% if item.is_checked %}checked{% endif %}>
           <div class="item-info">
             <span class="item-name">{{ item.commodity }}</span>
             <span class="item-quantity">{{ item.quantity }}</span>
@@ -140,23 +140,24 @@
       width: 50%;
     }
   
-    .check-dot {
+    /* デフォルトのチェックボックスを非表示にして、カスタム表示 */
+    input[type="checkbox"].check-input {
+      appearance: none;
       width: 20px;
       height: 20px;
       border: 2px solid #999;
       border-radius: 50%;
       margin-right: 10px;
-      display: inline-block;
       cursor: pointer;
       background-color: transparent;
       transition: all 0.2s ease;
     }
-  
-    /* 「色をキープする」 */
-    .check-dot.checked {
+
+    input[type="checkbox"].check-input:checked {
       background-color: #007bff;
       border-color: #007bff;
     }
+
   
     .item-info {
       display: grid;
@@ -273,16 +274,12 @@ function getCookie(name) {
   return cookieValue;
 }
 
-// ✅ 全チェックドットにイベントを付与
-document.querySelectorAll('.check-dot').forEach(dot => {
-  dot.addEventListener('click', function () {
-    // 見た目のトグル
-    const isChecked = this.classList.toggle('checked');
-
-    // データ属性から item_id を取得
+// ✅ 全チェックボックスにイベントを付与
+document.querySelectorAll('.check-input').forEach(input => {
+  input.addEventListener('change', function () {
+    const isChecked = this.checked;
     const itemId = this.dataset.id;
 
-    // サーバーに状態を送信
     fetch('/shopli/toggle_item_check/', {
       method: 'POST',
       headers: {
@@ -294,12 +291,7 @@ document.querySelectorAll('.check-dot').forEach(dot => {
         is_checked: isChecked
       })
     })
-    .then(response => {
-      if (!response.ok) {
-        console.error('サーバーエラー:', response.statusText);
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
       if (data.status !== 'ok') {
         console.error('保存失敗:', data.message);
