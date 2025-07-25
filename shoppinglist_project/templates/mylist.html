@@ -325,17 +325,38 @@ document.querySelectorAll('.check-input').forEach(input => {
 });
 </script>
 <script>
-  function toggleFilter() {
-    const showUncheckedOnly = document.getElementById('filter-unchecked').checked;
-    const rows = document.querySelectorAll('.item-row.existing-item'); // ←既存アイテムだけ対象にするクラスを後でつけると便利
+document.addEventListener("DOMContentLoaded", function () {
+  const filters = document.querySelectorAll(".filter-unchecked");
 
-    rows.forEach(row => {
-      const checkbox = row.querySelector('input[type="checkbox"]');
-      if (checkbox) {
-        row.style.display = (showUncheckedOnly && checkbox.checked) ? 'none' : '';
+  filters.forEach(function (filter) {
+    const categoryId = filter.dataset.categoryId;
+    const savedState = localStorage.getItem("filter-" + categoryId);
+
+    if (savedState === "on") {
+      filter.checked = true;
+      toggleItems(categoryId, true);  // ← 初回ロード時にも反映
+    }
+
+    filter.addEventListener("change", function () {
+      const isChecked = filter.checked;
+      localStorage.setItem("filter-" + categoryId, isChecked ? "on" : "off");
+      toggleItems(categoryId, isChecked);
+    });
+  });
+
+  function toggleItems(categoryId, showOnlyUnchecked) {
+    const items = document.querySelectorAll(`.item-row.existing-item[data-category-id="${categoryId}"]`);
+
+    items.forEach(function (item) {
+      const checkbox = item.querySelector('input[type="checkbox"]');
+      if (showOnlyUnchecked && checkbox.checked) {
+        item.style.display = "none";
+      } else {
+        item.style.display = "";
       }
     });
   }
+});
 </script>
 
 {% endblock %}
