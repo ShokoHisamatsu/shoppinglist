@@ -679,7 +679,7 @@ body.portfolio-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 48px;              /* 行高と合わせて完全中央 */
+  height: 36px;              /* 行高と合わせて完全中央 */
 }
 
 .item-row form .btn-link.text-danger{
