@@ -120,17 +120,23 @@ body {
 
 /* 補助操作（戻る・キャンセルなど） */
 .btn-secondary {
-  background-color: #EEEEEE;
-  color: #333;
-  font-size: 1rem;        /* ← 少し大きく（例：0.95 → 1rem） */
-  padding: 10px 20px;     /* ← 縦横に余白を追加 */
-  border-radius: 6px;     /* ← 角丸を少し滑らかに */
-  font-weight: 500;       /* ← 適度に太く（お好みで） */
-  height: 48px;  
+  background-color: #58666e;   /* ← 添付画像②のボタン色に近い */
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  height: 48px;
+  padding: 0 20px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: none;
+  transition: background-color 0.3s;
 }
 .btn-secondary:hover,
 .btn-secondary:focus {
-  background-color: #ddd;
+  background-color: #47545b; 
 }
 
 /* 危険操作（削除など） */
