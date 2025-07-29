@@ -180,7 +180,7 @@ body {
 
 
 .link-style {
-  color: #007BFF;
+  color: #6db193;
   text-decoration: underline;
   font-weight: normal;
   cursor: pointer;
@@ -235,14 +235,14 @@ body {
   white-space: nowrap;
   font-weight: 600;
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #6db193;
+  border-color: #6db193;
   flex-shrink: 0;
 }
 .add-list-btn:hover,
 .add-list-btn:focus {
-  background-color: #0069d9;
-  border-color: #0062cc;
+  background-color: #5ca87f;
+  border-color: #519f76;
 }
 
 /* リスト名入力枠 */
@@ -705,7 +705,7 @@ ul.linked-list a.list-link {
   display: inline-block;     /* ← d-block は外す */
   padding: 6px 8px;          /* タッチ領域確保 */
   font-size: 1rem;
-  color: #0d6efd;
+  color: #6db193;
   text-decoration: none;
 }
 
@@ -761,7 +761,7 @@ ul.linked-list a.list-link:hover {
   height: 32px;
   border-radius: 50%;
   background: #fff;
-  color: #0066ff;
+  color: #6db193;
   font-weight: 700;
   text-align: center;
   line-height: 32px;
@@ -789,7 +789,7 @@ input[type="password"]::-ms-clear {
 }
 
 .cancel-link {
-  color: #007bff;
+  color: #6db193;
   text-decoration: underline;  /* ← アンダーライン追加 */
   font-size: 1rem;
 }
