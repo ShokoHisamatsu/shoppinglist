@@ -63,16 +63,14 @@ class HomeView(LoginRequiredMixin, TemplateView):
             store = form.save(commit=False)
             store.created_by = request.user 
             store.save()
-            # messages.success(request, f"{store.store_name}を追加しました。", extra_tags="list_added")
             return redirect('app:home')
         else:
-            # messages.error(request, 'お店の追加に失敗しました。')
             return self.get(request, *args, **kwargs)
     
 class RegistUserView(CreateView):
     template_name = 'regist.html'
     form_class = RegistForm
-    success_url = reverse_lazy('app:home')
+    success_url = reverse_lazy('app:user_login')
     
     def form_valid(self, form):
         try:
