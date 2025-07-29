@@ -344,14 +344,19 @@ form .cancel-link {
   margin-bottom: 20px;
 }
 
-.login-link a {
-  font-size: 1.05rem;     /* ← 0.95→1.05 で文字をアップ */
-  font-weight: 500;       /* ← 少し太く */
-}
-
-/* ログインリンクに少し余白と見やすさを */
 .login-link {
   margin-top: 20px;
+}
+
+.login-link a {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #6db193;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
 }
 
 /* 大きめの青ボタン（ログイン・送信など共通） */
@@ -372,6 +377,12 @@ form .cancel-link {
   margin-top: 10px;
   text-align: center;
   font-size: 0.95rem;
+  color: #6db193;
+  text-decoration: none;
+}
+
+.form-link:hover {
+  text-decoration: underline;
 }
 
 /* 全体を中央寄せにするコンテナ */
