@@ -110,21 +110,6 @@ class UserLoginView(FormView):
     def get_success_url(self):
         next_url = self.request.GET.get('next')
         return next_url if next_url else self.success_url 
-    
-# class CustomLogoutView(LogoutView):
-#     def get(self, request, *args, **kwargs):
-#         logout(request)
-#         return redirect('user_login') 
-           
-    
-# class UserLogoutView(View):
-#     def get(self, request, *args,**kwargs):
-#         return render(request, 'user_logout_form.html')
-
-#     def post(self, request, *args, **kwargs):
-#         logout(request)
-#         return redirect('app:home')
-
 
 class StoreDeleteView(LoginRequiredMixin, DeleteView):
     model = Store

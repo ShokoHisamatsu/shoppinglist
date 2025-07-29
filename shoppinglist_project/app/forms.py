@@ -14,12 +14,11 @@ class RegistForm(forms.ModelForm):
     
     class Meta:
         model = User
-        fields = ['nickname', 'email', 'password']
+        fields = ['email', 'password']
         widgets = {
             'password' : forms.PasswordInput(),
         }
         labels = {
-            'nickname': 'ニックネーム',
             'email': 'メールアドレス',
             'password': 'パスワード（8文字以上・英数字を含む）',
         }

@@ -14,15 +14,6 @@
       </div>
     {% endif %}
 
-    <!-- nickname -->
-    <p>
-      {{ form.nickname.label_tag }}<br>
-      {{ form.nickname|add_class:"form-input" }}
-      {% for error in form.nickname.errors %}
-        <p class="text-danger">{{ error }}</p>
-      {% endfor %}
-    </p>
-
     <!-- email -->
     <p>
       {{ form.email.label_tag }}<br>
