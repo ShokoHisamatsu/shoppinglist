@@ -38,7 +38,7 @@
   <form method="post" action="{% url 'app:shared_list_create' store.store_id %}">
     {% csrf_token %}
     <input type="hidden" name="delete_shared_list" value="{{ shared_list.id }}">
-    <button type="submit" class="btn btn-outline-danger mt-2" onclick="return confirm('このリストの共有をやめますか？');">
+    <button type="submit" class="btn btn-outline-danger share-outline-btn mt-2" onclick="return confirm('このリストの共有をやめますか？');">
       共有をやめる
     </button>
   </form>
