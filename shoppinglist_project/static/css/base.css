@@ -905,6 +905,15 @@ select.form-control {
   justify-content: center;
 }
 
+input[type="checkbox"].check-input {
+  accent-color: #6db193;
+}
+
+input[type="radio"]:checked {
+  accent-color: #6db193;
+}
+
+
 
 
 
