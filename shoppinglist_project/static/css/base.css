@@ -896,7 +896,7 @@ select.form-control {
 
 /* ホーム画面の削除ボタン用（大きめ） */
 .wide-delete-btn {
-  height: 48px;
+  height: 40px;
   padding: 6px 16px;
   font-size: 1rem;
   font-weight: normal;
