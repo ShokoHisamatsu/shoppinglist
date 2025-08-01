@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>メールアドレスを変更しました</h2>
+<div class="text-center">
+    <h2>メールアドレスを変更しました</h2>
 
-<p>メールアドレスの変更が完了しました</p>
+    <p>メールアドレスの変更が完了しました</p>
 
-<p>※次回のログインからは新しいメールアドレスでログインしてください。</p>
+    <p>※次回のログインからは新しいメールアドレスでログインしてください。</p>
 
-<a href="{% url 'app:home' %}" class="cancel-link">ホームに戻る</a>
+    <a href="{% url 'app:home' %}" class="cancel-link">ホームに戻る</a>
+</div>
 {% endblock %}
