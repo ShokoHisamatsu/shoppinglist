@@ -700,6 +700,7 @@ body.portfolio-page {
   align-items: center;
   justify-content: center;
   height: 36px;              /* 行高と合わせて完全中央 */
+  margin-bottom: 0; 
 }
 
 .item-row form .btn-link.text-danger{
