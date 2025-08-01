@@ -810,7 +810,7 @@ input[type="password"]::-ms-clear {
 
 .cancel-link {
   color: #6db193;
-  text-decoration: underline;  /* ← アンダーライン追加 */
+  text-decoration: none;  /* ← アンダーライン追加 */
   font-size: 1rem;
 }
 .cancel-link:hover {
