@@ -164,7 +164,9 @@ body {
   min-width: auto;
 }
 .btn-outline-danger:hover {
-  background-color: #ffe5e5;
+  background-color: #dc3545;
+  color: white;
+  border-color: #dc3545;
 }
 
 /* 小さいボタン用ユーティリティ */
