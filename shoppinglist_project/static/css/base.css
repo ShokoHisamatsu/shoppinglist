@@ -385,8 +385,7 @@ form .cancel-link {
 }
 
 /* リンクの下に余白をつけて並べる用 */
-.form-link,
-.form-link:visited {
+.form-link {
   color: #6db193;
   text-decoration: none;
 }
@@ -394,11 +393,6 @@ form .cancel-link {
 .form-link:hover {
   text-decoration: underline;
 }
-
-.form-link:active {
-  opacity: 0.7;
-}
-
 
 /* 全体を中央寄せにするコンテナ */
 .centered-form {
