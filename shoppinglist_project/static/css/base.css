@@ -932,6 +932,12 @@ input, select, textarea, button {
   box-sizing: border-box;
 }
 
+/* ✅ チェックボックスだけはデフォルト表示に戻す */
+input[type="checkbox"] {
+  appearance: checkbox;
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+}
 
 
 
