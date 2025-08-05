@@ -905,6 +905,7 @@ select.form-control {
 
 input[type="checkbox"] {
   accent-color: #6db193;
+  color-scheme: light; 
 }
 
 /* ========== OS差対策・最終統一スタイル ========== */
