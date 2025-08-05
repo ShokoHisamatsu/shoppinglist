@@ -481,22 +481,6 @@ form .cancel-link {
   box-sizing: border-box;
 }
 
-
-/* カテゴリ選択のチェックと文字を拡大 */
-.category-checkbox {
-  font-size: 18px;               /* ✅ 文字大きく */
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.category-checkbox input[type="checkbox"] {
-  width: 20px;                   /* ✅ □を大きく */
-  height: 20px;
-  cursor: pointer;
-}
-
-
 form {
   margin-bottom: 20px;
 }
@@ -900,12 +884,6 @@ select.form-control {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-
-input[type="checkbox"] {
-  accent-color: #6db193;
-  color-scheme: light; 
 }
 
 /* ========== OS差対策・最終統一スタイル ========== */
