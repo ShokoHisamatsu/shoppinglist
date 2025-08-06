@@ -29,7 +29,7 @@
           {% for cat in form.fields.categories.queryset %}
           <li class="category-checkbox mb-2">
               <!-- チェックボックス -->
-              <input type="checkbox" name="categories" value="{{ cat.id }}">
+              <input type="checkbox" name="categories" value="{{ cat.id }}" class="check-input">
               <span class="category-name">{{ cat.item_category_name }}</span>
                 <!-- 削除ボタン（外のフォームを使う） -->
               <button type="submit"
