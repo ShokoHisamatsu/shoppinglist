@@ -608,8 +608,8 @@ ul.errorlist li {
 }
 
 .btn.btn-link.text-danger {
-  font-size: 1.4rem; /* お好みで 1.6rem くらいも可 */
-  font-weight: bold;
+  font-size: 1.2rem; /* お好みで 1.6rem くらいも可 */
+  font-weight: normal;
 }
 
 /* ポートフォリオだけ背景を真っ白にする */
@@ -950,6 +950,10 @@ input[type="checkbox"].check-input {
       line-height: 1;
     }
 
+.category-name {
+  font-size: 1.2rem;  /* ← お好みに応じて調整（例: 1.5rem, 20pxなど） */
+  font-weight: bold;  /* 太字にしたい場合（任意） */
+}
 
 
 
