@@ -118,6 +118,12 @@ body {
   opacity: 1;
 }
 
+.btn-primary:active {
+  background-color: #5ca87f !important;
+  border-color: #519f76 !important;
+  box-shadow: none;
+}
+
 /* 補助操作（戻る・キャンセルなど） */
 .btn-secondary {
   background-color: #58666e;   /* ← 添付画像②のボタン色に近い */
