@@ -393,7 +393,7 @@ form .cancel-link {
 /* リンクの下に余白をつけて並べる用 */
 .form-link {
   color: #6db193;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .form-link:hover {
