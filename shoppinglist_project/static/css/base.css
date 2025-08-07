@@ -608,7 +608,7 @@ ul.errorlist li {
 }
 
 .btn.btn-link.text-danger {
-  font-size: 1.1rem; /* お好みで 1.6rem くらいも可 */
+  font-size: 0.9rem; /* お好みで 1.6rem くらいも可 */
   font-weight: normal;
 }
 
@@ -684,7 +684,7 @@ body.portfolio-page {
 }
 
 .item-row form .btn-link.text-danger{
-  font-size: 1.4rem;  /* ひとまわり大きく */
+  font-size: 0.9rem;  /* ひとまわり大きく */
   line-height: 1;     /* 余計な縦方向スペース除去 */
   padding: 0 2px;     /* クリック範囲を少し広げる */
   display: inline-flex;
