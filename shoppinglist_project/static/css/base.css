@@ -959,8 +959,8 @@ input[type="checkbox"].check-input {
 
 /* 2. カテゴリ名に余白を持たせて右側を広く使う */
 .category-name {
-  flex-grow: 1;          /* ← 間に広がる */
   padding-right: 0.5px;    /* ×とのスペース */
+  padding-right: 0; 
 }
 
 
