@@ -652,6 +652,47 @@ body.portfolio-page {
   background-color: #f1f3f5; /* ほのかなグレー背景 */
 }
 
+/* ===================================================
+   #1  共通レイアウト
+   =================================================== */
+
+/* ——— カテゴリを横に並べるレーン ——— */
+.category-wrapper {
+  display: flex;
+  gap: 20px;                /* 間隔はここで一元管理 */
+  overflow-x: auto;         /* カード総幅が足りない時だけ横スクロール */
+  overflow-y: hidden;
+  padding-bottom: 6px;      /* スクロールバーが重ならないよう下マージン */
+  box-sizing: border-box;
+}
+
+/* ——— 各カテゴリカード ——— */
+.category-block {
+  /* 幅は写真①と同じに固定。数字を変えれば全体幅も変えられる */
+  width: 420px;
+  flex: 0 0 420px;          /* shrink させず、gap 分のみ余白に */
+
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.05);
+
+  display: flex;            /* ↓ 上部固定／下部スクロール実現用 */
+  flex-direction: column;
+}
+
+/* ——— アイテム一覧だけ縦スクロール ——— */
+.item-list-scroll {
+  flex: 1 1 auto;           /* 余った高さをすべて使う */
+  min-height: 0;            /* ← flex 子が縮めるための必須設定 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 6px;
+  border-top: 1px solid #eee;
+  padding-top: 6px;
+}
+
 .item-row {
   display: flex;
   align-items: center;       /* 縦中央揃え */

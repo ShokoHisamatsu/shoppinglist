@@ -94,7 +94,7 @@
 <a href="{% url 'app:category_add' store.store_id %}" class="btn btn-secondary mt-3">＋カテゴリ追加</a>
 
 
-<style>
+{% comment %} <style>
     .mylist-container {
       max-width: 600px;
       margin: 0 auto;
@@ -152,39 +152,7 @@
     .item-row input[name="memo"] {
       width: 50%;
     }
-  
-    {% comment %} input[type="checkbox"].check-input {
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #999;
-      border-radius: 4px;               /* ← □に変更 */
-      margin-right: 10px;
-      cursor: pointer;
-      background-color: white;
-      position: relative;
-      vertical-align: middle;
-      transition: all 0.2s ease;
-    }
-
-    input[type="checkbox"].check-input:checked {
-      background-color: #6db193; 
-      border-color: #6db193;
-    }
-
-    input[type="checkbox"].check-input:checked::after {
-      content: "✔";
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      font-family: "Arial", sans-serif;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      line-height: 1;
-    } {% endcomment %}
-  
+    
     .item-info {
       display: grid;
       grid-template-columns: 10em 2em 10em;  /* 商品名・数量・メモの順 */
@@ -253,7 +221,7 @@
       justify-content: space-between;
       align-items: center;
     }
-</style>
+</style> {% endcomment %}
 
 <!-- ✅ アイテム追加フォーム制御スクリプト -->
 <script>
