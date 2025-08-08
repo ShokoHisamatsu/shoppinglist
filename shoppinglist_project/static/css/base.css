@@ -977,32 +977,7 @@ input[type="checkbox"].check-input {
 }
 
 
-.category-block {
-  border: 1px solid #ccc;
-  padding: 10px;
-  background-color: white;
-  border-radius: 8px;
-  max-width: 380px;  /* 横幅はお好みで */
-}
 
-/* 商品リスト部分だけスクロール */
-.item-list-scroll {
-  max-height: calc(2.4rem * 7); /* 約7行分の高さに制限 */
-  overflow-y: auto;
-  margin-top: 10px;
-  border-top: 1px solid #eee;
-  padding-top: 8px;
-}
-
-/* 商品1行のデザイン（例） */
-.item-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4px 0;
-  border-bottom: 1px solid #eee;
-  font-size: 1rem;
-}
 
 
 
