@@ -52,32 +52,33 @@
       </div>
 
       <!-- ✅ 登録済みアイテムの表示 -->
-      {% for item in items %}
-        <div class="item-row existing-item" data-category-id="{{ category.id }}">
+      <div class="item-list-scroll"> 
+        {% for item in items %}
+          <div class="item-row existing-item" data-category-id="{{ category.id }}">
 
-          <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
-          <input type="checkbox" class="check-input" data-id="{{ item.id }}" {% if item.is_checked %}checked{% endif %}>
-          <div class="item-info">
-            <span class="item-name">{{ item.commodity }}</span>
-            <span class="item-quantity">{{ item.quantity }}</span>
-            {% if item.memo %}
-              <span class="item-memo">{{ item.memo }}</span>
-            {% endif %}
+            <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
+            <input type="checkbox" class="check-input" data-id="{{ item.id }}" {% if item.is_checked %}checked{% endif %}>
+            <div class="item-info">
+              <span class="item-name">{{ item.commodity }}</span>
+              <span class="item-quantity">{{ item.quantity }}</span>
+              {% if item.memo %}
+                <span class="item-memo">{{ item.memo }}</span>
+              {% endif %}
+            </div>
+            
+
+            <!-- ✅ 削除フォーム -->
+            <form method="post" action="{% url 'app:item_delete' item.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-link text-danger p-0" onclick="return confirm('この商品を削除しますか？');">
+                ×
+              </button>
+            </form>
           </div>
-          
-
-          <!-- ✅ 削除フォーム -->
-          <form method="post" action="{% url 'app:item_delete' item.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-link text-danger p-0" onclick="return confirm('この商品を削除しますか？');">
-              ×
-            </button>
-          </form>
-        </div>
-      {% empty %}
-        <p>商品がが登録されていません。必要な項目を入力して追加してください。</p>
-      {% endfor %}
-
+        {% empty %}
+          <p>商品がが登録されていません。必要な項目を入力して追加してください。</p>
+        {% endfor %}
+      </div>
     </div>
   {% endfor %}
 </div>
