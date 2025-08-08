@@ -46,11 +46,11 @@
       <div class="form-check mb-3">
         <input class="form-check-input check-input filter-unchecked" 
                type="checkbox" 
-               id="filter-unchecked-{{ store.id }}-{{ category.id }}"
+               id="filter-unchecked-{{ store.store_id }}-{{ category.id }}"
                data-category-id="{{ category.id }}"
-               data-store-id="{{ store.id }}">
+               data-store-id="{{ store.store_id }}">
         <label class="form-check-label" 
-               for="filter-unchecked-{{ store.id }}-{{ category.id }}">
+               for="filter-unchecked-{{ store.store_id }}-{{ category.id }}">
           未購入のみ表示
         </label>
       </div>
@@ -60,7 +60,7 @@
         {% for item in items %}
           <div class="item-row existing-item" 
                data-category-id="{{ category.id }}"
-               data-store-id="{{ store.id }}">
+               data-store-id="{{ store.store_id }}">
 
             <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
             <input type="checkbox" class="check-input" data-id="{{ item.id }}" {% if item.is_checked %}checked{% endif %}>
