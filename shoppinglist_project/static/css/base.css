@@ -652,6 +652,32 @@ body.portfolio-page {
   background-color: #f1f3f5; /* ほのかなグレー背景 */
 }
 
+.category-block {
+  display: flex;
+  flex-direction: column;
+  height: 460px; /* ← お好みで調整 */
+  max-width: 380px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-right: 12px;
+}
+
+.category-header,
+.category-block form,
+.category-block .form-check {
+  flex-shrink: 0;
+}
+
+.item-list-scroll {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-top: 10px;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+}
+
 .item-row {
   display: flex;
   align-items: center;       /* 縦中央揃え */
