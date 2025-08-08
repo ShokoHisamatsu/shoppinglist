@@ -355,17 +355,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const savedState = localStorage.getItem(filterKey);
     if (savedState === "on") {
       filter.checked = true;
-      toggleItems(categoryId, true);  // ← 初回ロード時にも反映
     }
+
+    // 初回ロード時に表示切り替え（←ここが重要！）
+    toggleItems(storeId, categoryId, filter.checked);
 
     filter.addEventListener("change", function () {
       const isChecked = filter.checked;
-      localStorage.setItem("filter-" + categoryId, isChecked ? "on" : "off");
-      toggleItems(categoryId, isChecked);
+      localStorage.setItem(filterKey, isChecked ? "on" : "off");
+      toggleItems(storeId, categoryId, isChecked);
     });
   });
 
-  function toggleItems(categoryId, showOnlyUnchecked) {
+  function toggleItems(storeId, categoryId, showOnlyUnchecked) {
     const items = document.querySelectorAll(
       `.item-row.existing-item[data-store-id="${storeId}"][data-category-id="${categoryId}"]`
     );
@@ -381,5 +383,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 </script>
+
 
 {% endblock %}
