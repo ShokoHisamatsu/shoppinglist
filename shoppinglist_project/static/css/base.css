@@ -662,7 +662,7 @@ body.portfolio-page {
   background: white;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 10px;
+  padding: 6px 8px;
   margin-right: 12px;
   box-sizing: border-box;
   overflow: hidden;  /* ← 横スクロール防止！ */
