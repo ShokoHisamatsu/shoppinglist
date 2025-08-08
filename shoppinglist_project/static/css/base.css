@@ -657,8 +657,8 @@ body.portfolio-page {
   display: flex;
   flex-direction: column;
   height: calc(48px * 7 + 150px); /* 7行分 + 上部フォームなどの高さ */
-  max-width: 380px;
-  min-width: 360px;
+  max-width: 440px;
+  min-width: 400px;
   background: white;
   border: 1px solid #ccc;
   border-radius: 8px;

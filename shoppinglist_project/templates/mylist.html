@@ -25,7 +25,6 @@
           {% endif %}
         {% endwith %}
       </div>
-
       <!-- ✅ アイテム登録フォーム -->
       <form method="POST" action="{% url 'app:mylist' store.store_id %}">
         {% csrf_token %}
