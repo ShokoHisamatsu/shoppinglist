@@ -46,10 +46,11 @@
       <div class="form-check mb-3">
         <input class="form-check-input check-input filter-unchecked" 
                type="checkbox" 
-               id="filter-unchecked-{{ category.id }}"
-               data-category-id="{{ category.id }}">
+               id="filter-unchecked-{{ store.id }}-{{ category.id }}"
+               data-category-id="{{ category.id }}"
+               data-store-id="{{ store.id }}">
         <label class="form-check-label" 
-               for="filter-unchecked-{{ category.id }}">
+               for="filter-unchecked-{{ store.id }}-{{ category.id }}">
           未購入のみ表示
         </label>
       </div>
@@ -57,7 +58,9 @@
       <!-- ✅ 登録済みアイテムの表示 -->
       <div class="item-list-scroll"> 
         {% for item in items %}
-          <div class="item-row existing-item" data-category-id="{{ category.id }}">
+          <div class="item-row existing-item" 
+               data-category-id="{{ category.id }}"
+               data-store-id="{{ store.id }}">
 
             <!-- ●チェックボタン（クリックで見た目変更＋保存） -->
             <input type="checkbox" class="check-input" data-id="{{ item.id }}" {% if item.is_checked %}checked{% endif %}>
@@ -346,8 +349,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   filters.forEach(function (filter) {
     const categoryId = filter.dataset.categoryId;
-    const savedState = localStorage.getItem("filter-" + categoryId);
+    const storeId = filter.dataset.storeId;
+    const filterKey = `filter-${storeId}-${categoryId}`;
 
+    const savedState = localStorage.getItem(filterKey);
     if (savedState === "on") {
       filter.checked = true;
       toggleItems(categoryId, true);  // ← 初回ロード時にも反映
@@ -361,7 +366,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function toggleItems(categoryId, showOnlyUnchecked) {
-    const items = document.querySelectorAll(`.item-row.existing-item[data-category-id="${categoryId}"]`);
+    const items = document.querySelectorAll(
+      `.item-row.existing-item[data-store-id="${storeId}"][data-category-id="${categoryId}"]`
+    );
 
     items.forEach(function (item) {
       const checkbox = item.querySelector('input[type="checkbox"]');
