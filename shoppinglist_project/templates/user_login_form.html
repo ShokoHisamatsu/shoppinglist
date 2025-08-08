@@ -73,23 +73,6 @@
   font-size: 0.7rem;
 }
 
-/* ▼ 中央から下線が伸びる演出（追加） */
-.form-footer a::before {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 1px;
-  bottom: -2px;
-  left: 50%;
-  background-color: #6db193;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-  transform-origin: center top;
-}
-
-.form-footer a:hover::before {
-  width: 100%;
-}
 
 /* ===================== 中央寄せ & 高さ調整 ===================== */
 .centered-login-wrapper{

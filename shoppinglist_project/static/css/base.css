@@ -397,7 +397,7 @@ form .cancel-link {
 }
 
 .form-link:hover {
-  text-decoration: underline !important;
+  text-decoration: underline;
 }
 
 /* 全体を中央寄せにするコンテナ */
