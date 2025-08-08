@@ -394,10 +394,12 @@ form .cancel-link {
 .form-link {
   color: #6db193;
   text-decoration: none !important;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.3s ease;
 }
 
 .form-link:hover {
-  text-decoration: underline;
+  border-bottom: 1px solid #6db193;
 }
 
 /* 全体を中央寄せにするコンテナ */
