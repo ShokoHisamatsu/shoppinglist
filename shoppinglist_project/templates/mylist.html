@@ -125,6 +125,16 @@
       font-weight: bold;
       font-size: 1.1em;
     }
+
+    .item-list-scroll {
+      flex: 1 1 auto;   /* 余った高さをすべて使用 */
+      min-height: 0;    /* ← これがないと flex 子が縮まらない */
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin-top: 6px;
+      border-top: 1px solid #eee;
+      padding-top: 6px;
+    }
   
     .item-row {
       display: flex;
