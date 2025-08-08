@@ -111,19 +111,14 @@
     }
   
     .category-block {
-      display: flex;
-      flex-direction: column;
-      height: calc(48px * 7 + 150px);
-      width: 420px;  /* ← min/max ではなく width に固定してみてください！ */
-      background: white;
+      background-color: #fff;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 6px 8px;  /* ← padding控えめに */
-      margin-right: 12px;
-      box-sizing: border-box;
-      overflow: hidden;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      min-width: 220px;
+      flex-shrink: 0;
     }
-
   
     .category-block h3 {
       margin-bottom: 8px;
