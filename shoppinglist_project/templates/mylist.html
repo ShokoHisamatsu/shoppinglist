@@ -113,7 +113,6 @@
     .category-block {
       display: flex;
       flex-direction: column;
-      height: calc(48px * 10 + 150px);
       width: 550px;
       background-color: #fff;
       border: 1px solid #ccc;
@@ -133,6 +132,7 @@
     .item-list-scroll {
       flex-grow: 1;
       min-height: 0;    /* ← これがないと flex 子が縮まらない */
+      max-height: calc(48px * 10);
       overflow-y: auto;
       overflow-x: hidden;
       margin-top: 6px;
