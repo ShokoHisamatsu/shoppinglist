@@ -652,37 +652,10 @@ body.portfolio-page {
   background-color: #f1f3f5; /* ほのかなグレー背景 */
 }
 
-/* カテゴリ全体の枠（1カテゴリ） */
-.category-block {
-  display: flex;
-  flex-direction: column;
-  height: calc(48px * 7 + 150px); /* 7行分 + 上部フォームなどの高さ */
-  max-width: 440px;
-  min-width: 400px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 6px 8px;
-  margin-right: 12px;
-  box-sizing: border-box;
-  overflow: hidden;  /* ← 横スクロール防止！ */
-}
-
-/* カテゴリ内のスクロール対象エリア */
-.item-list-scroll {
-  flex-grow: 1;
-  overflow-y: auto;
-  overflow-x: hidden; /* ← 横スクロール禁止 */
-  margin-top: 10px;
-  border-top: 1px solid #eee;
-  padding-top: 8px;
-}
-
 .item-row {
   display: flex;
   align-items: center;       /* 縦中央揃え */
   justify-content: flex-start; /* ← ここを修正 */
-  min-width: 0;
   gap: 8px;
   padding: 4px 0;
   border-bottom: 1px solid #eee;
