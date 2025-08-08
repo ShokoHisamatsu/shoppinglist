@@ -127,7 +127,7 @@
     }
 
     .item-list-scroll {
-      flex: 1 1 auto;   /* 余った高さをすべて使用 */
+      flex-grow: 1;
       min-height: 0;    /* ← これがないと flex 子が縮まらない */
       overflow-y: auto;
       overflow-x: hidden;
