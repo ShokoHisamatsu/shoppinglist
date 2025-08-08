@@ -682,6 +682,7 @@ body.portfolio-page {
   display: flex;
   align-items: center;       /* 縦中央揃え */
   justify-content: flex-start; /* ← ここを修正 */
+  min-width: 0;
   gap: 8px;
   padding: 4px 0;
   border-bottom: 1px solid #eee;
