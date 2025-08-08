@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load widget_tweaks %}
-
+{% block body_class %}user-login-page{% endblock %}
 
 {% block content %}
 
@@ -98,7 +98,8 @@ h3.text-center {
 }
 </style>
 
-<h3 class="text-center mb-4">ログイン</h3>
+<h3 class="text-center">ログイン</h3>
+
 <div class="card login-card login-card--login mx-auto">    
   {% if form.non_field_errors %}
     <div class="alert alert-danger">
