@@ -103,9 +103,11 @@
   
     .category-wrapper {
       display: flex;
-      flex-direction: row;
-      gap: 20px;
-      overflow-x: auto;
+      gap: 20px;           /* ← 余白は gap だけに統一  */
+      overflow-x: auto;    /* ← はみ出したときだけ横スクロール */
+      overflow-y: hidden;
+      padding-bottom: 6px; /* ← スクロールバーぶんの逃げ */
+      box-sizing: border-box;
     }
   
     .category-block {
