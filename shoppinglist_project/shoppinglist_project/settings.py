@@ -114,6 +114,19 @@ AUTH_PASSWORD_VALIDATORS = [
 
 PASSWORD_RESET_TIMEOUT = 60 * 60 * 24
 
+# =============================
+# セッション管理の設定
+# =============================
+
+# セッションの有効期限を1時間（3600秒）に設定
+SESSION_COOKIE_AGE = 3600  # 秒（1時間）
+
+# ブラウザを閉じたときにセッションを終了させる
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# 各リクエストごとにセッション有効期限を延長（アクティブな限り保持）
+SESSION_SAVE_EVERY_REQUEST = True
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
