@@ -71,10 +71,14 @@ class ItemCategoryForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['item_category_name'].widget.attrs.update({
             'placeholder': '例）野菜・果物 など'
+            'maxlength': '20',
         })
         
     def clean_item_category_name(self):
         name = self.cleaned_data['item_category_name']
+        
+        if len(name) > 20:
+            raise forms.ValidationError("カテゴリ名は20文字以内で入力してください。")
         # ✅ ログインユーザーがすでに同名カテゴリを持っていたらエラー
         if ItemCategory.objects.filter(item_category_name=name, created_by=self.user).exists():
             raise forms.ValidationError("このカテゴリはすでに存在します。")
