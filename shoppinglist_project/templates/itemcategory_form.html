@@ -15,12 +15,30 @@
           {{ error }}
         </div>
       {% endfor %}
+
+      <p id="cat-alert" class="text-danger mb-0" style="display:none;">
+        ※カテゴリ名は20文字以内で入力してください
+      </p>
     </div>
 
     <div class="form-buttons">
       <button type="submit" class="btn btn-primary">追加</button>
       <a href="{% url 'app:category_add' store_id=store.store_id %}" class="cancel-link">キャンセル</a>
     </div>
-
   </form>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const input = document.getElementById('{{ form.item_category_name.id_for_label }}');
+      const alertEl = document.getElementById('cat-alert');
+
+      input.addEventListener('input', function() {
+          if (this.value.length > 20) {
+              alertEl.style.display = 'block';  // 表示
+          } else {
+              alertEl.style.display = 'none';   // 非表示
+          }
+      });
+  });
+  </script>
 {% endblock %}
