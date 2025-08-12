@@ -70,7 +70,7 @@ class ItemCategoryForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         self.fields['item_category_name'].widget.attrs.update({
-            'placeholder': '例）野菜・果物 など'
+            'placeholder': '例）野菜・果物 など',
             'maxlength': '20',
         })
         
