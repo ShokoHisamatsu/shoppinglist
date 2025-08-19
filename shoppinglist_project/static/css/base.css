@@ -625,6 +625,10 @@ ul.errorlist li {
   font-weight: normal;
 }
 
+.btn.btn-link.text-danger:hover {
+    color: #b52b27;
+}
+
 /* ポートフォリオだけ背景を真っ白にする */
 body.portfolio-page {
   background: #fff !important;   /* 「!important」で inline の #fff9e6 を上書き */
