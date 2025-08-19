@@ -627,7 +627,6 @@ ul.errorlist li {
 
 .btn.btn-link.text-danger:hover {
   color: #b52b27 !important;
-  transform: translateY(-5px);
 }
 
 /* ポートフォリオだけ背景を真っ白にする */
