@@ -1002,6 +1002,11 @@ input[type="checkbox"].check-input {
   margin-bottom: 0.4rem;
 }
 
+/* メールアドレス変更画面のタイトル下の余白を広げる */
+.email-change-card h2 {
+  margin-bottom: 1.5rem;  /* ← ここで1.5行分くらいの余白を追加 */
+}
+
 
 
 
