@@ -983,6 +983,24 @@ input[type="checkbox"].check-input {
 }
 
 
+/* 現在のメールアドレス全体 */
+.current-email {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;  /* ← 新しいメール欄との間隔を追加 */
+}
+
+/* 現在のメールアドレスのテキスト */
+.current-email-text {
+  margin-top: 0.3rem; /* ラベルとアドレスの間の余白 */
+  font-weight: normal;  /* ラベルよりやや軽めに */
+}
+
+/* ラベルの統一（既にあれば不要） */
+.form-group label {
+  display: inline-block;
+  margin-bottom: 0.4rem;
+}
 
 
 
