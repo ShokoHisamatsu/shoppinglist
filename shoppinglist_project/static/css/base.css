@@ -1008,6 +1008,26 @@ input[type="checkbox"].check-input {
 }
 
 
+/* 保存ボタンを常にShopliグリーンで統一 */
+.save-btn.btn-primary,
+.save-btn.btn-primary:hover,
+.save-btn.btn-primary:focus,
+.save-btn.btn-primary:active,
+.save-btn.btn-primary:not(:disabled):not(.disabled).active,
+.save-btn.btn-primary:disabled,
+.save-btn.btn-primary:disabled:hover,
+.save-btn.btn-primary:disabled:focus {
+  background-color: #6DB193;   /* ← Shopliグリーン */
+  border-color: #6DB193;
+  color: #fff;
+}
+
+/* フォーカス時のリングも緑系に（アクセシビリティ保持） */
+.save-btn.btn-primary:focus {
+  box-shadow: 0 0 0 .2rem rgba(109, 177, 147, .35);
+  outline: none;
+}
+
 
 
 
