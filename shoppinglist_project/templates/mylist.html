@@ -33,7 +33,7 @@
           <input type="text" name="commodity" maxlength="20" placeholder="商品名(20文字以内)" class="item-name-input" required>
           <input type="number" name="quantity" min="1" value="1" placeholder="個数" class="item-quantity-input">
           <input type="text" name="memo" maxlength="20" placeholder="メモ(20文字以内)" class="item-memo-input">
-          <input type="submit" class="btn btn-primary" value="保存">
+          <input type="submit" class="btn btn-primaryv save-btn" value="保存">
         </div>
 
         <div>
@@ -384,6 +384,27 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // このページ内の「アイテム追加フォーム」すべてに適用
+  document.querySelectorAll('form[action$="{% url 'app:mylist' store.store_id %}"]').forEach(form => {
+    const btn = form.querySelector('.save-btn');
+    if (!btn) return;
+
+    form.addEventListener('submit', () => {
+      // すでに無効なら何もしない（連打ブロック）
+      if (btn.disabled) return;
+
+      // ボタン無効化 + 見た目変更
+      btn.disabled = true;
+      btn.dataset.originalText = btn.value;
+      btn.value = '保存中...';
+    });
+  });
+});
+</script>
+
 
 
 {% endblock %}
