@@ -6,14 +6,19 @@
 <div class="login-card email-change-card">
   <h2 class="text-center">メールアドレスを変更</h2>
 
+  <div class="form-group">
+    <label>現在のメールアドレス：</label><br>
+    <span>{{ current_email }}</span>
+  </div>
+
   <form method="post" novalidate class="form-center">
     {% csrf_token %}
     {{ form.non_field_errors }}
 
     <div class="form-group">
-      {{ form.email.label_tag }}<br>
-      {{ form.email|add_class:"form-input" }}
-      {{ form.email.errors }}
+      {{ form.new_email.label_tag }}<br>
+      {{ form.new_email|add_class:"form-input" }}
+      {{ form.new_email.errors }}
     </div>
 
     <div class="text-center">

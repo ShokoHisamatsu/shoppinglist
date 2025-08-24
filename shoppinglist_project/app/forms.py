@@ -124,12 +124,22 @@ class ShoppingItemForm(forms.ModelForm):
         }
         
 class EmailChangeForm(forms.ModelForm):
+    # モデルの email フィールドとは別に、新しいメール用フィールドを追加
+    new_email = forms.EmailField(
+        label='新しいメールアドレス',
+        widget=forms.EmailInput(attrs={'placeholder': '新しいメールアドレスを入力'})
+    )
+
     class Meta:
         model = User
-        fields = ['email']
-        labels = {
-            'email': '新しいメールアドレス'
-        }
+        fields = []  # ← モデルの email は直接使わない
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['new_email']
+        if commit:
+            user.save()
+        return user
         
 class SharedListForm(forms.ModelForm):
     class Meta:

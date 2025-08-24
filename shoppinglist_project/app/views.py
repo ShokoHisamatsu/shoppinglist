@@ -381,6 +381,11 @@ class EmailChangeView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_email'] = self.request.user.email 
+        return context
+    
 class SharedListCreateView(LoginRequiredMixin, FormView):
     template_name = 'shared/shared_list_fix.html'
     form_class = SharedListForm
