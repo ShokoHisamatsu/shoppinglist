@@ -1028,6 +1028,13 @@ input[type="checkbox"].check-input {
   outline: none;
 }
 
+/* ポートフォリオページ：ボタン下の余白を常に確保 */
+.portfolio-page .portfolio-access-btn {
+  display: inline-block;               /* ボタンの表示を明示的に */
+  margin-bottom: clamp(40px, 8vh, 80px);
+}
+
+
 
 
 
